@@ -1,0 +1,19 @@
+name: Firmware checks
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: thumbv8m.main-none-eabihf
+          components: rustfmt, clippy
+      - run: cargo fmt --all -- --check
+      - run: cargo build --release --locked --bins --examples
+      - run: cargo clippy --locked --bins --examples -- -D warnings

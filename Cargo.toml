@@ -1,0 +1,51 @@
+[workspace]
+resolver = "3"
+members = ["drivers/microsd", "drivers/display", "drivers/audio", "."]
+
+[package]
+name = "ltplayer"
+version = "0.1.0"
+edition = "2024"
+publish = false
+default-run = "ltplayer"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.5"
+defmt = "1.0.1"
+defmt-rtt = "1.0.0"
+embassy-executor = { version = "0.10.0", features = ["platform-cortex-m", "executor-thread", "defmt"] }
+embassy-stm32 = { version = "0.6.0", features = ["stm32u575zi", "defmt", "memory-x", "time-driver-any"] }
+embassy-time = { version = "0.5.1", features = ["defmt", "defmt-timestamp-uptime"] }
+embedded-hal = "1.0.0"
+panic-probe = { version = "1.0.0", features = ["print-defmt"] }
+microsd = { path = "drivers/microsd" }
+display = { path = "drivers/display" }
+audio = { path = "drivers/audio" }
+exfat-slim = "0.7.0"
+heapless = "0.9.3"
+mbop3 = "0.1.0"
+embassy-sync = "0.8.0"
+embedded-graphics = "0.8.2"
+
+
+[profile.dev]
+opt-level = 1
+debug = 2
+
+[profile.release]
+opt-level = "s"
+debug = 2
+lto = true
+codegen-units = 1
+
+[[bin]]
+name = "ltplayer"
+path = "src/main.rs"
+test = false
+bench = false
+
+[[example]]
+name = "eyespi"
+test = false
+bench = false
