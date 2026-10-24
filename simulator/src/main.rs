@@ -6,12 +6,12 @@ use embedded_graphics_simulator::{
 
 #[path = "../../src/renderer.rs"]
 mod renderer;
-use renderer::{CurrentScreen, PlayerState, Renderer};
+use renderer::{CurrentScreen, Renderer};
 
 fn main() -> Result<(), core::convert::Infallible> {
-  let display: SimulatorDisplay<Rgb565> = SimulatorDisplay::new(Size::new(240, 240));
-  let output_settings = OutputSettingsBuilder::new().scale(1).build();
-  let mut window = Window::new("ltplayer UI Simulator (240x240)", &output_settings);
+  let display: SimulatorDisplay<Rgb565> = SimulatorDisplay::new(Size::new(240, 320));
+  let output_settings = OutputSettingsBuilder::new().scale(2).build();
+  let mut window = Window::new("ltplayer UI Simulator (240x320)", &output_settings);
 
   let sample_files = [
     "Bohemian Rhapsody.mp3",
@@ -40,13 +40,12 @@ fn main() -> Result<(), core::convert::Infallible> {
         renderer.render_file_list(&sample_files, selected_idx)?;
       }
       CurrentScreen::NowPlaying => {
-        let state = PlayerState {
-          track_name: sample_files[selected_idx],
+        renderer.render_player(
+          sample_files[selected_idx],
           elapsed_secs,
           total_secs,
           is_playing,
-        };
-        renderer.render_player(&state)?;
+        )?;
       }
     }
 

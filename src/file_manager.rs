@@ -11,17 +11,14 @@ pub type FileList = Vec<FileName, 100>;
 pub type FS<'a, 'b> = exfat_slim::asynchronous::file_system::FileSystem<SdCard<'a, 'b>, 512, 4>;
 
 pub async fn list_files<'a, 'b>(
-  fs: &'a mut FS<'a, 'b>,
+  fs: &mut FS<'a, 'b>,
 ) -> Result<FileList, exfat_slim::asynchronous::error::ExFatError<sdmmc::Error>> {
   let mut files = FileList::new();
 
   let mut dir = fs.read_dir("/").await?;
-  let mut name_buf = FileName::new();
+  let mut name_buf = [0u8; 765];
 
-  while let Some(entry) = dir
-    .next_entry(fs, unsafe { name_buf.as_bytes_mut() })
-    .await?
-  {
+  while let Some(entry) = dir.next_entry(fs, &mut name_buf).await? {
     if entry.metadata.is_dir() {
       continue;
     }
@@ -30,7 +27,11 @@ pub async fn list_files<'a, 'b>(
       continue;
     }
 
-    files.push(FileName::from_str(name).unwrap()).unwrap();
+    if let Ok(fname) = FileName::from_str(name) {
+      if files.push(fname).is_err() {
+        break;
+      }
+    }
   }
 
   Ok(files)

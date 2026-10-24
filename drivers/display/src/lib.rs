@@ -29,7 +29,7 @@ where
 
   let display = mipidsi::Builder::new(ST7789, di)
     .reset_pin(rst)
-    .display_size(240, 240)
+    .display_size(240, 320)
     .invert_colors(mipidsi::options::ColorInversion::Inverted)
     .init(&mut Delay)
     .map_err(|_| ())?;
