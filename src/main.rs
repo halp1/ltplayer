@@ -15,6 +15,7 @@ use static_cell::StaticCell;
 pub mod audio;
 pub mod controls;
 pub mod file_manager;
+pub mod jack;
 pub mod playback;
 pub mod renderer;
 pub mod state;
@@ -75,7 +76,14 @@ async fn main(spawner: Spawner) -> ! {
     .await
     .expect("File listing failed");
 
-  spawner.spawn(playback::playback_task(fs, files.clone()).unwrap());
+  // TODO(pcb): placeholder pins until the PCB pinout is final. PE2 to PE6 are
+  // kept free for SAI1 and PB8/PB9 for the DAC I2C.
+  let jack_sel = Output::new(p.PG0, Level::Low, Speed::Low);
+  let detect_35 = Input::new(p.PG1, Pull::Up);
+  let detect_44 = Input::new(p.PG2, Pull::Up);
+
+  spawner.spawn(jack::jack_task(detect_35, detect_44).unwrap());
+  spawner.spawn(playback::playback_task(fs, files.clone(), jack_sel).unwrap());
 
   spawner.spawn(
     controls::controls_task(

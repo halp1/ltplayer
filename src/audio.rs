@@ -1,18 +1,33 @@
 use audio::AudioOutput;
+use embassy_stm32::gpio::Output;
 use embassy_time::Timer;
 use exfat_slim::asynchronous::file::OpenOptions;
 use mbop3::{Decoder, MAX_SAMPLES_PER_FRAME};
 
 use crate::{
   file_manager::FS,
-  state::{State, STATE},
+  jack::OutputReceiver,
+  state::{STATE, State},
 };
+
+pub type Dac = AudioOutput<Output<'static>>;
+
+/// Apply a pending jack change, if any. Called between frames so the switch
+/// never happens mid-write.
+pub async fn sync_output(output: &mut Dac, jack: &mut OutputReceiver) {
+  if let Some(mode) = jack.try_changed() {
+    if let Err(e) = output.apply_output(mode).await {
+      defmt::warn!("output switch failed: {}", defmt::Debug2Format(&e));
+    }
+  }
+}
 
 pub async fn play_file(
   fs: &mut FS<'static, 'static>,
   track_idx: usize,
   track_name: &str,
-  output: &mut AudioOutput,
+  output: &mut Dac,
+  jack: &mut OutputReceiver,
 ) -> Result<(), ()> {
   let options = OpenOptions::new().read(true);
   let mut file = fs.open(track_name, options).await.map_err(|_| ())?;
@@ -24,6 +39,8 @@ pub async fn play_file(
   let mut last_elapsed_sec: u32 = 0;
 
   loop {
+    sync_output(output, jack).await;
+
     {
       let state = STATE.lock().await;
       match &*state {
@@ -56,6 +73,8 @@ pub async fn play_file(
 
     let mut offset = 0;
     while offset < bytes_read {
+      sync_output(output, jack).await;
+
       {
         let state = STATE.lock().await;
         match &*state {
