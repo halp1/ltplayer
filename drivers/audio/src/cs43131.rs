@@ -13,11 +13,13 @@ impl<E> From<E> for Error<E> {
   }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ConnectionType {
   MM35,
   MM44,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum OutputMode {
   Disconnected,
   Connected(ConnectionType),
@@ -94,6 +96,19 @@ impl<I2C: I2c> Cs43131<I2C> {
 
     self.write_register(0x090001, value)?;
     self.write_register(0x090002, value)?;
+
+    Ok(())
+  }
+
+  pub fn set_mute(&mut self, mute: bool) -> Result<(), Error<I2C::Error>> {
+    // PCM Path Signal Ctl 1: low two bits mute channels A and B.
+    let current = self.read_register(0x090003)?;
+    let value = if mute {
+      current | 0x03
+    } else {
+      current & !0x03
+    };
+    self.write_register(0x090003, value)?;
 
     Ok(())
   }
