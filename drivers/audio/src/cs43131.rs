@@ -60,7 +60,7 @@ impl<I2C: I2c> Cs43131<I2C> {
   pub fn init(&mut self) -> Result<(), Error<I2C::Error>> {
     let (id_a, id_b) = (self.read_register(0x010000)?, self.read_register(0x010001)?);
 
-    if (id_a, id_b) != (0x00, 0x04) {
+    if (id_a, id_b) != (0x43, 0x13) {
       return Err(Error::DeviceNotFound); // idk what to  do here
     }
 
