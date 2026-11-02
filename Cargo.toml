@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["drivers/microsd", "drivers/display", "drivers/audio", "."]
+members = ["drivers/microsd", "drivers/display", "drivers/audio", "drivers/mtp", "."]
 
 [package]
 name = "ltplayer"
