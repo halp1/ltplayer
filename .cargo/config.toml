@@ -15,3 +15,4 @@ rustflags = ["-L", "/opt/homebrew/lib"]
 flash-board = "run --release --locked --bin ltplayer"
 eyespi = "run --release --locked --example eyespi"
 preview = "run --manifest-path simulator/Cargo.toml --target aarch64-apple-darwin"
+test-host = "test -p mtp --target aarch64-apple-darwin"

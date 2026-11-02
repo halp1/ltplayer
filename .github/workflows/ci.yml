@@ -12,8 +12,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: thumbv8m.main-none-eabihf
+          targets: thumbv8m.main-none-eabihf, x86_64-unknown-linux-gnu
           components: rustfmt, clippy
       - run: cargo fmt --all -- --check
+      - run: cargo test --locked -p mtp --target x86_64-unknown-linux-gnu
       - run: cargo build --release --locked --bins --examples
       - run: cargo clippy --locked --bins --examples -- -D warnings
