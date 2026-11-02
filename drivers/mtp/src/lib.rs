@@ -12,6 +12,8 @@ pub mod handles;
 mod responder;
 pub mod storage;
 pub mod transport;
+#[cfg(feature = "usb")]
+pub mod usb;
 
 pub use dataset::{MAX_NAME, Name};
 pub use responder::{DeviceStrings, MAX_PATH, PathBuf, Responder, State};

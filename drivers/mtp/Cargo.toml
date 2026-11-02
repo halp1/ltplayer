@@ -6,12 +6,14 @@ edition = "2024"
 [dependencies]
 heapless = "0.9.3"
 defmt = { version = "1.0.1", optional = true }
+embassy-usb = { version = "0.6.0", default-features = false, optional = true }
 
 [dev-dependencies]
 embassy-futures = "0.1.2"
 
 [features]
-defmt = ["dep:defmt"]
+defmt = ["dep:defmt", "embassy-usb?/defmt"]
+usb = ["dep:embassy-usb"]
 
 [lib]
 name = "mtp"

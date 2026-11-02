@@ -29,6 +29,8 @@ embassy-sync = "0.8.0"
 embedded-graphics = "0.8.2"
 embassy-futures = "0.1.2"
 static_cell = "2.1.1"
+embassy-usb = { version = "0.6.0", default-features = false, features = ["defmt"] }
+mtp = { path = "drivers/mtp", features = ["usb", "defmt"] }
 
 
 [profile.dev]
@@ -49,5 +51,10 @@ bench = false
 
 [[example]]
 name = "eyespi"
+test = false
+bench = false
+
+[[example]]
+name = "mtp_ramdisk"
 test = false
 bench = false
