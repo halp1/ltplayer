@@ -19,3 +19,4 @@ usb = ["dep:embassy-usb"]
 name = "mtp"
 path = "src/lib.rs"
 bench = false
+test = false

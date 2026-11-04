@@ -3,7 +3,7 @@
 //! The responder owns all protocol logic and talks to the outside world
 //! through two traits: [`Transport`] for bulk packets and [`Storage`] for the
 //! filesystem. Both can be faked, so the protocol is tested on the host.
-#![cfg_attr(not(test), no_std)]
+#![no_std]
 
 pub mod codes;
 pub mod container;

@@ -1,6 +1,12 @@
 [workspace]
 resolver = "3"
-members = ["drivers/microsd", "drivers/display", "drivers/audio", "drivers/mtp", "."]
+members = [
+	"drivers/microsd",
+	"drivers/display",
+	"drivers/audio",
+	"drivers/mtp",
+	".",
+]
 
 [package]
 name = "ltplayer"
@@ -14,9 +20,21 @@ cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
 cortex-m-rt = "0.7.5"
 defmt = "1.0.1"
 defmt-rtt = "1.0.0"
-embassy-executor = { version = "0.10.0", features = ["platform-cortex-m", "executor-thread", "defmt"] }
-embassy-stm32 = { version = "0.6.0", features = ["stm32u575zi", "defmt", "memory-x", "time-driver-any"] }
-embassy-time = { version = "0.5.1", features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-executor = { version = "0.10.0", features = [
+	"platform-cortex-m",
+	"executor-thread",
+	"defmt",
+] }
+embassy-stm32 = { version = "0.6.0", features = [
+	"stm32u575zi",
+	"defmt",
+	"memory-x",
+	"time-driver-any",
+] }
+embassy-time = { version = "0.5.1", features = [
+	"defmt",
+	"defmt-timestamp-uptime",
+] }
 embedded-hal = "1.0.0"
 panic-probe = { version = "1.0.0", features = ["print-defmt"] }
 microsd = { path = "drivers/microsd" }
@@ -29,7 +47,9 @@ embassy-sync = "0.8.0"
 embedded-graphics = "0.8.2"
 embassy-futures = "0.1.2"
 static_cell = "2.1.1"
-embassy-usb = { version = "0.6.0", default-features = false, features = ["defmt"] }
+embassy-usb = { version = "0.6.0", default-features = false, features = [
+	"defmt",
+] }
 mtp = { path = "drivers/mtp", features = ["usb", "defmt"] }
 
 
