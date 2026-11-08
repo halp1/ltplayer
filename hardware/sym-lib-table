@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ltplayer")(type "KiCad")(uri "${KIPRJMOD}/ltplayer.kicad_sym")(options "")(descr ""))
+)
