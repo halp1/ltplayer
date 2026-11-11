@@ -8243,7 +8243,7 @@
 				)
 			)
 		)
-		(property "Value" "PREV"
+		(property "Value" "LEFT KMR2"
 			(at 299.72 232.41 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8253,7 +8253,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 299.72 224.79 0)
 			(hide yes)
 			(show_name no)
@@ -8322,7 +8322,7 @@
 				)
 			)
 		)
-		(property "Value" "NEXT"
+		(property "Value" "RIGHT KMR2"
 			(at 299.72 247.65 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8332,7 +8332,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 299.72 240.03 0)
 			(hide yes)
 			(show_name no)
@@ -8402,7 +8402,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "SELECT KMR2"
+		(property "Value" "PLAY/PAUSE KMR2"
 			(at 299.72 262.89 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8620,16 +8620,6 @@
 		)
 		(uuid "1fae51bf-294e-435d-9696-773486faef13")
 	)
-	(global_label "DAC_RESET"
-		(at 161.29 182.88000000000002 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "186d6139-3c8f-4d46-a36a-2ea990365ff0")
-	)
 	(global_label "VBAT"
 		(at 90.17 246.38 90)
 		(effects
@@ -8639,10 +8629,6 @@
 			(justify left)
 		)
 		(uuid "b87434da-7541-48c6-8870-46d7e3c436b0")
-	)
-	(no_connect
-		(at 237.48999999999998 180.34)
-		(uuid "81291c58-a1da-4baf-b542-35902a34ecc3")
 	)
 	(no_connect
 		(at 237.48999999999998 182.88000000000002)
@@ -8735,22 +8721,6 @@
 	(no_connect
 		(at 161.29 160.02)
 		(uuid "e90c322d-c4b0-479c-90a4-50c877fa914e")
-	)
-	(no_connect
-		(at 161.29 193.04000000000002)
-		(uuid "c16b960c-6d66-4038-851a-1ce286fb0ba7")
-	)
-	(no_connect
-		(at 161.29 195.58)
-		(uuid "3d899aef-cc36-4e8f-ad7e-04dee8bb072a")
-	)
-	(no_connect
-		(at 161.29 200.66000000000003)
-		(uuid "d352f985-4337-4568-a834-c37cc50d639c")
-	)
-	(no_connect
-		(at 161.29 205.74)
-		(uuid "9289db72-9b02-4de1-af96-ca190faf3fb6")
 	)
 	(no_connect
 		(at 161.29 208.28000000000003)
@@ -9013,6 +8983,258 @@
 			(justify right)
 		)
 		(uuid "41ca75ee-2a74-48f5-90cf-88c15a4bd2f3")
+	)
+	(global_label "PWR_HOLD"
+		(at 237.48999999999998 180.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a1edea6c-b15e-4661-905c-c2732d62628f")
+	)
+	(global_label "BTN_VOLUP"
+		(at 161.29 193.04000000000002 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "39d61cd3-297e-402c-8ea7-5dc337cecaa7")
+	)
+	(global_label "BTN_VOLDN"
+		(at 161.29 195.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "676e8815-c84e-4c3a-ba84-7c3f0b27088e")
+	)
+	(global_label "BTN_POWER"
+		(at 161.29 205.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3240ff81-000c-47bd-b808-934d24f1bdfb")
+	)
+	(symbol
+		(lib_id "ltplayer:SKSCLBE010")
+		(at 299.72 289.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6a591109-4997-4eca-bfa7-c3d02e1011df")
+		(property "Reference" "SW205"
+			(at 299.72 287.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VOL+"
+			(at 299.72 292.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ltplayer:SW_Alps_SKSC_SidePush"
+			(at 299.72 284.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.digikey.com/en/products/detail/alps-alpine/SKSCLBE010/19529188"
+			(at 299.72 281.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Alps Alpine SKSC series tactile switch, SPST-NO. Footprint to be drawn from the Alps land pattern."
+			(at 299.72 279.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "340e0860-3310-48ec-a5f9-cc5a7de44f3a")
+		)
+		(pin "2"
+			(uuid "086b87e9-f3e3-467e-a8d4-5c63324757c7")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/be8ee8fc-f872-48fe-ad1d-f408e0be81b6"
+					(reference "SW205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ltplayer:SKSCLBE010")
+		(at 299.72 304.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "692dd215-95b5-4fcc-933e-63c0870af20e")
+		(property "Reference" "SW206"
+			(at 299.72 302.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VOL-"
+			(at 299.72 307.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ltplayer:SW_Alps_SKSC_SidePush"
+			(at 299.72 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.digikey.com/en/products/detail/alps-alpine/SKSCLBE010/19529188"
+			(at 299.72 297.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Alps Alpine SKSC series tactile switch, SPST-NO. Footprint to be drawn from the Alps land pattern."
+			(at 299.72 294.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3c596d54-34a5-4fe6-b5aa-71f27875434b")
+		)
+		(pin "2"
+			(uuid "8d249ea7-069d-4f73-a6b9-067561abbfae")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/be8ee8fc-f872-48fe-ad1d-f408e0be81b6"
+					(reference "SW206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "BTN_VOLUP"
+		(at 294.64000000000004 289.56 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f470354d-7543-47eb-ae8d-bc4b55c29d53")
+	)
+	(global_label "GND"
+		(at 304.8 289.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "77bc28ed-23b1-4e29-9e8c-77ec1f741b02")
+	)
+	(global_label "BTN_VOLDN"
+		(at 294.64000000000004 304.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "96ff8131-bcd1-46b0-8de3-34c6d3ba5171")
+	)
+	(global_label "GND"
+		(at 304.8 304.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "46589509-bfca-4046-8a36-6ef0515d8e8a")
+	)
+	(no_connect
+		(at 161.29 200.66000000000003)
+		(uuid "0c14ce3d-bda2-4e6d-9868-ccfb1194af75")
+	)
+	(global_label "DAC_RST_CTRL"
+		(at 161.29 182.88000000000002 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e053dbe4-56c4-4770-a571-bf9124ad2425")
 	)
 	(sheet_instances
 		(path "/"

@@ -1393,7 +1393,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5"
+		(property "Footprint" "ltplayer:microSD_HC_Hirose_DM3AT-SF-PEJM5"
 			(at 132.08 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -2587,7 +2587,7 @@
 		)
 	)
 	(global_label "+3V3"
-		(at 74.93 179.07 180)
+		(at 74.93 222.25 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2597,7 +2597,7 @@
 		(uuid "a7e94eeb-a527-498d-a04e-b95c403367af")
 	)
 	(global_label "TFT_LITE"
-		(at 74.93 181.60999999999999 180)
+		(at 74.93 219.71 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2607,7 +2607,7 @@
 		(uuid "0ac9f1fb-d58b-42b3-9484-d9936d483eb8")
 	)
 	(global_label "GND"
-		(at 74.93 184.14999999999998 180)
+		(at 74.93 217.17 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2617,7 +2617,7 @@
 		(uuid "042a207f-de2a-49c0-97cc-7b1f6efe58a3")
 	)
 	(global_label "TFT_SCK"
-		(at 74.93 186.69 180)
+		(at 74.93 214.63 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2627,7 +2627,7 @@
 		(uuid "02daf30b-6328-45a0-b037-0562653f2cd4")
 	)
 	(global_label "TFT_MOSI"
-		(at 74.93 189.23 180)
+		(at 74.93 212.09 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2637,7 +2637,7 @@
 		(uuid "d8c291fc-eb23-400d-b749-1a1ed66913cb")
 	)
 	(global_label "TFT_MISO"
-		(at 74.93 191.76999999999998 180)
+		(at 74.93 209.55 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2647,7 +2647,7 @@
 		(uuid "1b4f6bea-f88a-42fb-829f-826b3e1cd214")
 	)
 	(global_label "TFT_DC"
-		(at 74.93 194.30999999999997 180)
+		(at 74.93 207.01 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2657,7 +2657,7 @@
 		(uuid "0420a9c7-898b-4752-b01a-17651794ab72")
 	)
 	(global_label "TFT_RST"
-		(at 74.93 196.85 180)
+		(at 74.93 204.47 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2667,7 +2667,7 @@
 		(uuid "5e77d921-3fb7-45ce-b7b3-85686a150387")
 	)
 	(global_label "TFT_CS"
-		(at 74.93 199.39 180)
+		(at 74.93 201.93 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2677,7 +2677,7 @@
 		(uuid "2350eb8b-e899-4044-84f1-fa87032aead3")
 	)
 	(global_label "TFT_SDCS"
-		(at 74.93 201.92999999999998 180)
+		(at 74.93 199.39 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2687,7 +2687,7 @@
 		(uuid "f1484a08-5c50-4b80-a0fa-b2f3afc4544b")
 	)
 	(global_label "TFT_MEMCS"
-		(at 74.93 204.47 180)
+		(at 74.93 196.85 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2697,7 +2697,7 @@
 		(uuid "d4117a01-28c8-4cb9-81e4-be6e5cdb3813")
 	)
 	(global_label "TFT_TSCS"
-		(at 74.93 207.01 180)
+		(at 74.93 194.31 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2737,27 +2737,27 @@
 		(uuid "4258617e-fff6-422b-963f-0f940e2800dc")
 	)
 	(no_connect
-		(at 74.93 209.54999999999998)
+		(at 74.93 191.77)
 		(uuid "5ad15b1e-6d34-418e-968a-fd812d008917")
 	)
 	(no_connect
-		(at 74.93 212.08999999999997)
+		(at 74.93 189.23)
 		(uuid "f11faec4-ae21-4d80-9947-afbe5cd08b03")
 	)
 	(no_connect
-		(at 74.93 214.63)
+		(at 74.93 186.69)
 		(uuid "19014cbb-543c-4850-ae77-d2a30996fbfb")
 	)
 	(no_connect
-		(at 74.93 217.17)
+		(at 74.93 184.15)
 		(uuid "8e73c527-a31a-4b58-8963-eb529bffeb9b")
 	)
 	(no_connect
-		(at 74.93 219.70999999999998)
+		(at 74.93 181.61)
 		(uuid "de193f9b-197a-40bd-9865-007b51a336bf")
 	)
 	(no_connect
-		(at 74.93 222.25)
+		(at 74.93 179.07)
 		(uuid "fecdb5a0-556b-45b5-9288-8fd15030dd0a")
 	)
 	(sheet_instances
