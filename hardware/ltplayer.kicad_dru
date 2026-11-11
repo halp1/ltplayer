@@ -1,0 +1,8 @@
+(version 1)
+
+# GCT's recommended land pattern for the USB4105 puts the outer GND pads
+# 0.194 mm from the plastic alignment pegs. The pegs are non-plated, so this
+# is copper near a drilled hole inside one part, not a fabrication risk.
+(rule "USB-C peg to own GND pads"
+  (condition "A.memberOfFootprint('J101') && B.memberOfFootprint('J101')")
+  (constraint hole_clearance (min 0.19mm)))

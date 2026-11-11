@@ -5,3 +5,6 @@ hardware/*.lck
 hardware/*-backups/
 hardware/fp-info-cache
 hardware/*.kicad_prl
+hardware/route/
+hardware/.history/
+__pycache__/
