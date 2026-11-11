@@ -98,6 +98,30 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | SWD J201 | (-24.0, +13.0) | back, TC2030-NL |
 | Charge LED D101 | (-22.5, -29.0) | front |
 
+### 3D
+
+`3d/ltplayer-assembly.step` is the board with every part, the Adafruit 4311
+display on its standoffs, and the standoffs themselves. It uses the same
+origin as the DXF, with +Z toward the user and the board's back face at Z = 0.
+`3d/ltplayer-board.step` is the board alone. Both are build outputs and not in
+git. Run `scripts/route.sh`, or only the last block of it, to make them.
+
+| Item | Z (mm) |
+| --- | --- |
+| Back of the battery connector housing | -6.09 |
+| Board back face, front face | 0, 1.6 |
+| KMR2 button tops | 3.5 |
+| Tallest part under the display | 3.15 |
+| M2.5 standoffs | 1.6 to 5.6, 4 mm long |
+| Display glass, front face | 9.80 |
+| 3.5 mm jack body top | 7.09 |
+
+Five parts have no model in KiCad's library and are plain blocks named
+`placeholder`: the three side buttons (1.25 mm tall per Alps), the three
+TMUX4827 (0.5 mm) and the 4.4 mm jack. KKG publishes no height for the
+PJ-4450, so its 6.6 mm block is an estimate. Measure a real one before you fix
+the jack opening.
+
 ## Rebuilding the layout
 
 The board is generated from the schematic by scripts. Hand edits in KiCad are

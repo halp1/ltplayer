@@ -21,3 +21,12 @@ for s in top bottom; do
   $KICAD_CLI pcb render --side $s --quality high --width 1400 --height 2000 --background opaque -o docs/board-$s.png ltplayer.kicad_pcb >/dev/null
 done
 $KICAD_CLI sch export pdf -o ltplayer-schematic.pdf ltplayer.kicad_sch >/dev/null
+# 3D: board STEP from KiCad, then the assembly with the display (needs uv)
+mkdir -p 3d
+$KICAD_CLI pcb export step --user-origin 131x97.5mm --subst-models --no-unspecified -f -o 3d/ltplayer-board.step ltplayer.kicad_pcb >/dev/null 2>&1
+$PY scripts/parts3d.py ltplayer.kicad_pcb route/parts3d.json >/dev/null 2>&1
+if command -v uv >/dev/null; then
+  uv run --python 3.12 --with cadquery python scripts/assembly.py
+else
+  echo "uv not found, skipped 3d/ltplayer-assembly.step"
+fi

@@ -8,3 +8,4 @@ hardware/*.kicad_prl
 hardware/route/
 hardware/.history/
 __pycache__/
+hardware/3d/
