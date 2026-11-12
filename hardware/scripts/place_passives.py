@@ -86,6 +86,22 @@ def is_placed(f):
     return X0 - 5 < pcbnew.ToMM(p.x) < X1 + 5 and Y0 - 5 < pcbnew.ToMM(p.y) < Y1 + 5
 
 
+# Placement order depends on set iteration, which changes per run, and the
+# autorouter is sensitive to it. pinned.txt holds a placement that routed
+# cleanly: "ref x y rotation flipped" in KiCad mm. Parts listed there keep
+# their spot. Delete a line to let that part be placed again.
+PINS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pinned.txt")
+if os.path.exists(PINS):
+    for line in open(PINS):
+        ref, x, y, rot, flip = line.split()
+        f = fps.get(ref)
+        if f is None or is_placed(f):
+            continue
+        f.SetPosition(pcbnew.VECTOR2I(MM(float(x)), MM(float(y))))
+        if int(flip) != f.IsFlipped():
+            f.Flip(f.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+        f.SetOrientationDegrees(float(rot))
+
 placed = {r for r, f in fps.items() if is_placed(f)}
 boxes = {r: courtyard(fps[r]) for r in placed}
 back = {r: fps[r].IsFlipped() for r in placed}
