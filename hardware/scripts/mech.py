@@ -16,7 +16,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import CX, CY, PANEL, ACTIVE
+from geom import CX, CY, PANEL, ACTIVE, BATT, BATT_T
 
 T = pcbnew.ToMM
 b = pcbnew.LoadBoard(sys.argv[1])
@@ -30,9 +30,9 @@ def to_enc(x, y):
 
 ents = []  # (layer, kind, data)
 for d in b.GetDrawings():
-    if d.GetLayer() not in (pcbnew.Edge_Cuts, pcbnew.User_1):
+    if d.GetLayer() not in (pcbnew.Edge_Cuts, pcbnew.User_1, pcbnew.User_2):
         continue
-    layer = "OUTLINE" if d.GetLayer() == pcbnew.Edge_Cuts else "DISPLAY"
+    layer = {pcbnew.Edge_Cuts: "OUTLINE", pcbnew.User_1: "DISPLAY", pcbnew.User_2: "BATTERY"}[d.GetLayer()]
     if d.GetShape() == pcbnew.SHAPE_T_SEGMENT:
         ents.append((layer, "LINE", to_enc(T(d.GetStart().x), T(d.GetStart().y)) + to_enc(T(d.GetEnd().x), T(d.GetEnd().y))))
     elif d.GetShape() == pcbnew.SHAPE_T_ARC:
@@ -88,15 +88,17 @@ for ref in PARTS:
     rows.append([ref, fp.GetValue(), "part", "back" if fp.IsFlipped() else "front", x, y, "", f"courtyard x {x0}..{x1} y {y0}..{y1}"])
 
 
-for name, (x0, y0, x1, y1) in (("panel", PANEL), ("picture area", ACTIVE)):
-    rows.append([name, "NHD-2.4-240320AF-CSXP", "display", "front", round((x0 + x1) / 2, 3), round((y0 + y1) / 2, 3), "",
+for name, value, side, (x0, y0, x1, y1) in (("panel", "NHD-2.4-240320AF-CSXP", "front", PANEL),
+                                          ("picture area", "NHD-2.4-240320AF-CSXP", "front", ACTIVE),
+                                          ("battery", f"505573 LiPo {BATT_T} mm thick", "back", BATT)):
+    rows.append([name, value, "display" if side == "front" else "battery", side, round((x0 + x1) / 2, 3), round((y0 + y1) / 2, 3), "",
                  f"x {x0:.2f}..{x1:.2f} y {y0:.2f}..{y1:.2f}"])
 
 
 def dxf(path):
     out = ["0", "SECTION", "2", "HEADER", "9", "$INSUNITS", "70", "4", "0", "ENDSEC",
            "0", "SECTION", "2", "TABLES", "0", "TABLE", "2", "LAYER", "70", "4"]
-    colors = {"OUTLINE": 7, "HOLES": 1, "PARTS": 3, "DISPLAY": 5}
+    colors = {"OUTLINE": 7, "HOLES": 1, "PARTS": 3, "DISPLAY": 5, "BATTERY": 6}
     for name, col in colors.items():
         out += ["0", "LAYER", "2", name, "70", "0", "62", str(col), "6", "CONTINUOUS"]
     out += ["0", "ENDTAB", "0", "ENDSEC", "0", "SECTION", "2", "ENTITIES"]

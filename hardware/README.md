@@ -72,13 +72,31 @@ and both 1.8 V LDOs run from that, so they only drop 0.2 V instead of 2 V.
 
 Screen off, 0.1 mW per channel into wired headphones, from datasheet typicals
 (Cirrus Table 3-19 for the DACs, Espressif's measured 101 mA for ESP32 A2DP
-streaming). The screen adds about 36 mA. Bluetooth sets the battery: a 2.4 Ah
-cell gives about 19 h on Bluetooth, 60 h balanced and 100 h on 3.5 mm. It is
-about 4 mm thick in the space behind the board and charges in about 2.5
-hours at 1 A. Measure a real board before buying cells in bulk.
+streaming). The screen adds about 36 mA. Bluetooth sets the battery: 2.5 Ah
+gives about 20 h on Bluetooth, 62 h balanced and 105 h on 3.5 mm, and charges
+in about 2.5 to 3 hours at 1 A. Measure a real board before buying cells in
+bulk.
 
-Solder the battery wires to J103 on the back. If the cell comes with a JST-PH
-plug, fit J102 instead (side entry, about 4.9 mm tall).
+The cell is a **505573** LiPo pouch: 5.0 x 55 x 73 mm bare, about 76 mm long
+with its protection board, 3.7 V 2500 mAh. It is a stock size sold by many
+makers with a JST-PH 2.0 plug, for example the AKZYTUE 505573 on Amazon, YDL,
+or THOR-505573 as a bare cell for production. Buy one with a protection board
+(PCM). The BQ24074 has no cell protection of its own.
+
+It lies flat on the back of the board, between the four corner screws,
+covering everything from x -27.5 to +27.5 and y -38 to +38. The board's back
+parts are flat under it: the tallest is the ESP32 at 2.4 mm, so the cell sits
+0.3 mm below that, from Z -2.7 to -7.7. A 0.1 mm Kapton sheet between cell and
+parts is a good idea. Fix it with double-sided foam tape, about 0.5 mm, which
+also takes up the gap. The enclosure needs at least 7.7 mm behind the board
+face for it, plus the foam and any swelling allowance (keep 0.5 mm).
+
+The protection board end faces the bottom. Solder its wires to J103 in the
+left margin, or for a cell with a JST-PH plug fit J102, which sits below the
+battery on the bottom margin with its opening toward the centre. Check the
+plug's polarity against J102 pin 1 (VBAT) before connecting: cheap cells
+differ. A thinner option, 3.8 x 56 x 77 mm (385677, also 2500 mAh), does not
+fit between the screws, so it would need the screw bosses moved.
 
 ## Bluetooth and WiFi
 
@@ -106,9 +124,33 @@ from +3V3. Its four backlight LEDs run from VSYS through R307 (22 ohm),
 switched on the low side by Q301 from PE11. Firmware should scale the PWM
 duty with the battery reading on PA0 to keep brightness even.
 
-The cable leaves the panel's left edge, drops through a 1.2 x 22.5 mm slot in
-the board and plugs into J302 on the back. Thread it through before you fit
-the panel. The front shell holds the panel with adhesive.
+### Fitting the cable
+
+The cable leaves the panel's left edge. Its first 13 mm are 39 mm wide (the
+part with the shielding and small parts on it). Then a 20.5 mm wide, 0.3 mm
+thick tail runs another 16.8 mm to the contacts. Newhaven designed it to fold
+flat behind the panel, and the board is laid out for that:
+
+![Cable path, side section through the slot](docs/cable-side.png)
+
+1. Fold the cable back under the panel, flat against the panel's back. The
+   wide part stays on the panel, the narrow tail sticks out past it.
+2. Hold the panel above the board, picture up, and feed the tail straight down
+   through the slot (1.2 x 22.5 mm, about 11 mm in from the panel's left
+   edge). Only the tail goes through, the wide part never enters the slot. Go
+   end first, the 0.3 mm tail drops through the 1.2 mm slot with room to
+   spare.
+3. Turn the board over. Bend the tail flat against the back toward J302,
+   which is right next to the slot (its opening 0.2 mm from the slot edge).
+4. Flip up J302's black actuator, push the tail in until it stops (contacts
+   down, toward the board), and press the actuator closed.
+5. Turn the board back over and lay the panel down onto the front shell. The
+   2 mm of spare length bows in the 6.9 mm gap under the panel.
+
+J302 is a bottom-contact Hirose FH12-40S-0.5SH. After the fold and the turn,
+the cable's contacts face the board, and its pin order arrives mirrored, so
+panel pin 1 is on J302 pin 40. The schematic is wired that way. The front
+shell holds the panel with adhesive.
 
 ## Flashing
 
@@ -164,7 +206,7 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | Corner holes H101 to H104 | (±27.35, ±41.15) | 2.2 mm plated, 4.4 mm GND pad, M2. PCB mount and back plate screws share them |
 | Display panel | x -32.41 to +27.50, y -4.30 to +38.50 | 59.91 x 42.80 x 2.55 |
 | Picture area | x -24.48 to +24.48, y -1.26 to +35.46 | 48.96 x 36.72, the window, centred |
-| Display cable slot | x -31.81 to -30.61, y +6.35 to +27.85 | through the board, rounded ends |
+| Display cable slot | x -20.91 to -19.71, y +6.35 to +27.85 | through the board, rounded ends |
 | 3.5 mm jack J401 | x = -15.0, top edge | board notch 4.4 wide, 1.4 deep |
 | 4.4 mm jack J402 | x = +15.0, top edge | body overhangs the edge by 1.6 mm |
 | USB-C J101 | x = 0, bottom edge, front | |
@@ -172,22 +214,25 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | Power, vol+, vol- | x = +31.15, y = +31.5, +17.5, +7.5 | right edge, side push |
 | D-pad | centre (0, -24), up (0, -15.5), down (0, -32.5), left (-8.5, -24), right (+8.5, -24) | KMR2, play/pause in the middle |
 | Back, menu | (-19, -10), (+19, -10) | KMR2 |
-| Battery pads J103, JST-PH J102 | (-27.0, -30.0), (-27.5, -15.5) | back |
-| Display connector J302 | (-25.6, +17.1) | back, opening faces the cable slot |
+| Battery | x -27.5 to +27.5, y -38 to +38 | back, 55 x 76 x 5.0, Z -7.7 to -2.7 |
+| Battery pads J103, JST-PH J102 | (-30.8, -30.0), (-21.0, -41.6) | back, outside the battery |
+| Display connector J302 | (-15.1, +17.1) | back, opening faces the cable slot |
 | ESP32 U501 | (+18.0, -10.5) | back, 13.2 x 13.5 x 2.4, U.FL at its top left corner |
 
 ### 3D
 
 `3d/ltplayer-assembly.step` is the board with every part and the display
 panel, drawn from its datasheet with the picture area and the folded cable
-as separate solids. It uses the same origin as the DXF, with +Z toward the
+as separate solids, and the battery as a block. It uses the same origin as the DXF, with +Z toward the
 user and the board's back face at Z = 0. `3d/ltplayer-board.step` is the
 board alone. Both are build outputs and not in git. Run `scripts/route.sh`, or
 only the last block of it, to make them.
 
 | Item | Z (mm) |
 | --- | --- |
+| Battery back face | -7.7 |
 | Back of the optional JST-PH battery connector | -4.94 |
+| Battery front face | -2.7 |
 | Back of the ESP32 module | -2.4 |
 | Board back face, front face | 0, 1.6 |
 | KMR2 button tops | 3.5 |
@@ -231,8 +276,9 @@ KiCad Python at `~/code/pkg/mcp/kicad/venv`.
 
 ## Check before ordering
 
-* **Display cable**: J302 pin 1 is the panel's GND. Check which side of the FH12 the cable's contacts face once it has gone through the slot, before ordering.
-* **Display slot**: check the cable bends through the 1.2 mm slot without kinking, with a paper mock-up.
+* **Display cable**: J302 is bottom contact with the pin order mirrored (panel pin 1 on J302 pin 40), worked out from Newhaven's drawing. Check with a paper strip cut to the drawing (contacts marked) before ordering. If it comes out the other way, a top-contact FH12A-40S-0.5SH fits the same footprint area.
+* **Display slot**: check the cable folds and drops through the 1.2 mm slot without kinking, with the same paper mock-up.
+* **Battery**: confirm the real cell measures 55 x 76 mm or less with its protection board and wires, and the plug polarity matches J102.
 * **Charger heat**: 1 A from 5 V into a 3.7 V cell burns about 1.3 W in the BQ24074. It throttles itself if it gets hot, so the real charge time may be longer.
 * **Antenna**: try the stick-on antenna in the real case before ordering boards. Signal through the screen glass is weaker near the display's metal frame, so test a few spots.
 * **ESP32 footprint**: from Espressif's own KiCad library. Check it against the datasheet land pattern.

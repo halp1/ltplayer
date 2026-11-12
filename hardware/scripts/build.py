@@ -17,7 +17,7 @@ import pcbnew
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from geom import (CX, CY, W, H, RAD, J401_X, DACS, DAC_CELL, DAC_ROTATION, dac_point, kicad,
                   ISLAND_1V8, PANEL, ACTIVE, J302_X, CABLE_Y, SLOT, DPAD, DPAD_STEP, BTN_UPPER_X,
-                  BTN_UPPER_Y, USB_X, SD_X, HOLE_X, HOLE_Y, SIDE_X)
+                  BTN_UPPER_Y, USB_X, SD_X, HOLE_X, HOLE_Y, SIDE_X, BATT)
 
 MM = pcbnew.FromMM
 BOARD, NETLIST = sys.argv[1], sys.argv[2]
@@ -63,9 +63,10 @@ ANCHORS = {
     "SW206": (CX + SIDE_X, 90.0, 270, "F"),
     # display cable connector on the back, its opening facing the cable slot
     "J302": (*kicad(J302_X, CABLE_Y), 90, "B"),
-    # back: battery pads and the optional side-entry JST-PH next to them
-    "J103": (*kicad(-27.0, -30.0), 90, "B"),
-    "J102": (*kicad(-27.5, -15.5), 270, "B"),
+    # back, outside the battery: solder pads in the left margin, the optional
+    # side-entry JST-PH in the bottom margin, opening to the right
+    "J103": (*kicad(-30.8, -30.0), 90, "B"),
+    "J102": (*kicad(-21.0, -41.6), 270, "B"),
     # MCU under the lower half of the panel
     "U201": (131.0, 97.0, 0, "F"),
     # audio
@@ -88,9 +89,9 @@ ANCHORS = {
     # 3.3 V regulator sits next to it.
     "U501": (149.0, 108.0, 0, "B"),
     "U107": (139.0, 112.0, 0, "B"),
-    # buck for the 1.8 V LDOs, next to them on the left
-    "U106": (111.0, 92.5, 0, "F"),
-    "L101": (111.0, 88.5, 0, "F"),
+    # buck for the 1.8 V LDOs, left of the display cable slot
+    "U106": (*kicad(-27.5, 5.0), 0, "F"),
+    "L101": (*kicad(-27.5, 9.0), 0, "F"),
 }
 
 for dac, (dx, dy, base) in DACS.items():
@@ -265,6 +266,25 @@ seg(sx1, sy0 + sr, sx1, sy1 - sr)
 arc(sx0, sy0 + sr, sx0 + sr, sy0, sx1, sy0 + sr)
 arc(sx0, sy1 - sr, sx0 + sr, sy1, sx1, sy1 - sr)
 
+# keep tracks and vias 0.35 mm off the slot (the router sees only the cutout)
+ko = pcbnew.ZONE(b)
+ko.SetIsRuleArea(True)
+ko.SetDoNotAllowTracks(True)
+ko.SetDoNotAllowVias(True)
+ko.SetDoNotAllowPads(False)
+ko.SetDoNotAllowZoneFills(False)
+ko.SetDoNotAllowFootprints(False)
+ls = pcbnew.LSET()
+for l in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu):
+    ls.AddLayer(l)
+ko.SetLayerSet(ls)
+o = ko.Outline()
+o.NewOutline()
+m = 0.35
+for x, y in ((sx0 - m, sy0 - m), (sx1 + m, sy0 - m), (sx1 + m, sy1 + m), (sx0 - m, sy1 + m)):
+    o.Append(MM(x), MM(y))
+b.Add(ko)
+
 # display panel and picture area, for reference only
 dl = pcbnew.User_1
 for x0, y0, x1, y1 in (PANEL, ACTIVE):
@@ -273,6 +293,12 @@ for x0, y0, x1, y1 in (PANEL, ACTIVE):
     seg(bx, ay, bx, by, dl, 0.15)
     seg(bx, by, ax, by, dl, 0.15)
     seg(ax, by, ax, ay, dl, 0.15)
+
+# battery on the back, for reference only
+x0, y0, x1, y1 = BATT
+(ax, ay), (bx, by) = kicad(x0, y1), kicad(x1, y0)
+for args in ((ax, ay, bx, ay), (bx, ay, bx, by), (bx, by, ax, by), (ax, by, ax, ay)):
+    seg(*args, pcbnew.User_2, 0.15)
 
 pcbnew.SaveBoard(BOARD, b)
 print(f"built {len(fps)} footprints, {len(netinfo)} nets, {len(ANCHORS)} anchored")

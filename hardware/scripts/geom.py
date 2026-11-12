@@ -26,14 +26,41 @@ ACTIVE_W, ACTIVE_H = 48.96, 36.72
 PANEL_TOP = 38.5
 ACTIVE = (-ACTIVE_W / 2, PANEL_TOP - 3.04 - ACTIVE_H, ACTIVE_W / 2, PANEL_TOP - 3.04)
 PANEL = (ACTIVE[0] - 7.93, PANEL_TOP - PANEL_H, ACTIVE[2] + 3.02, PANEL_TOP)  # x0, y0, x1, y1
-# The 0.3 mm cable leaves the left edge 20.5 mm wide (contacts 19.5 mm across),
-# centred on the panel's short axis. It folds down through a slot in the board
-# just inside the panel edge and plugs into J302 on the back, whose opening
-# faces the slot. The tail is 30 mm long from the panel edge.
+# The cable leaves the left edge of the panel. Unfolded, from that edge: the
+# first 13.2 mm are the 39 mm wide shielded part, then a 20.5 mm wide, 0.3 mm
+# thick tail ends 30 mm out (contacts on the panel-rear face). It is made to
+# fold flat behind the panel: folded, the tail ends 27.80 mm from the edge, so
+# the fold takes 2.2 mm. Only the narrow tail fits the slot, so the slot sits
+# just past the end of the wide part. The tail drops through it and runs along
+# the back into J302, whose opening faces the slot.
+#
+# Length check, narrow tail 16.8 mm (+-0.5): 1.1 flat behind the panel to the
+# slot centre, about 9.1 down (panel back to the connector entry 0.9 mm off the
+# back), then about 4.1 along the back to the end of the tail, 3.3 mm inside
+# J302. That is 14.3 mm, so about 2 mm of slack bows in the gap under the panel.
+#
+# Contacts: unfolded they are on the panel-rear face. After the fold, the drop
+# and the turn along the back they face the board, so J302 is a bottom-contact
+# FH12. Pin order: the tail arrives mirrored, panel pin n lands on J302 pin
+# 41 - n. The schematic labels are wired that way.
 CABLE_Y = (PANEL[1] + PANEL[3]) / 2
 CABLE_W = 20.5
-SLOT = (PANEL[0] + 0.6, CABLE_Y - CABLE_W / 2 - 0.5, PANEL[0] + 0.6 + 1.2, CABLE_Y + CABLE_W / 2 + 0.5)
-J302_X = SLOT[2] + 5.0   # back side, connector origin, 5 mm of free tail past the slot
+FOLD_LOSS = 2.2
+WIDE_END = PANEL[0] + 13.2 - FOLD_LOSS      # x where the 39 mm wide part ends, folded
+SLOT_W = 1.2
+SLOT = (WIDE_END + 0.5, CABLE_Y - CABLE_W / 2 - 0.5, WIDE_END + 0.5 + SLOT_W, CABLE_Y + CABLE_W / 2 + 0.5)
+# FH12 footprint origin to the front of its actuator is 4.4 mm, so the actuator
+# sits 0.2 mm past the slot edge. Further right its pads hit the fixed VD via
+# of DAC1 on the front.
+J302_X = SLOT[2] + 4.6
+# Battery: 505573 LiPo pouch, 55 x 73 x 5.0 mm bare, about 76 long with the
+# protection board. It sits on the back between the four screw bosses, which
+# allow 77 mm with 2.5 mm boss radius, 0.3 mm below the tallest back part (the
+# ESP32, 2.4 mm). Wires leave the protection board end (bottom) and run to the
+# solder pads J103 in the left margin.
+BATT_W, BATT_L, BATT_T = 55.0, 76.0, 5.0
+BATT = (-BATT_W / 2, -BATT_L / 2, BATT_W / 2, BATT_L / 2)
+BATT_GAP = 0.3
 # The panel's back face sits this far above the tallest part under it.
 PANEL_GAP = 0.3
 
@@ -60,7 +87,7 @@ TRUNK_ROUTED = {}
 ISLAND_1V8 = (101.5, 58.5, 141.0, 80.0)
 # Bottom-left corner cut out of the island so the display connector's +3V3
 # pin can reach the +3V3 pour: x0, y0 of the cut, it runs to the island edge.
-ISLAND_NOTCH = (101.5, 74.5, 120.0, 80.0)
+ISLAND_NOTCH = (101.5, 73.0, 120.0, 80.0)
 
 
 def island_outline():

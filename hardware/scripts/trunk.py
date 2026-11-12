@@ -19,7 +19,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import EDGE, TRUNK, SLOT, kicad
+from geom import EDGE, TRUNK, SLOT, kicad, in_island, island_outline
 
 MM = pcbnew.FromMM
 T = pcbnew.ToMM
@@ -90,14 +90,34 @@ base = bytes(blocked)
 SLOT_K = (*kicad(SLOT[0], SLOT[3]), *kicad(SLOT[2], SLOT[1]))
 
 
+# Inside the +1V8 island the trunk costs much more, so it goes round the
+# island and reaches targets inside it with short dead-end spurs. A path that
+# crosses the island from one side to the other would cut a pocket off it.
+# Running close along the island edge, on either side, pinches off a strip of
+# one pour or the other, so that costs more too. Each crossing of the island
+# edge costs a lot, so the tree crosses once per spur instead of weaving.
+ISLAND = island_outline()
+ISLAND_SEGS = list(zip(ISLAND, ISLAND[1:] + ISLAND[:1]))
+
+
+def seg_dist(x, y, a, c):
+    dx, dy = c[0] - a[0], c[1] - a[1]
+    t = max(0.0, min(1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (dx * dx + dy * dy)))
+    return ((x - a[0] - t * dx) ** 2 + (y - a[1] - t * dy) ** 2) ** 0.5
+
+
 def edge_cost(i, j):
     x, y = xy(i, j)
     d = min(x - L, R - x, y - T0, B - y,
             max(SLOT_K[0] - x, x - SLOT_K[2], SLOT_K[1] - y, y - SLOT_K[3]))
-    return 1.0 + 6.0 / (1.0 + max(d, 0.0))
+    di = min(seg_dist(x, y, a, c) for a, c in ISLAND_SEGS)
+    return (1.0 + 6.0 / (1.0 + max(d, 0.0)) + 6.0 / (1.0 + di)
+            + (4.0 if in_island(x, y, -0.3) else 0.0))
 
 
 COST = [edge_cost(i, j) for j in range(NY) for i in range(NX)]
+INSIDE = bytes(1 if in_island(*xy(i, j)) else 0 for j in range(NY) for i in range(NX))
+CROSS = 300.0
 STEPS = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0),
          (1, 1, 1.414), (1, -1, 1.414), (-1, 1, 1.414), (-1, -1, 1.414)]
 
@@ -171,7 +191,8 @@ def route_net(name, blocked):
                     pk = prev[k]
                     if (i - pk % NX, j - pk // NX) != (di, dj):
                         turn = 0.6
-                nd = d + w * COST[nk] + turn
+                cross = CROSS if INSIDE[nk] != INSIDE[k] else 0.0
+                nd = d + w * COST[nk] + turn + cross
                 if nd < dist.get(nk, 1e18):
                     dist[nk] = nd
                     prev[nk] = k
