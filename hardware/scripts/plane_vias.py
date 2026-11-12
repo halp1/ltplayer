@@ -16,7 +16,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import DACS, DAC_EP_PINS, DAC_ROUTES, ISLAND_1V8, PLANES, TRUNK, TRUNK_ROUTED, dac_point
+from geom import DACS, DAC_EP_PINS, DAC_ROUTES, PLANES, TRUNK, TRUNK_ROUTED, dac_point, in_island
 
 MM = pcbnew.FromMM
 b = pcbnew.LoadBoard(sys.argv[1])
@@ -41,11 +41,10 @@ NET_3V3 = b.FindNet("+3V3").GetNetCode()
 
 def on_own_plane(netcode, pos, margin=0.4):
     x, y = pcbnew.ToMM(pos.x), pcbnew.ToMM(pos.y)
-    x0, y0, x1, y1 = ISLAND_1V8
     if netcode == NET_1V8:
-        return x0 + margin <= x <= x1 - margin and y0 + margin <= y <= y1 - margin
+        return in_island(x, y, margin)
     if netcode == NET_3V3:
-        return not (x0 - margin < x < x1 + margin and y0 - margin < y < y1 + margin)
+        return not in_island(x, y, -margin)
     return True
 
 

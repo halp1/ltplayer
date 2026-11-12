@@ -15,7 +15,9 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import CX, CY, W, H, RAD, J401_X, DACS, DAC_CELL, DAC_ROTATION, dac_point
+from geom import (CX, CY, W, H, RAD, J401_X, DACS, DAC_CELL, DAC_ROTATION, dac_point, kicad,
+                  ISLAND_1V8, PANEL, ACTIVE, J302_X, CABLE_Y, DPAD, DPAD_STEP, BTN_UPPER_X,
+                  BTN_UPPER_Y, USB_X, SD_X)
 
 MM = pcbnew.FromMM
 BOARD, NETLIST = sys.argv[1], sys.argv[2]
@@ -25,61 +27,66 @@ SYS_FP = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints"
 L, T, R, B = CX - W / 2, CY - H / 2, CX + W / 2, CY + H / 2
 HOLE_X, HOLE_Y = 24.65, 41.15
 
-# Adafruit 4311 breakout: 35.56 x 59.055, two M2.5 holes 2.54 in from the top corners.
-DISP_W, DISP_H = 35.56, 59.055
-DISP_X0, DISP_Y0 = CX - DISP_W / 2, 72.0
-
 J402_OVERHANG = 1.6
-BTN_Y = 134.2
+# Level shifters straddle the bottom edge of the +1V8 island on In2: their
+# 1.8 V pins face north onto the island, their 3.3 V pins south onto +3V3.
+LS_Y = ISLAND_1V8[3] - 1.0
 
-# ref: (x, y, rotation, side)
+
+def enc(x, y, rot=0, side="F"):
+    kx, ky = kicad(x, y)
+    return (kx, ky, rot, side)
+
+
+# ref: (x, y, rotation, side), KiCad board mm
 ANCHORS = {
     "H101": (CX - HOLE_X, CY - HOLE_Y, 0, "F"),
     "H102": (CX + HOLE_X, CY - HOLE_Y, 0, "F"),
     "H103": (CX - HOLE_X, CY + HOLE_Y, 0, "F"),
     "H104": (CX + HOLE_X, CY + HOLE_Y, 0, "F"),
-    "H105": (DISP_X0 + 2.54, DISP_Y0 + 2.54, 0, "F"),
-    "H106": (DISP_X0 + DISP_W - 2.54, DISP_Y0 + 2.54, 0, "F"),
     # top edge: 3.5 mm jack (nose passes the edge), 4.4 mm jack (body overhangs)
     "J401": (J401_X, T + 4.5, 180, "F"),
     "J402": (146.0, T - J402_OVERHANG, 0, "F"),
-    # bottom edge
-    "J101": (114.5, B - 3.67, 0, "F"),
-    "J301": (142.0, B - 8.7, 0, "B"),
-    # front buttons below the display: back, left, play/pause, right
-    "SW204": (CX - 12.0, BTN_Y, 0, "F"),
-    "SW201": (CX - 4.0, BTN_Y, 0, "F"),
-    "SW203": (CX + 4.0, BTN_Y, 0, "F"),
-    "SW202": (CX + 12.0, BTN_Y, 0, "F"),
+    # bottom edge: USB-C centred on the front, microSD on the back
+    "J101": (CX + USB_X, B - 3.67, 0, "F"),
+    "J301": (CX + SD_X, B - 8.7, 0, "B"),
+    # five-way pad, then back and menu above its upper corners
+    "SW207": enc(DPAD[0], DPAD[1] + DPAD_STEP),
+    "SW208": enc(DPAD[0], DPAD[1] - DPAD_STEP),
+    "SW201": enc(DPAD[0] - DPAD_STEP, DPAD[1]),
+    "SW202": enc(DPAD[0] + DPAD_STEP, DPAD[1]),
+    "SW203": enc(*DPAD),
+    "SW204": enc(-BTN_UPPER_X, BTN_UPPER_Y),
+    "SW209": enc(BTN_UPPER_X, BTN_UPPER_Y),
     # right edge side-push: power, vol+, vol-
     "SW101": (R - 2.35, 66.0, 270, "F"),
     "SW205": (R - 2.35, 80.0, 270, "F"),
     "SW206": (R - 2.35, 90.0, 270, "F"),
-    # left side
-    "J302": (106.0, 100.0, 90, "F"),
+    # display cable connector under the panel, opening toward the left edge
+    "J302": (*kicad(J302_X, CABLE_Y), 270, "F"),
+    # back: battery, SWD and the BOOT0 recovery jumper next to it
     "J102": (104.5, 121.0, 0, "B"),
-    "J201": (107.0, 84.5, 0, "B"),
-    # MCU
-    "U201": (131.0, 104.0, 0, "F"),
+    "J201": (107.0, 86.5, 0, "B"),
+    "JP201": (113.5, 86.5, 0, "B"),
+    # MCU under the lower half of the panel
+    "U201": (131.0, 97.0, 0, "F"),
     # audio
     "U406": (125.0, 56.0, 0, "F"),
     "U407": (130.5, 56.0, 0, "F"),
     "U408": (136.0, 56.0, 0, "F"),
-    "Y401": (130.5, 77.0, 0, "F"),
     "R453": (127.4, 61.6, 0, "F"),
-    # level shifters: 1.8 V side faces the DACs, 3.3 V side faces the MCU
-    "U403": (119.0, 83.5, 270, "F"),
-    "U404": (125.5, 83.5, 270, "F"),
-    "U405": (132.0, 83.5, 270, "F"),
+    "U403": (121.5, LS_Y, 270, "F"),
+    "U404": (125.5, LS_Y, 270, "F"),
+    "Y401": (130.5, LS_Y - 1.2, 0, "F"),
+    "U405": (135.5, LS_Y, 270, "F"),
     "U104": (106.0, 64.0, 0, "F"),
-    "U105": (106.0, 72.0, 0, "F"),
-    # power
-    "U101": (122.5, 140.5, 90, "F"),
-    "U102": (112.0, 127.0, 0, "F"),
-    "D102": (108.5, 133.0, 90, "F"),
-    "Q101": (104.5, 131.0, 0, "F"),
-    "U103": (119.0, 122.0, 0, "F"),
-    "L201": (141.0, 119.5, 0, "F"),
+    "U105": (106.0, 69.5, 0, "F"),
+    # power, in the lower left column beside the pad
+    "U101": (123.5, 134.0, 90, "F"),
+    "U102": (113.0, 116.0, 0, "F"),
+    "D102": (109.0, 131.0, 90, "F"),
+    "Q101": (106.0, 113.5, 0, "F"),
+    "U103": (116.0, 125.0, 0, "F"),
 }
 
 for dac, (dx, dy, base) in DACS.items():
@@ -245,12 +252,14 @@ arc(L + RAD, B, L + k, B - k, L, B - RAD)
 seg(L, B - RAD, L, T + RAD)
 arc(L, T + RAD, L + k, T + k, L + RAD, T)
 
-# display breakout outline, for reference only
+# display panel and picture area, for reference only
 dl = pcbnew.User_1
-seg(DISP_X0, DISP_Y0, DISP_X0 + DISP_W, DISP_Y0, dl, 0.15)
-seg(DISP_X0 + DISP_W, DISP_Y0, DISP_X0 + DISP_W, DISP_Y0 + DISP_H, dl, 0.15)
-seg(DISP_X0 + DISP_W, DISP_Y0 + DISP_H, DISP_X0, DISP_Y0 + DISP_H, dl, 0.15)
-seg(DISP_X0, DISP_Y0 + DISP_H, DISP_X0, DISP_Y0, dl, 0.15)
+for x0, y0, x1, y1 in (PANEL, ACTIVE):
+    (ax, ay), (bx, by) = kicad(x0, y1), kicad(x1, y0)
+    seg(ax, ay, bx, ay, dl, 0.15)
+    seg(bx, ay, bx, by, dl, 0.15)
+    seg(bx, by, ax, by, dl, 0.15)
+    seg(ax, by, ax, ay, dl, 0.15)
 
 pcbnew.SaveBoard(BOARD, b)
 print(f"built {len(fps)} footprints, {len(netinfo)} nets, {len(ANCHORS)} anchored")

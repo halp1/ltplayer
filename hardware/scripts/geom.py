@@ -7,6 +7,40 @@ EDGE = (CX - W / 2, CY - H / 2, CX + W / 2, CY + H / 2)  # left, top, right, bot
 J401_X = 116.0
 NOTCH = (J401_X - 2.2, EDGE[1], J401_X + 2.2, EDGE[1] + 1.4)  # 3.5 mm jack nose
 
+
+def kicad(x, y):
+    """Enclosure mm (origin at the board centre, +Y up) to KiCad board mm."""
+    return (round(CX + x, 4), round(CY - y, 4))
+
+
+# Display: Yousee YX24009A, 2.4in IPS 240x320, ST7789V over SPI. The drawing
+# is portrait with the cable on the short bottom edge. It is mounted
+# landscape, turned so the cable leaves the left edge. In enclosure mm:
+PANEL_W, PANEL_H, PANEL_T = 60.26, 42.72, 2.45  # outline, landscape
+PANEL_LEFT, PANEL_TOP = -29.73, 38.5            # 0.4 mm right of centre for the cable bend
+PANEL = (PANEL_LEFT, PANEL_TOP - PANEL_H, PANEL_LEFT + PANEL_W, PANEL_TOP)  # x0, y0, x1, y1
+# Picture area 48.96 x 36.72: 2.9 mm in from the right edge (the portrait
+# top), centred top to bottom.
+ACTIVE = (PANEL[2] - 2.9 - 48.96, PANEL_TOP - 3.0 - 36.72, PANEL[2] - 2.9, PANEL_TOP - 3.0)
+# The cable tail is 19.74 mm long and its 10 contacts are centred 17.35 mm
+# below the panel top. It folds tight round the left edge, runs back under
+# the panel and drops into J302, whose opening faces the left edge.
+CABLE_Y = PANEL_TOP - 17.35 - 1.5   # contacts 17.35 down, plus 1.5 mm of slack in the fold
+J302_X = PANEL_LEFT + 14.2   # footprint origin, from the tail length after the fold
+# The panel's back face sits this far above the tallest part under it. Both
+# jacks reach under the panel, so they set its height. assembly.py works the
+# height out from the 3D model.
+PANEL_GAP = 0.3
+
+# Front controls, enclosure mm. A five-way pad with back and menu above its
+# upper corners and below the screen.
+DPAD = (0.0, -24.0)
+DPAD_STEP = 8.5
+BTN_UPPER_Y = -10.0
+BTN_UPPER_X = 19.0
+USB_X = 0.0
+SD_X = 13.5
+
 # Nets tied to an inner plane through a via at every pad.
 PLANES = ("GND", "+3V3", "+1V8")
 # Nets routed as traces on In2.Cu between stub vias, not by the autorouter.
@@ -17,7 +51,26 @@ TRUNK_ROUTED = {}
 
 # In2.Cu carries +3V3 with a +1V8 island under the DAC block. Its bottom edge
 # runs through the level-shifter row: 1.8 V pins face north, 3.3 V pins south.
-ISLAND_1V8 = (101.5, 58.5, 141.0, 83.5)
+ISLAND_1V8 = (101.5, 58.5, 141.0, 80.0)
+# Bottom-left corner cut out of the island so the display connector's +3V3
+# pin can reach the +3V3 pour: x0, y0 of the cut, it runs to the island edge.
+ISLAND_NOTCH = (101.5, 74.5, 120.0, 80.0)
+
+
+def island_outline():
+    x0, y0, x1, y1 = ISLAND_1V8
+    nx1, ny0 = ISLAND_NOTCH[2], ISLAND_NOTCH[1]
+    return [(x0, y0), (x1, y0), (x1, y1), (nx1, y1), (nx1, ny0), (x0, ny0)]
+
+
+def in_island(x, y, margin=0.0):
+    """True if (x, y) lies at least margin inside the +1V8 island (negative
+    margin grows it)."""
+    x0, y0, x1, y1 = ISLAND_1V8
+    if not (x0 + margin <= x <= x1 - margin and y0 + margin <= y <= y1 - margin):
+        return False
+    nx0, ny0, nx1, ny1 = ISLAND_NOTCH
+    return not (nx0 - margin <= x <= nx1 + margin and ny0 - margin <= y <= ny1 + margin)
 
 # Net classes: (name, track width, [nets]). One clearance for every class so
 # the autorouter and DRC agree. 0.2 mm is what fits a 0.4 mm pitch QFN pin.

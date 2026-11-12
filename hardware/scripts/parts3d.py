@@ -4,7 +4,7 @@ Usage: parts3d.py board.kicad_pcb out.json
 
 For each footprint without a 3D model in the KiCad library, the F.Fab body
 rectangle in enclosure coordinates (origin at the board centre, +Y up, front
-is +Z). Also the display standoff holes and the board thickness.
+is +Z). Also the board thickness.
 """
 import json
 import os
@@ -23,7 +23,7 @@ def enc(p):
     return [round(T(p.x) - CX, 3), round(CY - T(p.y), 3)]
 
 
-out = {"thickness": T(b.GetDesignSettings().GetBoardThickness()), "parts": {}, "holes": {}}
+out = {"thickness": T(b.GetDesignSettings().GetBoardThickness()), "parts": {}}
 for ref in NEEDS:
     fp = b.FindFootprintByReference(ref)
     layer = pcbnew.B_Fab if fp.IsFlipped() else pcbnew.F_Fab
@@ -48,7 +48,5 @@ for ref in NEEDS:
         "rotation": fp.GetOrientationDegrees(),
         "origin": enc(fp.GetPosition()),
     }
-for ref in ("H105", "H106"):
-    out["holes"][ref] = enc(b.FindFootprintByReference(ref).GetPosition())
 json.dump(out, open(sys.argv[2], "w"), indent=1)
 print("parts3d:", ", ".join(out["parts"]))

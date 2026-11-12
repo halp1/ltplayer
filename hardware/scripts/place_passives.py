@@ -12,7 +12,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import ISLAND_1V8
+from geom import in_island
 
 BOARD = sys.argv[1]
 b = pcbnew.LoadBoard(BOARD)
@@ -31,23 +31,24 @@ OWNER = {
     "C203": ("U201", "69"), "C204": ("U201", "17"), "C205": ("U201", "38"), "C206": ("U201", "49"),
     "C207": ("U201", "59"), "C208": ("U201", "73"), "C209": ("U201", "84"), "C210": ("U201", "95"),
     "C211": ("U201", "108"), "C212": ("U201", "121"), "C213": ("U201", "130"), "C214": ("U201", "32"),
-    "C301": ("J301", "4"), "C302": ("J301", "4"), "C303": ("J302", "18"),
+    "C301": ("J301", "4"), "C302": ("J301", "4"), "C303": ("J302", "7"),
     "C409": ("U401", "31"), "C410": ("U401", "4"), "C411": ("U401", "7"), "C412": ("U401", "25"),
     "C413": ("U401", "26"), "C414": ("U401", "26"),
     "C429": ("U402", "31"), "C430": ("U402", "4"), "C431": ("U402", "7"), "C432": ("U402", "25"),
     "C433": ("U402", "26"), "C434": ("U402", "26"),
     "C441": ("Y401", "4"), "C442": ("U404", "3"), "C443": ("U404", "7"),
+    "R307": ("J302", "9"), "C217": ("U201", "23"), "C218": ("U201", "24"),
+    "R110": ("D105", "2"),
     "R448": ("U401", "28"), "R106": ("SW101", "2"), "R105": ("Q101", "1"), "R104": ("U102", "4"),
 }
 
 
 def rail_ok(net, x, y, margin=0.9):
     """A +1V8 pad must sit over the 1.8 V island on In2, a +3V3 pad off it."""
-    x0, y0, x1, y1 = ISLAND_1V8
     if net == "+1V8":
-        return x0 + margin <= x <= x1 - margin and y0 + margin <= y <= y1 - margin
+        return in_island(x, y, margin)
     if net == "+3V3":
-        return not (x0 - margin < x < x1 + margin and y0 - margin < y < y1 + margin)
+        return not in_island(x, y, -margin)
     return True
 
 

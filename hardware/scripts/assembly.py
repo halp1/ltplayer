@@ -1,30 +1,37 @@
-"""Build a 3D assembly of the board and display for the enclosure CAD.
+"""Build a 3D assembly of the board and display panel for the enclosure CAD.
 
 Usage (cadquery is not in KiCad's Python, so run it through uv):
     uv run --python 3.12 --with cadquery python scripts/assembly.py
 
-Inputs, all in 3d/ and route/:
+Inputs:
     3d/ltplayer-board.step     KiCad export, origin at the board centre
-    3d/adafruit-4311.step      Adafruit's model of the display breakout (MIT),
-                               downloaded on first run
     route/parts3d.json         from parts3d.py: bodies of parts with no model
 
 Output: 3d/ltplayer-assembly.step. Same origin as the DXF: board centre, +X
 right, +Y up looking at the display, +Z toward the user. The board's back
 face is at Z = 0.
 
+The display is the Yousee YX24009A drawn from its datasheet: the backlight
+and glass block at full outline, the picture area as a separate thin solid
+on top so it shows where the window goes, and the folded cable as a strip
+round the left edge. The front shell holds the panel, so there are no
+standoffs. The panel sits PANEL_GAP above the tallest part under it.
+
 Parts with no model in the KiCad library get plain blocks named
 "placeholder", sized from their footprint body and datasheet height. The
-display sits on M2.5 standoffs. Their length is the shortest stock size that
-keeps every display part clear of every board part.
+panel height is set from them, so measuring the 4.4 mm jack and updating
+HEIGHT moves the panel.
 """
 import json
 import os
-import urllib.request
+import sys
 
 import cadquery as cq
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(HERE, "scripts"))
+from geom import PANEL, ACTIVE, PANEL_T, PANEL_GAP, CABLE_Y, J302_X  # noqa: E402
+
 D3 = os.path.join(HERE, "3d")
 info = json.load(open(os.path.join(HERE, "route", "parts3d.json")))
 T = info["thickness"]
@@ -35,20 +42,10 @@ HEIGHT = {
     "DSBGA": 0.5,   # TI YBH, 0.5 max seated height
     "J402": 6.6,    # PJ-4450: no published height. Estimate, see README
 }
-STANDOFFS = [2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.0]
-GAP = 0.3  # minimum air between display parts and board parts
-
-DISPLAY_URL = ("https://raw.githubusercontent.com/adafruit/Adafruit_CAD_Parts/main/"
-               "4311%202in%20TFT%20IPS%20Display/4311%202in%20TFT%20IPS%20Display.step")
-if not os.path.exists(os.path.join(D3, "adafruit-4311.step")):
-    urllib.request.urlretrieve(DISPLAY_URL, os.path.join(D3, "adafruit-4311.step"))
 
 board = cq.importers.importStep(os.path.join(D3, "ltplayer-board.step"))
 board_solids = board.solids().vals()
-top = max(s.BoundingBox().zmax for s in board_solids if s.BoundingBox().xlen > 60)
-# KiCad leaves copper and mask out of the body, so the top face sits a little
-# under the nominal thickness. Parts are mounted on the nominal face.
-top = max(top, T)
+top = max(max(s.BoundingBox().zmax for s in board_solids if s.BoundingBox().xlen > 60), T)
 
 
 def block(x, y, z0, h):
@@ -66,7 +63,6 @@ for ref, p in info["parts"].items():
     else:
         h = HEIGHT[ref]
     if ref == "J402":
-        # body plus a round nose on the plug axis at mid height
         body = block(p["x"], p["y"], top, h)
         cx = (p["x"][0] + p["x"][1]) / 2
         nose = (cq.Workplane("XZ").center(cx, top + h / 2).circle(3.0)
@@ -76,66 +72,44 @@ for ref, p in info["parts"].items():
         shape = block(p["x"], p["y"], top, h)
     placeholders[ref] = (p["value"], shape)
 
-# Display: Adafruit's model has the glass on -Z and its parts on +Z, with the
-# M2.5 holes 2.54 mm in from the top corners. Turn it over about Y so the
-# glass faces the user, then put the hole pair on H105/H106.
-disp = cq.importers.importStep(os.path.join(D3, "adafruit-4311.step"))
-disp = disp.rotate((0, 0, 0), (0, 1, 0), 180)
-hx = (info["holes"]["H105"][0] + info["holes"]["H106"][0]) / 2
-hy = info["holes"]["H105"][1]
-# after the turn, the model spans x -35.56..0 and the holes sit at x -17.78
-disp = disp.translate((hx + 17.78, hy - (59.055 - 2.54), 0))
+# Panel height: PANEL_GAP above the tallest part whose outline it covers.
+x0, y0, x1, y1 = PANEL
+under = [s for s in board_solids if s.BoundingBox().xlen < 60]
+under += [s for _, w in placeholders.values() for s in w.solids().vals()]
+tallest = max(
+    ((s.BoundingBox().zmax, s.BoundingBox()) for s in under
+     if s.BoundingBox().xmax > x0 and s.BoundingBox().xmin < x1
+     and s.BoundingBox().ymax > y0 and s.BoundingBox().ymin < y1),
+    key=lambda t: t[0])
+PANEL_BACK_Z = round(tallest[0] + PANEL_GAP, 2)
 
-
-def clear(lift):
-    d = disp.translate((0, 0, lift))
-    dsol = d.solids().vals()
-    others = board_solids + [s for _, w in placeholders.values() for s in w.solids().vals()]
-    for a in dsol:
-        ab = a.BoundingBox()
-        for b in others:
-            bb = b.BoundingBox()
-            if bb.xlen > 60:
-                continue  # the board itself, checked by the standoff height
-            if (ab.xmin < bb.xmax and bb.xmin < ab.xmax and ab.ymin < bb.ymax and bb.ymin < ab.ymax
-                    and ab.zmin < bb.zmax + GAP and bb.zmin < ab.zmax + GAP):
-                if a.intersect(b).Volume() > 1e-6 or a.distance(b) < GAP:
-                    return False
-    return True
-
-
-# lift = standoff length: the display PCB's back face (z = -1.57 after the
-# turn) lands on top of the standoff.
-standoff = None
-for s in STANDOFFS:
-    lift = top + s + 1.57
-    if disp.val().BoundingBox().zmin + lift < top + GAP:
-        continue
-    if clear(lift):
-        standoff = s
-        break
-if standoff is None:
-    raise SystemExit("no stock standoff clears the parts under the display")
-lift = top + standoff + 1.57
-disp = disp.translate((0, 0, lift))
-
-posts = []
-for ref in ("H105", "H106"):
-    x, y = info["holes"][ref]
-    posts.append((ref, cq.Workplane("XY").polygon(6, 5.0 / 0.866).extrude(standoff).translate((x, y, top))))
+# Panel: backlight and glass block, then the picture area as a 0.05 mm skin.
+panel = block((x0, x1), (y0, y1), PANEL_BACK_Z, PANEL_T)
+ax0, ay0, ax1, ay1 = ACTIVE
+picture = block((ax0, ax1), (ay0, ay1), PANEL_BACK_Z + PANEL_T, 0.05)
+# Cable: 0.3 mm strip, 9 mm wide (10 contacts at 0.5 mm plus margins), from
+# the panel's left edge, round a 1 mm bend, back under the panel to J302.
+cw, ct = 9.0, 0.3
+fold_x = x0 - 1.0
+cable = (block((fold_x, x0), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), PANEL_BACK_Z - 1.6, PANEL_T + 1.6)
+         .union(block((fold_x, J302_X), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), PANEL_BACK_Z - 1.6, ct)))
+# The tail drops from under the panel into the connector, which sits on the board.
+cable = cable.union(block((J302_X - 1.5, J302_X), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), top + 1.0, PANEL_BACK_Z - 1.6 - top - 1.0))
 
 asm = cq.Assembly(name="ltplayer")
 asm.add(board, name="board", color=cq.Color(0.2, 0.35, 0.2))
-asm.add(disp, name="display Adafruit 4311", color=cq.Color(0.15, 0.15, 0.2))
-for ref, w in posts:
-    asm.add(w, name=f"standoff {ref} M2.5 x {standoff:g}", color=cq.Color(0.8, 0.7, 0.4))
+asm.add(panel, name="display YX24009A", color=cq.Color(0.15, 0.15, 0.18))
+asm.add(picture, name="display picture area", color=cq.Color(0.3, 0.45, 0.7))
+asm.add(cable, name="display cable", color=cq.Color(0.85, 0.6, 0.2))
 for ref, (value, w) in placeholders.items():
     asm.add(w, name=f"{ref} {value} placeholder", color=cq.Color(0.9, 0.4, 0.1))
 out = os.path.join(D3, "ltplayer-assembly.step")
 asm.export(out)
 
 whole = asm.toCompound().BoundingBox()
-glass = disp.val().BoundingBox().zmax
-print(f"standoff M2.5 x {standoff:g} mm, display glass top at Z {glass:.2f}")
-print(f"assembly Z {whole.zmin:.2f} .. {whole.zmax:.2f}, X {whole.xmin:.2f} .. {whole.xmax:.2f}, Y {whole.ymin:.2f} .. {whole.ymax:.2f}")
+tb = tallest[1]
+print(f"panel back Z {PANEL_BACK_Z:.2f}, glass Z {PANEL_BACK_Z + PANEL_T:.2f}, set by the part at "
+      f"x {tb.xmin:.1f}..{tb.xmax:.1f} y {tb.ymin:.1f}..{tb.ymax:.1f} (top {tb.zmax:.2f})")
+print(f"assembly Z {whole.zmin:.2f} .. {whole.zmax:.2f}, X {whole.xmin:.2f} .. {whole.xmax:.2f}, "
+      f"Y {whole.ymin:.2f} .. {whole.ymax:.2f}")
 print("wrote", out)

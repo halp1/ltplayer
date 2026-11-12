@@ -3,20 +3,24 @@ H101,M2,hole,front,-24.65,41.15,2.2,plated
 H102,M2,hole,front,24.65,41.15,2.2,plated
 H103,M2,hole,front,-24.65,-41.15,2.2,plated
 H104,M2,hole,front,24.65,-41.15,2.2,plated
-H105,Display M2.5,hole,front,-15.24,22.96,2.7,npth
-H106,Display M2.5,hole,front,15.24,22.96,2.7,npth
 J401,SJ1-3524N,part,front,-15.0,42.8,,courtyard x -21.295..-8.705 y 34.805..49.395
 J402,PJ-4450 4.4mm,part,front,15.0,48.9,,courtyard x 10.205..19.795 y 26.155..49.445
-J101,USB4105-GF-A-120,part,front,-16.5,-43.63,,courtyard x -21.865..-11.135 y -47.855..-38.825
-J301,DM3AT-SF-PEJM5,part,back,11.0,-38.6,,courtyard x 3.075..18.865 y -47.525..-29.735
+J101,USB4105-GF-A-120,part,front,0.0,-43.63,,courtyard x -5.365..5.365 y -47.855..-38.825
+J301,DM3AT-SF-PEJM5,part,back,13.5,-38.6,,courtyard x 5.575..21.365 y -47.525..-29.735
 SW101,POWER,part,front,28.45,31.5,,courtyard x 26.805..31.095 y 28.705..34.295
 SW205,VOL+,part,front,28.45,17.5,,courtyard x 26.805..31.095 y 14.705..20.295
 SW206,VOL-,part,front,28.45,7.5,,courtyard x 26.805..31.095 y 4.705..10.295
-SW201,LEFT KMR2,part,front,-4.0,-36.7,,courtyard x -6.845..-1.155 y -38.545..-34.855
-SW202,RIGHT KMR2,part,front,12.0,-36.7,,courtyard x 9.155..14.845 y -38.545..-34.855
-SW203,PLAY/PAUSE KMR2,part,front,4.0,-36.7,,courtyard x 1.155..6.845 y -38.545..-34.855
-SW204,BACK KMR2,part,front,-12.0,-36.7,,courtyard x -14.845..-9.155 y -38.545..-34.855
+SW201,LEFT KMR2,part,front,-8.5,-24.0,,courtyard x -11.345..-5.655 y -25.845..-22.155
+SW202,RIGHT KMR2,part,front,8.5,-24.0,,courtyard x 5.655..11.345 y -25.845..-22.155
+SW203,PLAY/PAUSE KMR2,part,front,0.0,-24.0,,courtyard x -2.845..2.845 y -25.845..-22.155
+SW204,BACK KMR2,part,front,-19.0,-10.0,,courtyard x -21.845..-16.155 y -11.845..-8.155
+SW207,UP KMR2,part,front,0.0,-15.5,,courtyard x -2.845..2.845 y -17.345..-13.655
+SW208,DOWN KMR2,part,front,0.0,-32.5,,courtyard x -2.845..2.845 y -34.345..-30.655
+SW209,MENU KMR2,part,front,19.0,-10.0,,courtyard x 16.155..21.845 y -11.845..-8.155
 J102,LiPo 1S,part,back,-26.5,-23.5,,courtyard x -30.995..-24.005 y -26.845..-21.255
-J201,SWD,part,back,-24.0,13.0,,courtyard x -27.545..-20.455 y 10.955..15.045
-J302,EYESPI (Adafruit 4311),part,front,-25.0,-2.5,,courtyard x -28.045..-20.055 y -10.095..5.095
-D101,CHG,part,front,-22.5,-29.0,,courtyard x -23.275..-21.725 y -30.525..-27.475
+J201,SWD,part,back,-24.0,11.0,,courtyard x -27.545..-20.455 y 8.955..13.045
+JP201,BOOT,part,back,-17.5,11.0,,courtyard x -19.195..-15.805 y 9.705..12.295
+J302,TFT 2.4in YX24009A,part,front,-15.53,19.65,,courtyard x -20.475..-12.485 y 14.045..25.255
+D101,CHG,part,front,-21.5,-18.0,,courtyard x -22.275..-20.725 y -19.525..-16.475
+panel,YX24009A,display,front,0.4,17.14,,x -29.73..30.53 y -4.22..38.50
+picture area,YX24009A,display,front,3.15,17.14,,x -21.33..27.63 y -1.22..35.50

@@ -9,7 +9,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import ISLAND_1V8
+from geom import island_outline
 
 MM = pcbnew.FromMM
 b = pcbnew.LoadBoard(sys.argv[1])
@@ -39,8 +39,7 @@ def zone(layer, net, pts, prio=0, clear=0.2):
 box = [(L, T), (R, T), (R, B), (L, B)]
 zone(pcbnew.In1_Cu, "GND", box)
 zone(pcbnew.In2_Cu, "+3V3", box, prio=0)
-ix0, iy0, ix1, iy1 = ISLAND_1V8
-zone(pcbnew.In2_Cu, "+1V8", [(ix0, iy0), (ix1, iy0), (ix1, iy1), (ix0, iy1)], prio=1)
+zone(pcbnew.In2_Cu, "+1V8", island_outline(), prio=1)
 zone(pcbnew.F_Cu, "GND", box, prio=0, clear=0.25)
 zone(pcbnew.B_Cu, "GND", box, prio=0, clear=0.25)
 
