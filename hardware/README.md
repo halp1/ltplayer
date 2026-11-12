@@ -10,6 +10,7 @@ and pass ERC and DRC with schematic parity. Not yet fabricated.
 | Power | USB4105 USB-C (5.1k CC pull-downs, USBLC6 ESD), BQ24074 1S LiPo charger with power path (1 A charge, 1.5 A input), soft power latch, TLV75533 3.3 V, TPS628438 buck to 2.0 V feeding two TPS7A2018 1.8 V LDOs (digital `+1V8`, analog `+1V8A`), battery solder pads plus an optional side-entry JST-PH |
 | MCU | STM32U575ZIT6Q (SMPS variant, 2.2 uH on VLXSMPS), 16 MHz crystal for USB DFU, decoupling, BOOT0 pull-down, NRST cap, battery and VBUS sense dividers, ten buttons |
 | Peripherals | Hirose DM3AT microSD on SDMMC1 4-bit with 47k pull-ups, Newhaven NHD-2.4-240320AF-CSXP 2.4in IPS panel on a 40-pin FH12 on the back, 2N7002 backlight switch |
+| Wireless | ESP32-MINI-1U (Bluetooth Classic A2DP, BLE, 2.4 GHz WiFi) on the back, own TLV75733 3.3 V regulator switched by the MCU, U.FL to a stick-on antenna |
 | Audio | Two CS43131 (I2C 0x30 and 0x31), shared 22.5792 MHz 1.8 V oscillator for MCLK, PCA9306 I2C shifter, TXS0102 shifters on I2S, three TMUX4827 output switches, SJ1-3524N 3.5 mm and PJ-4450 4.4 mm jacks |
 
 ## Pin map
@@ -38,6 +39,9 @@ Kept as close to the current firmware (`src/main.rs`) as possible.
 | USB DM DP, VBUS sense | PA11 PA12, PA9 | |
 | Battery sense | PA0 | VBAT / 2 |
 | BOOT0 | PH3 | 10k to GND, the menu button pulls it to +3V3 |
+| ESP32 UART (USART3 TX, RX) | PD8 PD9 | commands and ESP32 firmware updates |
+| ESP32 I2S (SAI2_A SCK, SD, FS) | PD10 PD11 PD12 | MCU sends decoded audio to the ESP32 |
+| ESP32 EN, BOOT, radio power | PD13 PG13 PG14 | PG14 high turns on the ESP32's 3.3 V regulator |
 | HSE | PH0 PH1 | 16 MHz crystal Y201 |
 
 ## Power
@@ -60,20 +64,38 @@ and both 1.8 V LDOs run from that, so they only drop 0.2 V instead of 2 V.
 
 ### Battery
 
-| Output | Draw from the battery | For 118 h with 20% margin |
+| Output | Draw from the battery | For 18 h with 20% margin |
 | --- | --- | --- |
-| 3.5 mm, one DAC | about 20 mA | 2.9 Ah |
-| 4.4 mm balanced, two DACs | about 34 mA | 4.8 Ah |
+| 3.5 mm, one DAC | about 20 mA | 0.44 Ah |
+| 4.4 mm balanced, two DACs | about 34 mA | 0.73 Ah |
+| Bluetooth headphones | about 107 mA | 2.3 Ah |
 
-Screen off, 0.1 mW per channel into the headphones, from datasheet typicals.
-The screen adds about 36 mA, so keep it mostly off. The DACs are most of the
-draw (Cirrus Table 3-19). Balanced needs the bigger cell because it runs
-both DACs. A 4.8 Ah pouch cell is about 8 mm thick in the 60 x 85 mm space
-behind the board. At 1 A it charges in about 5.5 hours. Measure a real board
-before buying cells in bulk.
+Screen off, 0.1 mW per channel into wired headphones, from datasheet typicals
+(Cirrus Table 3-19 for the DACs, Espressif's measured 101 mA for ESP32 A2DP
+streaming). The screen adds about 36 mA. Bluetooth sets the battery: a 2.4 Ah
+cell gives about 19 h on Bluetooth, 60 h balanced and 100 h on 3.5 mm. It is
+about 4 mm thick in the space behind the board and charges in about 2.5
+hours at 1 A. Measure a real board before buying cells in bulk.
 
 Solder the battery wires to J103 on the back. If the cell comes with a JST-PH
 plug, fit J102 instead (side entry, about 4.9 mm tall).
+
+## Bluetooth and WiFi
+
+The ESP32 sits on the back with its own regulator (U107), which the MCU turns
+on with PG14 only when wireless is in use, so wired playback pays nothing for
+it. The MCU decodes the music as usual and sends it to the ESP32 over I2S,
+and the ESP32 streams it to the headphones over Bluetooth A2DP (SBC codec).
+Commands go over USART3. The same chip has 2.4 GHz WiFi.
+
+The module uses an external antenna: a small flexible stick-on antenna on a
+U.FL cable, placed behind the screen glass or another non-metal part of the
+case, at least about 5 mm from metal. The whole case can be metal. Example
+antennas: Molex 146153 (about 40 x 7 mm) or any 2.4 GHz FPC antenna with a
+U.FL (IPEX MHF I) plug and a short cable.
+
+The ESP32 has its own firmware. The MCU updates it over USART3 by holding
+ESP_BOOT low and pulsing ESP_EN, so flashing the whole device stays USB only.
 
 ## Display
 
@@ -152,6 +174,7 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | Back, menu | (-19, -10), (+19, -10) | KMR2 |
 | Battery pads J103, JST-PH J102 | (-27.0, -30.0), (-27.5, -15.5) | back |
 | Display connector J302 | (-25.6, +17.1) | back, opening faces the cable slot |
+| ESP32 U501 | (+18.0, -10.5) | back, 13.2 x 13.5 x 2.4, U.FL at its top left corner |
 
 ### 3D
 
@@ -165,6 +188,7 @@ only the last block of it, to make them.
 | Item | Z (mm) |
 | --- | --- |
 | Back of the optional JST-PH battery connector | -4.94 |
+| Back of the ESP32 module | -2.4 |
 | Board back face, front face | 0, 1.6 |
 | KMR2 button tops | 3.5 |
 | 3.5 mm jack body top | 7.09 |
@@ -210,6 +234,9 @@ KiCad Python at `~/code/pkg/mcp/kicad/venv`.
 * **Display cable**: J302 pin 1 is the panel's GND. Check which side of the FH12 the cable's contacts face once it has gone through the slot, before ordering.
 * **Display slot**: check the cable bends through the 1.2 mm slot without kinking, with a paper mock-up.
 * **Charger heat**: 1 A from 5 V into a 3.7 V cell burns about 1.3 W in the BQ24074. It throttles itself if it gets hot, so the real charge time may be longer.
+* **Antenna**: try the stick-on antenna in the real case before ordering boards. Signal through the screen glass is weaker near the display's metal frame, so test a few spots.
+* **ESP32 footprint**: from Espressif's own KiCad library. Check it against the datasheet land pattern.
+* **Bluetooth certification**: selling a product that says Bluetooth needs Bluetooth SIG qualification (USD 12,000 for the first product with this design). The module's FCC/CE approval carries over.
 * **DFU clock**: AN2606 may let the STM32U575 bootloader run USB without a crystal. If it does, Y201 can stay unpopulated.
 * **microSD**: the slot faces the bottom edge on the back. Confirm the card goes in where the enclosure leaves an opening.
 * **4.4 mm jack**: the PJ-4450 pin assignment is estimated from the drawing. Confirm against the part.
@@ -225,4 +252,5 @@ KiCad Python at `~/code/pkg/mcp/kicad/venv`.
 * Buttons: up PE13, down PE14, play/pause PE10, vol+ PE7, vol- PE8 (active low). Menu PE15 is active high. DAC_INT moved to PE1.
 * Display: landscape (320x240), ST7789VI on 4-wire SPI without MISO, backlight PWM on TIM1_CH2 (PE11) scaled with battery voltage.
 * An "update" menu item that jumps to the system bootloader for USB DFU.
+* Bluetooth: SAI2 block A as I2S master to the ESP32, USART3 command link, PG14 to power the ESP32, and an ESP32 firmware (ESP-IDF A2DP source) that the MCU can flash over USART3.
 * SAI1 pins, the second DAC at 0x31, mono mode switching and the 3.5 mm detect polarity in `src/jack.rs`.

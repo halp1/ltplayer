@@ -42,6 +42,7 @@ HEIGHT = {
     "SKSC": 1.25,   # Alps SKSCLBE010: 3.5 x 3.55 x 1.25
     "DSBGA": 0.5,   # TI YBH, 0.5 max seated height
     "J402": 6.6,    # PJ-4450: no published height. Estimate, see README
+    "U501": 2.4,    # ESP32-MINI-1U: 13.2 x 13.5 x 2.4
 }
 
 board = cq.importers.importStep(os.path.join(D3, "ltplayer-board.step"))
@@ -59,6 +60,8 @@ placeholders = {}
 for ref, p in info["parts"].items():
     if ref.startswith("SW"):
         h = HEIGHT["SKSC"]
+    elif ref == "U501":
+        h = HEIGHT["U501"]
     elif ref.startswith("U4"):
         h = HEIGHT["DSBGA"]
     else:
@@ -69,6 +72,8 @@ for ref, p in info["parts"].items():
         nose = (cq.Workplane("XZ").center(cx, top + h / 2).circle(3.0)
                 .extrude(-1.2).translate((0, p["y"][1], 0)))
         shape = body.union(nose)
+    elif p["side"] == "back":
+        shape = block(p["x"], p["y"], -h, h)
     else:
         shape = block(p["x"], p["y"], top, h)
     placeholders[ref] = (p["value"], shape)

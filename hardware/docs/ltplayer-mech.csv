@@ -21,5 +21,6 @@ J102,LiPo JST-PH (optional),part,back,-27.5,-15.5,,courtyard x -29.395..-20.705 
 J103,LiPo pads,part,back,-27.0,-30.0,,courtyard x -28.395..-25.605 y -31.545..-24.505
 J302,TFT NHD-2.4-240320AF-CSXP,part,back,-25.61,17.1,,courtyard x -30.555..-22.565 y 4.005..30.195
 D101,CHG,part,front,-17.25,-23.0,,courtyard x -18.775..-15.725 y -23.775..-22.225
+U501,ESP32-MINI-1U-N4,part,back,18.0,-10.5,,courtyard x 11.055..24.945 y -17.595..-3.405
 panel,NHD-2.4-240320AF-CSXP,display,front,-2.455,17.1,,x -32.41..27.50 y -4.30..38.50
 picture area,NHD-2.4-240320AF-CSXP,display,front,0.0,17.1,,x -24.48..24.48 y -1.26..35.46

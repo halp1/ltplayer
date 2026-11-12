@@ -16,7 +16,7 @@ from geom import CX, CY
 
 T = pcbnew.ToMM
 b = pcbnew.LoadBoard(sys.argv[1])
-NEEDS = ("J402", "SW101", "SW205", "SW206", "U406", "U407", "U408")
+NEEDS = ("J402", "SW101", "SW205", "SW206", "U406", "U407", "U408", "U501")
 
 
 def enc(p):

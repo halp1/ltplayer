@@ -76,7 +76,7 @@ for fp in sorted(b.GetFootprints(), key=lambda f: f.GetReference()):
             rows.append([ref, fp.GetValue(), "hole", side, x, y, round(dx, 2), "plated" if plated else "npth"])
 
 PARTS = ["J401", "J402", "J101", "J301", "SW101", "SW205", "SW206", "SW201", "SW202", "SW203", "SW204",
-         "SW207", "SW208", "SW209", "J102", "J103", "J302", "D101"]
+         "SW207", "SW208", "SW209", "J102", "J103", "J302", "D101", "U501"]
 for ref in PARTS:
     fp = b.FindFootprintByReference(ref)
     bb = fp.GetCourtyard(pcbnew.B_CrtYd if fp.IsFlipped() else pcbnew.F_CrtYd).BBox()

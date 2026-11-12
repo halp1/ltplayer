@@ -83,6 +83,11 @@ ANCHORS = {
     "U101": (123.5, 134.0, 90, "F"),
     "U102": (110.5, 117.0, 0, "F"),
     "U103": (117.0, 126.0, 0, "F"),
+    # Bluetooth / WiFi: ESP32-MINI-1U on the back below the panel, right side,
+    # its U.FL near the right edge for the stick-on antenna cable. Its own
+    # 3.3 V regulator sits next to it.
+    "U501": (149.0, 108.0, 0, "B"),
+    "U107": (139.0, 112.0, 0, "B"),
     # buck for the 1.8 V LDOs, next to them on the left
     "U106": (111.0, 92.5, 0, "F"),
     "L101": (111.0, 88.5, 0, "F"),
