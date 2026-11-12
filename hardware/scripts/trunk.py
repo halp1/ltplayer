@@ -19,7 +19,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import EDGE, TRUNK, SLOT, kicad, in_island, island_outline
+from geom import EDGE, TRUNK, SLOT, ISLAND_NOTCH, kicad, in_island, island_outline
 
 MM = pcbnew.FromMM
 T = pcbnew.ToMM
@@ -97,6 +97,13 @@ SLOT_K = (*kicad(SLOT[0], SLOT[3]), *kicad(SLOT[2], SLOT[1]))
 # one pour or the other, so that costs more too. Each crossing of the island
 # edge costs a lot, so the tree crosses once per spur instead of weaving.
 ISLAND = island_outline()
+# The notch is a narrow +3V3 bay walled by the island on three sides. A trunk
+# through it cuts the bay off from the rest of the pour.
+NX0, NY0, NX1, NY1 = ISLAND_NOTCH
+
+
+def in_notch(x, y, m=0.3):
+    return NX0 - m <= x <= NX1 + m and NY0 - m <= y <= NY1 + m
 ISLAND_SEGS = list(zip(ISLAND, ISLAND[1:] + ISLAND[:1]))
 
 
@@ -112,7 +119,8 @@ def edge_cost(i, j):
             max(SLOT_K[0] - x, x - SLOT_K[2], SLOT_K[1] - y, y - SLOT_K[3]))
     di = min(seg_dist(x, y, a, c) for a, c in ISLAND_SEGS)
     return (1.0 + 6.0 / (1.0 + max(d, 0.0)) + 6.0 / (1.0 + di)
-            + (4.0 if in_island(x, y, -0.3) else 0.0))
+            + (4.0 if in_island(x, y, -0.3) else 0.0)
+            + (40.0 if in_notch(x, y) else 0.0))
 
 
 COST = [edge_cost(i, j) for j in range(NY) for i in range(NX)]
