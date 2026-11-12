@@ -79,7 +79,7 @@ DPAD_STEP = 8.5
 BTN_UPPER_Y = -10.0
 BTN_UPPER_X = 19.0
 USB_X = 0.0
-SD_X = 13.5
+SD_X = 16.5   # J301 courtyard 0.5 mm clear of the H104 boss
 SIDE_X = W / 2 - 2.35   # side-push button origin, actuator at the right edge
 
 # Nets tied to an inner plane through a via at every pad.

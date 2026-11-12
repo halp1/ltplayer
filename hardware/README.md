@@ -234,7 +234,7 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | 3.5 mm jack J401 | x = -15.0, top edge, back | board notch 4.4 wide, 1.4 deep, opening centre Z -2.6 |
 | 4.4 mm jack J402 | x = +15.0, top edge, back | body overhangs the edge by 1.6 mm, opening centre Z -3.3 (estimate) |
 | USB-C J101 | x = 0, bottom edge, back | opening centre Z about -1.6 |
-| microSD J301 | x = +13.5, bottom edge, back | |
+| microSD J301 | x = +16.5, bottom edge, back | |
 | Power, vol+, vol- | x = +31.15, y = +31.5, +17.5, +7.5 | right edge, side push |
 | D-pad | centre (0, -24), up (0, -15.5), down (0, -32.5), left (-8.5, -24), right (+8.5, -24) | KMR2, play/pause in the middle |
 | Back, menu | (-19, -10), (+19, -10) | KMR2 |
