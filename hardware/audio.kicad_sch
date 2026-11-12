@@ -1971,14 +1971,14 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "ltplayer:TMUX4827"
+		(symbol "ltplayer:TMUX4819"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "U"
-				(at 2.54 0 0)
+				(at 0 8.89 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1987,8 +1987,8 @@
 					)
 				)
 			)
-			(property "Value" "TMUX4827"
-				(at 0 -2.54 0)
+			(property "Value" "TMUX4819"
+				(at 0 -12.7 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1997,19 +1997,8 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_BGA:Texas_DSBGA-9_1.62x1.58mm_Layout3x3_P0.5mm"
-				(at 0 -5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4827.pdf"
-				(at 0 -7.62 0)
+			(property "Footprint" "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+				(at 0 -15.24 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -2019,8 +2008,19 @@
 					)
 				)
 			)
-			(property "Description" "TI TMUX4827 dual SPDT 0.13 ohm beyond-the-supply audio switch, DSBGA-9 (YBH)"
-				(at 0 -10.16 0)
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4821.pdf"
+				(at 0 -17.78 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "TI TMUX4819 2:1 SPDT 0.16 ohm beyond-the-supply audio switch with enable, WSON-8 2x2 (DSG)"
+				(at 0 -20.32 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -2041,9 +2041,9 @@
 					)
 				)
 			)
-			(symbol "TMUX4827_0_1"
+			(symbol "TMUX4819_0_1"
 				(rectangle
-					(start -7.62 7.62)
+					(start -7.62 6.35)
 					(end 7.62 -7.62)
 					(stroke
 						(width 0.254)
@@ -2054,18 +2054,37 @@
 					)
 				)
 			)
-			(symbol "TMUX4827_1_1"
+			(symbol "TMUX4819_1_1"
 				(pin passive line
-					(at -10.16 5.08 0)
+					(at -10.16 2.54 0)
 					(length 2.54)
-					(name "S1A"
+					(name "SA"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A1"
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at -10.16 -5.08 0)
+					(length 2.54)
+					(hide yes)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2074,52 +2093,16 @@
 					)
 				)
 				(pin input line
-					(at 0 -10.16 90)
+					(at -2.54 -10.16 90)
 					(length 2.54)
-					(name "SEL"
+					(name "EN"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "A2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "S2A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 3.81 180)
-					(length 2.54)
-					(name "D1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "B1"
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2137,7 +2120,7 @@
 							)
 						)
 					)
-					(number "B2"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2146,16 +2129,16 @@
 					)
 				)
 				(pin passive line
-					(at 10.16 -3.81 180)
+					(at -10.16 -2.54 0)
 					(length 2.54)
-					(name "D2"
+					(name "SB"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "B3"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2164,16 +2147,34 @@
 					)
 				)
 				(pin passive line
-					(at -10.16 2.54 0)
+					(at 10.16 0 180)
 					(length 2.54)
-					(name "S1B"
+					(name "D"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "C1"
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -10.16 90)
+					(length 2.54)
+					(name "SEL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2182,7 +2183,7 @@
 					)
 				)
 				(pin power_in line
-					(at 0 10.16 270)
+					(at 0 8.89 270)
 					(length 2.54)
 					(name "VDD"
 						(effects
@@ -2191,7 +2192,7 @@
 							)
 						)
 					)
-					(number "C2"
+					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2200,16 +2201,16 @@
 					)
 				)
 				(pin passive line
-					(at -10.16 -5.08 0)
+					(at 2.54 -10.16 90)
 					(length 2.54)
-					(name "S2B"
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "C3"
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4506,7 +4507,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 160.985 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -4587,7 +4588,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 171.145 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -4668,7 +4669,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.305 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -4749,7 +4750,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 191.465 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -4950,7 +4951,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 200.355 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -5031,7 +5032,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 210.515 26.67 0)
 			(hide yes)
 			(show_name no)
@@ -5112,7 +5113,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 140.665 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5193,7 +5194,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 150.825 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5274,7 +5275,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 160.985 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5355,7 +5356,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 171.145 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5556,7 +5557,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.305 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5920,7 +5921,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 160.985 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6001,7 +6002,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 171.145 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6082,7 +6083,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.305 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6163,7 +6164,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 191.465 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6364,7 +6365,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 200.355 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6445,7 +6446,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 210.515 146.05 0)
 			(hide yes)
 			(show_name no)
@@ -6526,7 +6527,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 140.665 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6607,7 +6608,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 150.825 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6688,7 +6689,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 160.985 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6769,7 +6770,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 171.145 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6970,7 +6971,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.305 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -7130,7 +7131,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 197.612 175.26 90)
 			(hide yes)
 			(show_name no)
@@ -7260,7 +7261,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22.5792MHz 1.8V"
+		(property "Value" "22.5792MHz 1.8V SG-8018CE"
 			(at 260.35 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7271,7 +7272,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Oscillator:Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm"
+		(property "Footprint" "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm"
 			(at 271.78 30.48 0)
 			(hide yes)
 			(show_name no)
@@ -7358,7 +7359,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 285.445 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -7428,7 +7429,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "PCA9306DCU"
+		(property "Value" "PCA9306DCTR"
 			(at 260.35 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7439,7 +7440,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
+		(property "Footprint" "Package_SO:SSOP-8_2.95x2.8mm_P0.65mm"
 			(at 250.19 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -7656,7 +7657,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 297.942 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -7735,7 +7736,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 308.102 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -7814,7 +7815,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 318.262 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -7893,7 +7894,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 328.422 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -7972,7 +7973,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 338.582 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -8141,7 +8142,7 @@
 				)
 			)
 		)
-		(property "Value" "TXS0102DCU"
+		(property "Value" "TXS0102DCTR"
 			(at 260.35 154.94 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8152,7 +8153,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
+		(property "Footprint" "Package_SO:SSOP-8_2.95x2.8mm_P0.65mm"
 			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -8249,7 +8250,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 287.782 129.54 90)
 			(hide yes)
 			(show_name no)
@@ -8330,7 +8331,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 300.685 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -8411,7 +8412,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 310.845 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -8620,7 +8621,7 @@
 				)
 			)
 		)
-		(property "Value" "TXS0102DCU"
+		(property "Value" "TXS0102DCTR"
 			(at 260.35 200.66 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8631,7 +8632,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
+		(property "Footprint" "Package_SO:SSOP-8_2.95x2.8mm_P0.65mm"
 			(at 260.35 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -8764,516 +8765,6 @@
 	(no_connect
 		(at 270.51000000000005 182.88)
 		(uuid "2224d1a9-215f-4f39-8193-e6f2d7a0bb75")
-	)
-	(symbol
-		(lib_id "ltplayer:TMUX4827")
-		(at 80.01 289.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "9f88f0cb-6bd9-4b8a-b21a-3e949f03eccf")
-		(property "Reference" "U406"
-			(at 80.01 276.86 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TMUX4827YBHR SE gate"
-			(at 80.01 302.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_BGA:Texas_DSBGA-9_1.62x1.58mm_Layout3x3_P0.5mm"
-			(at 80.01 284.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4827.pdf"
-			(at 80.01 281.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "TI TMUX4827 dual SPDT 0.13 ohm beyond-the-supply audio switch, DSBGA-9 (YBH)"
-			(at 80.01 279.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "A1"
-			(uuid "3485ef78-f89f-44e1-b780-09ccce8ed31f")
-		)
-		(pin "A2"
-			(uuid "7d0116a2-39fb-4098-8de0-1651c16f0cc8")
-		)
-		(pin "A3"
-			(uuid "1eabdcb8-33d9-4699-9ed9-17ee147059f7")
-		)
-		(pin "B1"
-			(uuid "a1c22ff6-2f05-4958-a703-0c1b97fc2829")
-		)
-		(pin "B2"
-			(uuid "71286cd0-78c3-4970-a8f9-49dbaa7dcd3b")
-		)
-		(pin "B3"
-			(uuid "665468a3-17c1-4373-a5db-159934fe5cc9")
-		)
-		(pin "C1"
-			(uuid "6d9dcf97-6417-4745-90e6-29eac7071ad5")
-		)
-		(pin "C2"
-			(uuid "eb215d73-b67d-4829-ac04-dff201f7da22")
-		)
-		(pin "C3"
-			(uuid "4d34bea8-66c7-46c8-b3b9-e96fc632d1e8")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
-					(reference "U406")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ltplayer:TMUX4827")
-		(at 139.7 289.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "f41698f7-e789-4f5c-a7a6-b189562e2562")
-		(property "Reference" "U407"
-			(at 139.7 276.86 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TMUX4827YBHR bal L"
-			(at 139.7 302.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_BGA:Texas_DSBGA-9_1.62x1.58mm_Layout3x3_P0.5mm"
-			(at 139.7 284.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4827.pdf"
-			(at 139.7 281.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "TI TMUX4827 dual SPDT 0.13 ohm beyond-the-supply audio switch, DSBGA-9 (YBH)"
-			(at 139.7 279.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "A1"
-			(uuid "f89b5f6e-00b9-410c-a7a7-98a428f3673b")
-		)
-		(pin "A2"
-			(uuid "fcf08044-4004-46c5-908a-bbb0f300eba7")
-		)
-		(pin "A3"
-			(uuid "d4248e48-ca5f-4a4b-9be0-41c608c6fa47")
-		)
-		(pin "B1"
-			(uuid "fe34fe68-8bb1-4f5c-90e0-532ecc2d8e31")
-		)
-		(pin "B2"
-			(uuid "bd42338b-461b-4c2b-a056-1b00c39457fa")
-		)
-		(pin "B3"
-			(uuid "48cc3bb7-76ec-4454-bf6b-9846896add5a")
-		)
-		(pin "C1"
-			(uuid "7cdbb022-462d-4cd5-9bc3-a8fe1fbd8f26")
-		)
-		(pin "C2"
-			(uuid "3fd06692-bf00-4a12-8327-d80f7228cac8")
-		)
-		(pin "C3"
-			(uuid "ab0295bd-3999-4ada-9aca-6084bf3fffb2")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
-					(reference "U407")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "ltplayer:TMUX4827")
-		(at 199.39 289.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b7f0e1ce-3423-4ce0-bc3d-7e5750bbfd93")
-		(property "Reference" "U408"
-			(at 199.39 276.86 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TMUX4827YBHR bal R"
-			(at 199.39 302.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_BGA:Texas_DSBGA-9_1.62x1.58mm_Layout3x3_P0.5mm"
-			(at 199.39 284.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4827.pdf"
-			(at 199.39 281.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "TI TMUX4827 dual SPDT 0.13 ohm beyond-the-supply audio switch, DSBGA-9 (YBH)"
-			(at 199.39 279.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "A1"
-			(uuid "4806d9bc-6b24-4e1c-98c5-ac37891a07aa")
-		)
-		(pin "A2"
-			(uuid "ee3289eb-e773-435c-b31b-3438e9f3c382")
-		)
-		(pin "A3"
-			(uuid "07b2fb9c-69aa-43ad-b08f-4f59848cbacd")
-		)
-		(pin "B1"
-			(uuid "121dfb24-fc01-4110-b285-aa3628ab2f70")
-		)
-		(pin "B2"
-			(uuid "92366b45-e81b-444b-970b-fde11c71f90e")
-		)
-		(pin "B3"
-			(uuid "075a6339-8135-4292-9905-45e708bba12b")
-		)
-		(pin "C1"
-			(uuid "e6df643a-72f8-4227-9c44-93d32d750db9")
-		)
-		(pin "C2"
-			(uuid "c016c6d4-5ce7-4aaa-8616-61aaee3b75c5")
-		)
-		(pin "C3"
-			(uuid "639c5a0e-d6a1-43c6-8caa-f9441388aeed")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
-					(reference "U408")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(global_label "DAC1_OUTA"
-		(at 90.17 285.75 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a460ff1d-dbb8-419b-9340-589832cc0f19")
-	)
-	(global_label "DAC1_OUTB"
-		(at 90.17 293.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "de0815ab-5420-4590-bb0d-349051bc80bb")
-	)
-	(global_label "J35_TIP"
-		(at 69.85000000000001 284.48 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a572d214-d506-4d2c-a959-affcb954dc30")
-	)
-	(global_label "J35_RING"
-		(at 69.85000000000001 292.1 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8138698f-07a6-4341-9dad-5adf7f9d18c5")
-	)
-	(global_label "JACK_SEL"
-		(at 80.01 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3c852ac5-38a0-4de7-988f-3a1ae1eecc4d")
-	)
-	(global_label "+3V3"
-		(at 80.01 279.4 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "dcb8d7e8-0660-47c2-a0e5-8eb27f3212bd")
-	)
-	(global_label "GND"
-		(at 85.09 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e94b8ba7-bc57-45ad-8c7b-f99d4616abbe")
-	)
-	(global_label "DAC1_OUTA"
-		(at 149.85999999999999 285.75 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "cc43dde5-f9ca-447e-b9e1-501e3124a808")
-	)
-	(global_label "DAC1_OUTB"
-		(at 149.85999999999999 293.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "940e34f2-1963-4b82-a52d-7bdc51e0c84b")
-	)
-	(global_label "J44_LP"
-		(at 129.54 287.02 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6b9e90a3-ff2e-4243-ab6b-ae42824b44cd")
-	)
-	(global_label "J44_LN"
-		(at 129.54 294.64 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f8b88b0d-7cb0-444c-8edc-588a9ee72bc5")
-	)
-	(global_label "JACK_SEL"
-		(at 139.7 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "c76e82b8-0396-4d9b-938c-888f47f073ac")
-	)
-	(global_label "+3V3"
-		(at 139.7 279.4 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "968d8a1f-9bd4-4bad-b0d7-2a1151dcc165")
-	)
-	(global_label "GND"
-		(at 144.78 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6dca718f-e79b-4b14-a89b-102f04f71727")
-	)
-	(global_label "DAC2_OUTA"
-		(at 209.54999999999998 285.75 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "fbfff832-e1f6-4c38-99c5-10e00bcbdca2")
-	)
-	(global_label "DAC2_OUTB"
-		(at 209.54999999999998 293.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "818bba60-e9f7-471f-9bc8-d99b3b24ded0")
-	)
-	(global_label "J44_RP"
-		(at 189.23 287.02 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9ee5d968-aff1-4663-96ef-fc97797ec4a1")
-	)
-	(global_label "J44_RN"
-		(at 189.23 294.64 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6c135010-ebfa-4e36-8662-4dba78ef9ae0")
-	)
-	(global_label "JACK_SEL"
-		(at 199.39 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "fb05c1c4-cff2-4afb-bfe3-66b5a81edd71")
-	)
-	(global_label "+3V3"
-		(at 199.39 279.4 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b3d9e3df-60ef-43eb-b553-1dd883c0b452")
-	)
-	(global_label "GND"
-		(at 204.47 299.72 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d73980d3-f21a-4049-ae4d-21a5b45ca74c")
 	)
 	(symbol
 		(lib_id "Connector_Audio:AudioJack3_SwitchT")
@@ -9485,7 +8976,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 308.102 250.19 90)
 			(hide yes)
 			(show_name no)
@@ -9564,7 +9055,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 318.262 250.19 90)
 			(hide yes)
 			(show_name no)
@@ -9802,30 +9293,6 @@
 		)
 		(uuid "458b92d6-6ce5-463a-92fb-82e98c774b32")
 	)
-	(no_connect
-		(at 69.85000000000001 287.02)
-		(uuid "4cdc79b5-f7eb-40e4-aa5a-b8feddc830ee")
-	)
-	(no_connect
-		(at 69.85000000000001 294.64)
-		(uuid "d8642ad7-cc04-4224-a62d-93fbd454cc23")
-	)
-	(no_connect
-		(at 129.54 284.48)
-		(uuid "0196771f-a112-4c7a-9218-d457672bfb6f")
-	)
-	(no_connect
-		(at 129.54 292.1)
-		(uuid "1132dcc1-c82c-4a3f-8cff-8cd47b83ab47")
-	)
-	(no_connect
-		(at 189.23 284.48)
-		(uuid "072e8ff0-e51b-45a3-9f19-19cab1a3c803")
-	)
-	(no_connect
-		(at 189.23 292.1)
-		(uuid "8671fddd-7e81-4d94-b84d-4b1ad61b35d6")
-	)
 	(global_label "LS_EN"
 		(at 262.89000000000004 77.47 90)
 		(effects
@@ -9877,7 +9344,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 287.782 80.01 90)
 			(hide yes)
 			(show_name no)
@@ -9958,7 +9425,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 290.525 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -10163,7 +9630,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 328.422 250.19 90)
 			(hide yes)
 			(show_name no)
@@ -10349,7 +9816,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 333.502 175.26 90)
 			(hide yes)
 			(show_name no)
@@ -10428,7 +9895,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 333.502 204.47 90)
 			(hide yes)
 			(show_name no)
@@ -10545,6 +10012,1464 @@
 			(justify right)
 		)
 		(uuid "400f2986-79dd-4d29-b3c5-eb6d2c58287c")
+	)
+	(symbol
+		(lib_id "ltplayer:TMUX4819")
+		(at 80.01 289.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "01f52581-c5a2-4caa-a5e5-528b076c527c")
+		(property "Reference" "U406"
+			(at 80.01 276.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TMUX4819DSGR 3.5 tip"
+			(at 80.01 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+			(at 80.01 307.34000000000003 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4821.pdf"
+			(at 80.01 309.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "TI TMUX4819 2:1 SPDT 0.16 ohm beyond-the-supply audio switch with enable, WSON-8 2x2 (DSG)"
+			(at 80.01 312.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "600eb127-50c2-450a-b7e5-e98920ceca92")
+		)
+		(pin "2"
+			(uuid "cebf84f4-4914-4a01-a88d-c224d0e4bee0")
+		)
+		(pin "3"
+			(uuid "920f1dce-82ff-4bac-b4f9-b2dba6da0bd4")
+		)
+		(pin "4"
+			(uuid "18e2fa81-cbd6-4702-b819-0e4c7674a99d")
+		)
+		(pin "5"
+			(uuid "edd1717d-e101-404f-8975-02b2cd1fb2f0")
+		)
+		(pin "6"
+			(uuid "67630d96-180e-4309-a77b-0cc51a37ff95")
+		)
+		(pin "7"
+			(uuid "fd059908-9784-445a-990b-025d2121b5bd")
+		)
+		(pin "8"
+			(uuid "2e50d0be-982f-4f6a-bd95-8817afec5435")
+		)
+		(pin "9"
+			(uuid "d54c53c7-29fa-47c8-a737-c99a3a44b798")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "U406")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "J35_TIP"
+		(shape passive)
+		(at 69.85 287.02 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ac41ca73-a420-42d7-8f37-b4efae55168a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 287.02 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(no_connect
+		(at 69.85 294.64)
+		(uuid "e3271214-9bca-481e-8c1a-0bc843953c7e")
+	)
+	(global_label "SW_EN"
+		(shape passive)
+		(at 77.47 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9725d715-26e0-4447-b903-91ec051ebf45")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 77.47 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 85.09 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "debe4897-e89c-4864-883a-33673ced2ad6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 85.09 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "J44_LP"
+		(shape passive)
+		(at 69.85 292.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "fd457701-60fb-4b5f-a172-6868b5e06bba")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 292.1 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "DAC1_OUTA"
+		(shape passive)
+		(at 90.17 289.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "be35ee28-bdfd-4cb7-b2dd-b4a21c673ba6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 90.17 289.56 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "JACK_SEL"
+		(shape passive)
+		(at 80.01 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3bf2bfd8-e135-41ca-aa35-5c1e2e2f4743")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 80.01 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape passive)
+		(at 80.01 280.67 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "13f05b46-1cab-4e1c-9af7-b0dd980f8fd3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 80.01 280.67 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 82.55 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "dbcb6412-d41a-4c20-afdf-85ffac3624d0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.55 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ltplayer:TMUX4819")
+		(at 125.73 289.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2260ca6a-7b8e-42ee-8d06-4becbd4da80c")
+		(property "Reference" "U407"
+			(at 125.73 276.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TMUX4819DSGR 3.5 ring"
+			(at 125.73 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+			(at 125.73 307.34000000000003 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4821.pdf"
+			(at 125.73 309.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "TI TMUX4819 2:1 SPDT 0.16 ohm beyond-the-supply audio switch with enable, WSON-8 2x2 (DSG)"
+			(at 125.73 312.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c171e71e-1243-411f-a554-b496a5da4736")
+		)
+		(pin "2"
+			(uuid "3e4524f9-68d0-4823-96f7-7217c5628812")
+		)
+		(pin "3"
+			(uuid "ab5ed5f2-a67b-4c05-8f96-385dcbb20b2b")
+		)
+		(pin "4"
+			(uuid "e1350ceb-c48a-4afd-902d-e5179c042e21")
+		)
+		(pin "5"
+			(uuid "83e7cf08-941a-41a0-a6f3-ced056d79d35")
+		)
+		(pin "6"
+			(uuid "24809796-6b44-48c4-bfad-98047ea97c74")
+		)
+		(pin "7"
+			(uuid "8d7b468d-dfa5-4be4-a054-bb12662bd060")
+		)
+		(pin "8"
+			(uuid "6cdc4d31-0bae-499f-90de-ed3b1ef2ce82")
+		)
+		(pin "9"
+			(uuid "4aea3736-e9ac-4bf9-8f36-eab294a15e9f")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "U407")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "J35_RING"
+		(shape passive)
+		(at 115.57 287.02 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1fa14a3a-ef58-4a84-a276-cbc6d333fda8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 115.57 287.02 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(no_connect
+		(at 115.57 294.64)
+		(uuid "a88470e9-b9f8-4713-81b5-4ef8befb4797")
+	)
+	(global_label "SW_EN"
+		(shape passive)
+		(at 123.19 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e6fd22d3-64c9-46fe-becf-89ea63f25173")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 123.19 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 130.81 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "625d55c0-9105-47b0-8422-589e8e5348be")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.81 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "J44_LN"
+		(shape passive)
+		(at 115.57 292.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "34cd9dbd-7b2e-4ed3-abda-a76f6223583d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 115.57 292.1 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "DAC1_OUTB"
+		(shape passive)
+		(at 135.89 289.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "99e3532b-3bc0-421b-8910-89df6927ed76")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 135.89 289.56 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "JACK_SEL"
+		(shape passive)
+		(at 125.73 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "aa0c99b6-64e0-4389-9f3b-adf189e125d1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 125.73 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape passive)
+		(at 125.73 280.67 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "af42bedf-509a-40ec-9399-770606903355")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 125.73 280.67 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 128.27 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a2ee84b5-7741-40c5-9297-b5f57d227fe1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 128.27 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ltplayer:TMUX4819")
+		(at 171.45 289.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "fad9d59d-7225-403c-8b41-81df5bfec8cd")
+		(property "Reference" "U408"
+			(at 171.45 276.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TMUX4819DSGR 4.4 R+"
+			(at 171.45 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+			(at 171.45 307.34000000000003 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4821.pdf"
+			(at 171.45 309.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "TI TMUX4819 2:1 SPDT 0.16 ohm beyond-the-supply audio switch with enable, WSON-8 2x2 (DSG)"
+			(at 171.45 312.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0f97848f-a05e-4cef-b3b4-29b8d844bff3")
+		)
+		(pin "2"
+			(uuid "bf493736-7f4e-432e-a773-7fab95c1a52d")
+		)
+		(pin "3"
+			(uuid "a2da8997-580b-4b59-bf62-747b85d38f84")
+		)
+		(pin "4"
+			(uuid "0c368ca5-6682-4d0a-b053-dbe0fc0050ff")
+		)
+		(pin "5"
+			(uuid "72d4694e-d811-4805-9264-72482f44623c")
+		)
+		(pin "6"
+			(uuid "614bfab0-3410-4b86-8627-38a1fa4c9358")
+		)
+		(pin "7"
+			(uuid "b42e69f2-2c5e-4e8f-943f-2dd23a79122f")
+		)
+		(pin "8"
+			(uuid "c630dca6-f53c-4273-a086-d5c032b0229c")
+		)
+		(pin "9"
+			(uuid "754ab957-b102-46b2-b081-46ccd10c6b13")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "U408")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(no_connect
+		(at 161.29 287.02)
+		(uuid "2499e1b5-db9a-4b3c-8eb2-4a2c08a6fe94")
+	)
+	(no_connect
+		(at 161.29 294.64)
+		(uuid "083bb596-ec89-43b3-ab06-ca6e4fd009ad")
+	)
+	(global_label "SW_EN"
+		(shape passive)
+		(at 168.91 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "afc24c46-3b82-4389-854b-ce139ccf476c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 168.91 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 176.53 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "74426ed3-fe8c-4ee7-9598-f97a7503daba")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 176.53 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "J44_RP"
+		(shape passive)
+		(at 161.29 292.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8a5ac28b-6f02-4fde-a2dc-82beab555f25")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 161.29 292.1 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "DAC2_OUTA"
+		(shape passive)
+		(at 181.61 289.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a9b9189b-e409-4b85-88c8-7040159b4fea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 181.61 289.56 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "JACK_SEL"
+		(shape passive)
+		(at 171.45 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e9523b1c-a1bb-4160-9f6c-ec86e80f3a3b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.45 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape passive)
+		(at 171.45 280.67 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f16ba4f1-2609-4249-9b6f-19528321475b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.45 280.67 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 173.99 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4b65e7c6-b986-4830-be86-44fac9b1b5ef")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 173.99 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "ltplayer:TMUX4819")
+		(at 217.17 289.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ae62c14c-80d0-4c84-924c-7b5f472f3f40")
+		(property "Reference" "U409"
+			(at 217.17 276.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TMUX4819DSGR 4.4 R-"
+			(at 217.17 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+			(at 217.17 307.34000000000003 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmux4821.pdf"
+			(at 217.17 309.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "TI TMUX4819 2:1 SPDT 0.16 ohm beyond-the-supply audio switch with enable, WSON-8 2x2 (DSG)"
+			(at 217.17 312.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "531cd0ce-2f20-4fba-a4b9-3e27a27a2ed0")
+		)
+		(pin "2"
+			(uuid "d9aaef14-3986-40b9-8109-f5799eac45c4")
+		)
+		(pin "3"
+			(uuid "4b983a3f-049b-491b-88ac-c083d469c0e0")
+		)
+		(pin "4"
+			(uuid "43c51c23-a6ca-4a60-b87e-784621b2a547")
+		)
+		(pin "5"
+			(uuid "04ff968f-9d63-46c0-965b-e973f38c672d")
+		)
+		(pin "6"
+			(uuid "101f96f7-06eb-4543-9cd4-3afd2cfc2503")
+		)
+		(pin "7"
+			(uuid "80b07077-19e3-432f-bb11-47a787f480ca")
+		)
+		(pin "8"
+			(uuid "62593a12-f90b-4d38-a6af-2370a1f8e3a0")
+		)
+		(pin "9"
+			(uuid "5ceab0be-e5d1-472f-a099-10f6152cfc32")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "U409")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(no_connect
+		(at 207.01 287.02)
+		(uuid "a28c759e-181f-4e5b-afaf-a24be856bb1b")
+	)
+	(no_connect
+		(at 207.01 294.64)
+		(uuid "765a72a3-46e9-4fd8-8327-d8b3f0276527")
+	)
+	(global_label "SW_EN"
+		(shape passive)
+		(at 214.63 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "079ead3c-cadd-4428-bdde-17fd8bb8d3e8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 214.63 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 222.25 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ef4be145-05fa-4753-ba37-518d916a043c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 222.25 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "J44_RN"
+		(shape passive)
+		(at 207.01 292.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "234114b5-2809-4dee-8cdb-805fb6fa08a0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 207.01 292.1 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "DAC2_OUTB"
+		(shape passive)
+		(at 227.33 289.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "74083a5a-2e23-4a81-b6f2-9643f30d84c6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 227.33 289.56 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "JACK_SEL"
+		(shape passive)
+		(at 217.17 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "580625f9-80dd-4cc7-a085-1eabb28fde51")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 217.17 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape passive)
+		(at 217.17 280.67 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5669f22c-7723-4fab-8eee-25361c6a2b1f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 217.17 280.67 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape passive)
+		(at 219.71 299.72 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ff25b5f5-61fa-497a-903e-13d2b364eb4b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 219.71 299.72 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 80.01 322.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "db43bdcf-5c35-4f88-891d-186361f0d838")
+		(property "Reference" "C445"
+			(at 77.47 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 82.55 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 80.975 318.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 80.01 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 80.01 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9f102ffd-a034-47aa-bdb2-4431d7001d72")
+		)
+		(pin "2"
+			(uuid "97110ef8-75b3-4cdc-9bfb-a5952a913a46")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "C445")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 125.73 322.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "5be79f33-4210-49c9-bff0-8fbe6f9bfad9")
+		(property "Reference" "C446"
+			(at 123.19 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 128.27 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 126.695 318.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 125.73 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 125.73 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9e1bd0f7-90bc-449c-8e49-8324f2c59d21")
+		)
+		(pin "2"
+			(uuid "a506b46c-565f-48d7-95f9-6b5aa84ea355")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "C446")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 171.45 322.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "102f655a-6881-496b-a041-c689bed7ac5b")
+		(property "Reference" "C447"
+			(at 168.91 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 173.99 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 172.415 318.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 171.45 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e2300831-fd9a-4ff4-9428-2fa4a8856e54")
+		)
+		(pin "2"
+			(uuid "91afa7bf-1719-42df-8018-6a639e7f1172")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "C447")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 217.17 322.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7f3bf108-b893-471f-8f2f-c4fc087d1bd4")
+		(property "Reference" "C448"
+			(at 214.63 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 219.71 322.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 218.135 318.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 217.17 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 217.17 322.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "23152da9-3915-4f06-b6bb-9809916d3d72")
+		)
+		(pin "2"
+			(uuid "ade8d418-6cf3-4617-8f8b-011466ca1951")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/9390b05b-658e-4c8b-8ab1-7f67db404111"
+					(reference "C448")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(at 80.01 318.77 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "285d9e35-2d59-4e27-b897-68fc07ecdef5")
+	)
+	(global_label "GND"
+		(at 80.01 326.39 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6c69dffa-ce22-4b91-84a1-4bc489cc9fb0")
+	)
+	(global_label "+3V3"
+		(at 125.73 318.77 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2f9c8b09-e5d3-43f1-9c4f-5379da19021d")
+	)
+	(global_label "GND"
+		(at 125.73 326.39 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a36c5653-ef6e-460f-befb-713317d94b80")
+	)
+	(global_label "+3V3"
+		(at 171.45 318.77 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f2e9368-3728-4bfc-9fcc-e28bcb5beddb")
+	)
+	(global_label "GND"
+		(at 171.45 326.39 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "60094f89-e595-4e03-b829-17a6825fd03b")
+	)
+	(global_label "+3V3"
+		(at 217.17 318.77 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "74764caf-019b-4b49-a038-272b66775877")
+	)
+	(global_label "GND"
+		(at 217.17 326.39 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1cfa49f0-3ab8-4192-86f5-63c04e9b9ee1")
 	)
 	(sheet_instances
 		(path "/"

@@ -5573,6 +5573,198 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Regulator_Switching:TLV62569DBV"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at -5.08 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "TLV62569DBV"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+				(at 1.27 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tlv62569.pdf"
+				(at -6.35 11.43 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "High Efficiency Synchronous Buck Converter, Adjustable Output 0.6V-5.5V, 2A, SOT-23-5"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "Step-Down Buck DC-DC Regulator Adjustable"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TLV62569DBV_0_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "TLV62569DBV_1_1"
+				(pin input line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 2.54 180)
+					(length 2.54)
+					(name "SW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -5605,7 +5797,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 78.232 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -5684,7 +5876,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 88.392 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -6274,7 +6466,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 173.482 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -6676,7 +6868,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 40.335 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6966,7 +7158,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 111.455 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -7047,7 +7239,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 150.825 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -7296,7 +7488,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 181.305 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -7377,7 +7569,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 220.675 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -7716,7 +7908,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 273.812 85.09 90)
 			(hide yes)
 			(show_name no)
@@ -7795,7 +7987,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 263.652 119.38 90)
 			(hide yes)
 			(show_name no)
@@ -8072,7 +8264,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 263.652 105.41 90)
 			(hide yes)
 			(show_name no)
@@ -8151,7 +8343,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 273.812 105.41 90)
 			(hide yes)
 			(show_name no)
@@ -8852,7 +9044,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 228.6 127.508 90)
 			(hide yes)
 			(show_name no)
@@ -9299,7 +9491,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 163.322 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -9378,7 +9570,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 183.642 95.25 90)
 			(hide yes)
 			(show_name no)
@@ -9457,7 +9649,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 115.062 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -9655,100 +9847,6 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Regulator_Switching:TPS628438DRL")
-		(at 269.24 149.86 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "8f2a36d2-cf44-4838-aaae-fbbe1274388f")
-		(property "Reference" "U106"
-			(at 269.24 139.7 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TPS628438DRLR"
-			(at 269.24 162.56 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-563"
-			(at 273.05 140.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps62843.pdf"
-			(at 269.24 163.83 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "600mA Step-Down Converter with DCS-Control, ultra-low Iq, 1.8-5.5 Vin, 1.8-3.6 Vout, SOT-563"
-			(at 269.24 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d0b0ee4f-1c15-4d8f-9650-c9f14c9ea7f0")
-		)
-		(pin "2"
-			(uuid "7e061249-bd21-4523-a393-b68d1849dc73")
-		)
-		(pin "3"
-			(uuid "8bcc21ad-9093-4121-a7c6-1d92299d9fcc")
-		)
-		(pin "4"
-			(uuid "14bcd7e6-dd34-47b2-8c0f-241e70f7d472")
-		)
-		(pin "5"
-			(uuid "eb47a554-7428-4519-96fe-3bcd4e3428e8")
-		)
-		(pin "6"
-			(uuid "0377500d-bd1a-452a-ade3-8092e0a03c50")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
-					(reference "U106")
-					(unit 1)
-				)
-			)
-		)
-	)
 	(global_label "VSYS"
 		(at 52.07 147.32000000000002 180)
 		(effects
@@ -9789,66 +9887,6 @@
 		)
 		(uuid "dc4f0a6f-d305-44d2-830b-0fef89e4e411")
 	)
-	(global_label "GND"
-		(at 269.24 160.02 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "ae82a501-e5af-4fa7-a55b-4269741b4ffa")
-	)
-	(global_label "VSYS"
-		(at 259.08 142.24 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "46204292-768e-466c-b732-4ee33e32ef11")
-	)
-	(global_label "BUCK_VSET"
-		(at 259.08 149.86 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4a9501f7-0139-4dd1-a0fc-8a9637500aa8")
-	)
-	(global_label "PWR_EN"
-		(at 259.08 144.78 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "670ea215-5084-4aa3-abbd-ddf6ac62fcf6")
-	)
-	(global_label "BUCK_SW"
-		(at 279.40000000000003 142.24 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "e457e4cf-6cba-4886-9028-42d221d451e2")
-	)
-	(global_label "VBUCK"
-		(at 279.40000000000003 144.78 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3d7f36bc-f43a-4445-82b5-e4f445a976fa")
-	)
 	(symbol
 		(lib_id "Device:L")
 		(at 289.56 149.86 90)
@@ -9870,7 +9908,7 @@
 				)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "2.2u"
 			(at 289.56 152.4 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9880,7 +9918,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+		(property "Footprint" "Inductor_SMD:L_1008_2520Metric"
 			(at 289.56 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -9929,85 +9967,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 259.08 172.72 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "376fc7c5-ff02-4ce5-9745-17ae4b8f36f2")
-		(property "Reference" "R112"
-			(at 256.54 172.72 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "15.4k 1%"
-			(at 261.62 172.72 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 257.302 172.72 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 259.08 172.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 259.08 172.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8598c6b4-255b-43a8-87c1-ab4436926d2c")
-		)
-		(pin "2"
-			(uuid "b348bd74-60b9-4e9b-8438-15fa13a68cd9")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
-					(reference "R112")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 248.92 172.72 0)
 		(unit 1)
@@ -10029,7 +9988,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7u"
+		(property "Value" "10u"
 			(at 251.46 172.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10040,7 +9999,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 249.885 168.91 0)
 			(hide yes)
 			(show_name no)
@@ -10110,7 +10069,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "22u"
 			(at 307.34 172.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10121,7 +10080,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 305.765 168.91 0)
 			(hide yes)
 			(show_name no)
@@ -10188,26 +10147,6 @@
 			(justify left)
 		)
 		(uuid "427f1c6c-2757-4ed2-a67c-6a52aeed8e81")
-	)
-	(global_label "BUCK_VSET"
-		(at 259.08 168.91 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "888eb59b-8537-4164-a311-88c0386255b3")
-	)
-	(global_label "GND"
-		(at 259.08 176.53 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3ef7b68e-2295-4f9b-b346-186b3f471570")
 	)
 	(global_label "VSYS"
 		(at 248.92 168.91 90)
@@ -10557,7 +10496,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 40.335 222.25 0)
 			(hide yes)
 			(show_name no)
@@ -10717,7 +10656,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 98.552 226.06 90)
 			(hide yes)
 			(show_name no)
@@ -10864,6 +10803,447 @@
 			(justify right)
 		)
 		(uuid "d333e32f-a3e6-4e8c-9d29-095c720d4948")
+	)
+	(symbol
+		(lib_id "Regulator_Switching:TLV62569DBV")
+		(at 269.24 149.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "308f0b7b-0b52-4bc8-b8d0-e99221ea221e")
+		(property "Reference" "U106"
+			(at 269.24 144.78 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV62569DBVR"
+			(at 269.24 160.02 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 270.51 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tlv62569.pdf"
+			(at 262.89 161.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "High Efficiency Synchronous Buck Converter, Adjustable Output 0.6V-5.5V, 2A, SOT-23-5"
+			(at 269.24 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a7b17188-cde9-467d-9c02-2f1c08e3f3e1")
+		)
+		(pin "2"
+			(uuid "4e2d2a6a-784a-4a04-93f0-60f9a9fd67ba")
+		)
+		(pin "3"
+			(uuid "199916bc-f9ee-478d-860a-4dc36fb353bb")
+		)
+		(pin "4"
+			(uuid "84498709-3312-44bc-ba4a-1f1518af6822")
+		)
+		(pin "5"
+			(uuid "062805bb-77ac-4b67-a1e5-553811b530b4")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
+					(reference "U106")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 259.08 172.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "342e4ada-7d59-4bdb-afa9-84f078f5388a")
+		(property "Reference" "R112"
+			(at 256.54 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "232k 1%"
+			(at 261.62 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 257.302 172.72 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 259.08 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 259.08 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e868b802-aa57-469b-b15c-ef94e45f1cb7")
+		)
+		(pin "2"
+			(uuid "c89fd1e5-660b-4ad5-8831-7142e080b970")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
+					(reference "R112")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 269.24 172.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "64d76da1-1c85-41e2-b044-83a6cd3f56dc")
+		(property "Reference" "R114"
+			(at 266.7 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100k 1%"
+			(at 271.78 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 267.462 172.72 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 269.24 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 269.24 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4804f996-fd80-4496-975c-bf0bdf1af4ed")
+		)
+		(pin "2"
+			(uuid "899ab96f-353d-4da0-a75e-d38d336fb4b3")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
+					(reference "R114")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 279.4 172.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d628e6d5-1206-4b34-947c-6753eccc2c85")
+		(property "Reference" "C114"
+			(at 276.86 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "6.8p"
+			(at 281.94 172.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 280.365 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 279.4 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 279.4 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6390d8ff-e821-48da-94fb-68176eb59677")
+		)
+		(pin "2"
+			(uuid "a7ed8d88-1a3b-4be8-8153-d8d6f0a2b0a9")
+		)
+		(instances
+			(project "ltplayer"
+				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/09d34c52-837c-484b-b09c-d0c0bc0263fc"
+					(reference "C114")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "PWR_EN"
+		(at 261.62 149.86 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "31022e39-0956-4f37-b098-4cf96fbc68e5")
+	)
+	(global_label "GND"
+		(at 269.24 157.48000000000002 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c610b030-905e-4487-8219-eb264cfaa5b2")
+	)
+	(global_label "BUCK_SW"
+		(at 276.86 147.32000000000002 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "88fa891c-65ef-41be-85d9-f0ff8a7c9948")
+	)
+	(global_label "VSYS"
+		(at 261.62 147.32000000000002 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3d7b0529-5b95-4b4f-b7b7-ea75ed69b93b")
+	)
+	(global_label "BUCK_FB"
+		(at 276.86 149.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "96d03c5a-f20a-4d4e-895d-2873489c0b48")
+	)
+	(global_label "VBUCK"
+		(at 259.08 168.91 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b855652b-53db-487a-86b6-66ee184db137")
+	)
+	(global_label "BUCK_FB"
+		(at 259.08 176.53 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4acf4be3-5e24-4bcf-8489-1967845c0d7f")
+	)
+	(global_label "BUCK_FB"
+		(at 269.24 168.91 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2eba80ab-4f1c-45a8-bce2-cb39733310cd")
+	)
+	(global_label "GND"
+		(at 269.24 176.53 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ef7427d1-4eea-4c9e-a238-a9276d791333")
+	)
+	(global_label "VBUCK"
+		(at 279.4 168.91 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d433cbf9-a6fa-4471-9f89-8be51e1d9cd9")
+	)
+	(global_label "BUCK_FB"
+		(at 279.4 176.53 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "eb760141-bc8c-4e41-bee7-d23dca9f608b")
 	)
 	(sheet_instances
 		(path "/"
