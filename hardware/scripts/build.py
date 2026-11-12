@@ -6,7 +6,7 @@ Everything on the board is regenerated: footprints (with nets, fields and
 symbol links so schematic parity holds), the outline, mounting holes and the
 anchor placement. Passives are left at the origin for place_passives.py.
 
-Coordinates: board is 61.6 x 94.6 mm centred on (CX, CY), inside the 62 x 95
+Coordinates: board is 67.0 x 94.6 mm centred on (CX, CY), inside the 67.4 x 95
 enclosure pocket. Front (F.Cu) faces the display and the user.
 """
 import os
@@ -16,8 +16,8 @@ import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from geom import (CX, CY, W, H, RAD, J401_X, DACS, DAC_CELL, DAC_ROTATION, dac_point, kicad,
-                  ISLAND_1V8, PANEL, ACTIVE, J302_X, CABLE_Y, DPAD, DPAD_STEP, BTN_UPPER_X,
-                  BTN_UPPER_Y, USB_X, SD_X)
+                  ISLAND_1V8, PANEL, ACTIVE, J302_X, CABLE_Y, SLOT, DPAD, DPAD_STEP, BTN_UPPER_X,
+                  BTN_UPPER_Y, USB_X, SD_X, HOLE_X, HOLE_Y, SIDE_X)
 
 MM = pcbnew.FromMM
 BOARD, NETLIST = sys.argv[1], sys.argv[2]
@@ -25,7 +25,6 @@ HERE = os.path.dirname(os.path.abspath(BOARD))
 SYS_FP = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints"
 
 L, T, R, B = CX - W / 2, CY - H / 2, CX + W / 2, CY + H / 2
-HOLE_X, HOLE_Y = 24.65, 41.15
 
 J402_OVERHANG = 1.6
 # Level shifters straddle the bottom edge of the +1V8 island on In2: their
@@ -59,15 +58,14 @@ ANCHORS = {
     "SW204": enc(-BTN_UPPER_X, BTN_UPPER_Y),
     "SW209": enc(BTN_UPPER_X, BTN_UPPER_Y),
     # right edge side-push: power, vol+, vol-
-    "SW101": (R - 2.35, 66.0, 270, "F"),
-    "SW205": (R - 2.35, 80.0, 270, "F"),
-    "SW206": (R - 2.35, 90.0, 270, "F"),
-    # display cable connector under the panel, opening toward the left edge
-    "J302": (*kicad(J302_X, CABLE_Y), 270, "F"),
-    # back: battery, SWD and the BOOT0 recovery jumper next to it
-    "J102": (104.5, 121.0, 0, "B"),
-    "J201": (107.0, 86.5, 0, "B"),
-    "JP201": (113.5, 86.5, 0, "B"),
+    "SW101": (CX + SIDE_X, 66.0, 270, "F"),
+    "SW205": (CX + SIDE_X, 80.0, 270, "F"),
+    "SW206": (CX + SIDE_X, 90.0, 270, "F"),
+    # display cable connector on the back, its opening facing the cable slot
+    "J302": (*kicad(J302_X, CABLE_Y), 90, "B"),
+    # back: battery pads and the optional side-entry JST-PH next to them
+    "J103": (*kicad(-27.0, -30.0), 90, "B"),
+    "J102": (*kicad(-27.5, -15.5), 270, "B"),
     # MCU under the lower half of the panel
     "U201": (131.0, 97.0, 0, "F"),
     # audio
@@ -83,10 +81,11 @@ ANCHORS = {
     "U105": (106.0, 69.5, 0, "F"),
     # power, in the lower left column beside the pad
     "U101": (123.5, 134.0, 90, "F"),
-    "U102": (113.0, 116.0, 0, "F"),
-    "D102": (109.0, 131.0, 90, "F"),
-    "Q101": (106.0, 113.5, 0, "F"),
-    "U103": (116.0, 125.0, 0, "F"),
+    "U102": (110.5, 117.0, 0, "F"),
+    "U103": (117.0, 126.0, 0, "F"),
+    # buck for the 1.8 V LDOs, next to them on the left
+    "U106": (111.0, 92.5, 0, "F"),
+    "L101": (111.0, 88.5, 0, "F"),
 }
 
 for dac, (dx, dy, base) in DACS.items():
@@ -251,6 +250,15 @@ seg(R - RAD, B, L + RAD, B)
 arc(L + RAD, B, L + k, B - k, L, B - RAD)
 seg(L, B - RAD, L, T + RAD)
 arc(L, T + RAD, L + k, T + k, L + RAD, T)
+
+# slot for the display cable, rounded ends
+sx0, sy0 = kicad(SLOT[0], SLOT[3])
+sx1, sy1 = kicad(SLOT[2], SLOT[1])
+sr = (sx1 - sx0) / 2
+seg(sx0, sy0 + sr, sx0, sy1 - sr)
+seg(sx1, sy0 + sr, sx1, sy1 - sr)
+arc(sx0, sy0 + sr, sx0 + sr, sy0, sx1, sy0 + sr)
+arc(sx0, sy1 - sr, sx0 + sr, sy1, sx1, sy1 - sr)
 
 # display panel and picture area, for reference only
 dl = pcbnew.User_1

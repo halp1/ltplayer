@@ -11,10 +11,11 @@ Output: 3d/ltplayer-assembly.step. Same origin as the DXF: board centre, +X
 right, +Y up looking at the display, +Z toward the user. The board's back
 face is at Z = 0.
 
-The display is the Yousee YX24009A drawn from its datasheet: the backlight
-and glass block at full outline, the picture area as a separate thin solid
-on top so it shows where the window goes, and the folded cable as a strip
-round the left edge. The front shell holds the panel, so there are no
+The display is the Newhaven NHD-2.4-240320AF-CSXP drawn from its datasheet:
+the backlight and glass block at full outline, the picture area as a separate
+thin solid on top so it shows where the window goes, and the cable as a strip
+that leaves the left edge, drops through the board slot and runs along the
+back to J302. The front shell holds the panel, so there are no
 standoffs. The panel sits PANEL_GAP above the tallest part under it.
 
 Parts with no model in the KiCad library get plain blocks named
@@ -30,7 +31,7 @@ import cadquery as cq
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(HERE, "scripts"))
-from geom import PANEL, ACTIVE, PANEL_T, PANEL_GAP, CABLE_Y, J302_X  # noqa: E402
+from geom import PANEL, ACTIVE, PANEL_T, PANEL_GAP, CABLE_Y, CABLE_W, SLOT, J302_X  # noqa: E402
 
 D3 = os.path.join(HERE, "3d")
 info = json.load(open(os.path.join(HERE, "route", "parts3d.json")))
@@ -87,14 +88,17 @@ PANEL_BACK_Z = round(tallest[0] + PANEL_GAP, 2)
 panel = block((x0, x1), (y0, y1), PANEL_BACK_Z, PANEL_T)
 ax0, ay0, ax1, ay1 = ACTIVE
 picture = block((ax0, ax1), (ay0, ay1), PANEL_BACK_Z + PANEL_T, 0.05)
-# Cable: 0.3 mm strip, 9 mm wide (10 contacts at 0.5 mm plus margins), from
-# the panel's left edge, round a 1 mm bend, back under the panel to J302.
-cw, ct = 9.0, 0.3
-fold_x = x0 - 1.0
-cable = (block((fold_x, x0), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), PANEL_BACK_Z - 1.6, PANEL_T + 1.6)
-         .union(block((fold_x, J302_X), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), PANEL_BACK_Z - 1.6, ct)))
-# The tail drops from under the panel into the connector, which sits on the board.
-cable = cable.union(block((J302_X - 1.5, J302_X), (CABLE_Y - cw / 2, CABLE_Y + cw / 2), top + 1.0, PANEL_BACK_Z - 1.6 - top - 1.0))
+# Cable: 0.3 mm strip that leaves the panel's left edge, folds back under the
+# panel, drops through the slot to the board's back face, then runs along
+# the back into J302.
+ct = 0.3
+y0c, y1c = CABLE_Y - CABLE_W / 2, CABLE_Y + CABLE_W / 2
+fold = x0 - 0.8
+sx = (SLOT[0] + SLOT[2]) / 2
+cable = (block((fold, x0), (y0c, y1c), PANEL_BACK_Z - 0.8, 0.8 + PANEL_T / 2)       # bend at the edge
+         .union(block((fold, sx + ct / 2), (y0c, y1c), PANEL_BACK_Z - 0.8, ct))     # back under the panel
+         .union(block((sx - ct / 2, sx + ct / 2), (y0c, y1c), -ct, PANEL_BACK_Z - 0.8 + ct))  # through the slot
+         .union(block((sx - ct / 2, J302_X), (y0c, y1c), -ct, ct)))                 # along the back
 
 asm = cq.Assembly(name="ltplayer")
 asm.add(board, name="board", color=cq.Color(0.2, 0.35, 0.2))

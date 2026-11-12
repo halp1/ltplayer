@@ -12,20 +12,19 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import in_island
+from geom import EDGE as BOARD_EDGE, SLOT, in_island, kicad
 
 BOARD = sys.argv[1]
 b = pcbnew.LoadBoard(BOARD)
 MM = pcbnew.FromMM
-CX, CY = 131.0, 97.5
-X0, Y0, X1, Y1 = CX - 30.8, CY - 47.3, CX + 30.8, CY + 47.3
+X0, Y0, X1, Y1 = BOARD_EDGE
 EDGE = 1.3
 GAP = 0.5
 RAILS = {"GND", "+3V3", "+1V8", "+1V8A", "VSYS", "VBUS", "VBAT", "HP_GND"}
 
 # Parts whose useful nets are all rails: (owner ref, owner pad or None).
 OWNER = {
-    "C101": ("J101", "A4"), "C102": ("U102", "3"), "C103": ("Q101", "2"),
+    "C101": ("J101", "A4"), "C102": ("U102", "2"), "C103": ("U102", "10"),
     "C104": ("U103", "1"), "C105": ("U103", "5"),
     "C106": ("U104", "1"), "C107": ("U104", "5"), "C108": ("U105", "1"), "C109": ("U105", "5"),
     "C203": ("U201", "69"), "C204": ("U201", "17"), "C205": ("U201", "38"), "C206": ("U201", "49"),
@@ -39,8 +38,13 @@ OWNER = {
     "C441": ("Y401", "4"), "C442": ("U404", "3"), "C443": ("U404", "7"),
     "R307": ("J302", "9"), "C217": ("U201", "23"), "C218": ("U201", "24"),
     "R110": ("D105", "2"),
-    "R448": ("U401", "28"), "R106": ("SW101", "2"), "R105": ("Q101", "1"), "R104": ("U102", "4"),
+    "R448": ("U401", "28"), "R106": ("SW101", "2"), "R105": ("U102", "12"), "R104": ("D101", "2"),
+    "R111": ("U102", "1"), "R103": ("U102", "16"), "C110": ("U106", "2"), "C111": ("L101", "2"),
+    "R112": ("U106", "3"),
 }
+
+
+SLOT_K = (*kicad(SLOT[0], SLOT[3]), *kicad(SLOT[2], SLOT[1]))
 
 
 def rail_ok(net, x, y, margin=0.9):
@@ -128,6 +132,8 @@ def try_place(ref):
                 if bb[0] < X0 + EDGE or bb[2] > X1 - EDGE or bb[1] < Y0 + EDGE or bb[3] > Y1 - EDGE:
                     continue
                 if min(bb[0] - X0, X1 - bb[2]) < 7.5 and min(bb[1] - Y0, Y1 - bb[3]) < 7.5:
+                    continue
+                if not (bb[2] + 0.5 < SLOT_K[0] or bb[0] - 0.5 > SLOT_K[2] or bb[3] + 0.5 < SLOT_K[1] or bb[1] - 0.5 > SLOT_K[3]):
                     continue
                 if not all(rail_ok(p.GetNetname(), pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y)) for p in fp.Pads()):
                     continue

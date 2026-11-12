@@ -76,7 +76,7 @@ for fp in sorted(b.GetFootprints(), key=lambda f: f.GetReference()):
             rows.append([ref, fp.GetValue(), "hole", side, x, y, round(dx, 2), "plated" if plated else "npth"])
 
 PARTS = ["J401", "J402", "J101", "J301", "SW101", "SW205", "SW206", "SW201", "SW202", "SW203", "SW204",
-         "SW207", "SW208", "SW209", "J102", "J201", "JP201", "J302", "D101"]
+         "SW207", "SW208", "SW209", "J102", "J103", "J302", "D101"]
 for ref in PARTS:
     fp = b.FindFootprintByReference(ref)
     bb = fp.GetCourtyard(pcbnew.B_CrtYd if fp.IsFlipped() else pcbnew.F_CrtYd).BBox()
@@ -89,7 +89,7 @@ for ref in PARTS:
 
 
 for name, (x0, y0, x1, y1) in (("panel", PANEL), ("picture area", ACTIVE)):
-    rows.append([name, "YX24009A", "display", "front", round((x0 + x1) / 2, 3), round((y0 + y1) / 2, 3), "",
+    rows.append([name, "NHD-2.4-240320AF-CSXP", "display", "front", round((x0 + x1) / 2, 3), round((y0 + y1) / 2, 3), "",
                  f"x {x0:.2f}..{x1:.2f} y {y0:.2f}..{y1:.2f}"])
 
 

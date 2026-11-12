@@ -8164,7 +8164,7 @@
 			)
 		)
 	)
-	(global_label "VSYS"
+	(global_label "VBAT"
 		(at 219.70999999999998 95.25 180)
 		(effects
 			(font
@@ -8590,15 +8590,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-			)
-		)
-		(property "DNP_note" "Fit only if the cell has a JST-PH plug, else solder wires to J103"
-			(at 224.79 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
 			)
 		)
 		(pin "1"

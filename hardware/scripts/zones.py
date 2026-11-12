@@ -16,7 +16,7 @@ b = pcbnew.LoadBoard(sys.argv[1])
 for z in list(b.Zones()):
     b.Remove(z)
 
-L, T, R, B = 99.0, 49.0, 163.0, 146.0  # oversize, KiCad clips to the board edge
+L, T, R, B = 96.0, 49.0, 166.0, 146.0  # oversize, KiCad clips to the board edge
 
 
 def zone(layer, net, pts, prio=0, clear=0.2):

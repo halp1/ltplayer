@@ -9,8 +9,8 @@ only the +3V3 and +1V8 pours, and the only obstacles there are drilled items
 (vias and through-hole pads of other nets), the board edge and the In2
 keepouts of footprints. A grid maze router grows a tree from one target and
 adds the nearest unconnected target each round (multi-source Dijkstra), so
-the branches share copper. Cells near the board edge cost less, which keeps
-the trunk out along the edge where it splits the least plane.
+the branches share copper. Cells near the board edge and the display cable
+slot cost more, so the trunk never pinches a strip of plane off there.
 """
 import heapq
 import math
@@ -19,7 +19,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import EDGE, TRUNK
+from geom import EDGE, TRUNK, SLOT, kicad
 
 MM = pcbnew.FromMM
 T = pcbnew.ToMM
@@ -85,10 +85,16 @@ for j in range(NY):
 base = bytes(blocked)
 
 
+# The trunk should run through the middle of the pour, never along an edge
+# or the display cable slot, where it would cut a strip of plane off.
+SLOT_K = (*kicad(SLOT[0], SLOT[3]), *kicad(SLOT[2], SLOT[1]))
+
+
 def edge_cost(i, j):
     x, y = xy(i, j)
-    d = min(x - L, R - x, y - T0, B - y)
-    return 1.0 + min(d, 12.0) / 4.0
+    d = min(x - L, R - x, y - T0, B - y,
+            max(SLOT_K[0] - x, x - SLOT_K[2], SLOT_K[1] - y, y - SLOT_K[3]))
+    return 1.0 + 6.0 / (1.0 + max(d, 0.0))
 
 
 COST = [edge_cost(i, j) for j in range(NY) for i in range(NX)]
