@@ -31,7 +31,7 @@ import cadquery as cq
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(HERE, "scripts"))
-from geom import (PANEL, ACTIVE, PANEL_T, PANEL_GAP, CABLE_Y, CABLE_W, SLOT, J302_X, WIDE_END,  # noqa: E402
+from geom import (PANEL, ACTIVE, PANEL_T, PANEL_GAP, CABLE_Y, CABLE_W, SLOT, J302_X, WIDE_END, FOLD_STRIP,  # noqa: E402
                   BATT, BATT_T, BATT_GAP)
 
 D3 = os.path.join(HERE, "3d")
@@ -41,7 +41,8 @@ T = info["thickness"]
 # Heights above the board face, mm. From datasheets where one exists.
 HEIGHT = {
     "SKSC": 1.25,   # Alps SKSCLBE010: 3.5 x 3.55 x 1.25
-    "DSBGA": 0.5,   # TI YBH, 0.5 max seated height
+    "WSON": 0.8,    # TI DSG, 0.8 max
+    "OSC": 0.8,     # 3.2 x 2.5 oscillator, 0.8 typical
     "J402": 6.6,    # PJ-4450: no published height. Estimate, see README
     "U501": 2.4,    # ESP32-MINI-1U: 13.2 x 13.5 x 2.4
 }
@@ -64,13 +65,16 @@ for ref, p in info["parts"].items():
     elif ref == "U501":
         h = HEIGHT["U501"]
     elif ref.startswith("U4"):
-        h = HEIGHT["DSBGA"]
+        h = HEIGHT["WSON"]
+    elif ref == "Y401":
+        h = HEIGHT["OSC"]
     else:
         h = HEIGHT[ref]
     if ref == "J402":
-        body = block(p["x"], p["y"], top, h)
+        z0 = -h if p["side"] == "back" else top
+        body = block(p["x"], p["y"], z0, h)
         cx = (p["x"][0] + p["x"][1]) / 2
-        nose = (cq.Workplane("XZ").center(cx, top + h / 2).circle(3.0)
+        nose = (cq.Workplane("XZ").center(cx, z0 + h / 2).circle(3.0)
                 .extrude(-1.2).translate((0, p["y"][1], 0)))
         shape = body.union(nose)
     elif p["side"] == "back":
@@ -79,16 +83,36 @@ for ref, p in info["parts"].items():
         shape = block(p["x"], p["y"], top, h)
     placeholders[ref] = (p["value"], shape)
 
-# Panel height: PANEL_GAP above the tallest part whose outline it covers.
+# Panel height: PANEL_GAP above the tallest part whose outline it covers, and
+# the folded 39 mm cable part (0.8 mm) plus PANEL_GAP above the tallest part
+# in the fold strip.
 x0, y0, x1, y1 = PANEL
 under = [s for s in board_solids if s.BoundingBox().xlen < 60]
 under += [s for _, w in placeholders.values() for s in w.solids().vals()]
-tallest = max(
-    ((s.BoundingBox().zmax, s.BoundingBox()) for s in under
-     if s.BoundingBox().xmax > x0 and s.BoundingBox().xmin < x1
-     and s.BoundingBox().ymax > y0 and s.BoundingBox().ymin < y1),
-    key=lambda t: t[0])
-PANEL_BACK_Z = round(tallest[0] + PANEL_GAP, 2)
+# Through-hole pins of the back-mounted jacks poke out of the front. KiCad's
+# models show them at full length (about 1.6 mm past the face). They are cut
+# to PIN_TAIL after soldering, so the panel clears them at that height.
+PIN_TAIL = 1.0
+JACK_BACK = [s.BoundingBox() for s in under if s.BoundingBox().zmin < -4.0 and s.BoundingBox().zmax > T]
+
+
+def front_top(bb):
+    for j in JACK_BACK:
+        if abs(bb.xmin - j.xmin) < 0.01 and abs(bb.ymax - j.ymax) < 0.01:
+            return T + PIN_TAIL
+    return bb.zmax
+
+
+def tallest_in(r):
+    hits = [(front_top(s.BoundingBox()), s.BoundingBox()) for s in under
+            if s.BoundingBox().xmax > r[0] and s.BoundingBox().xmin < r[2]
+            and s.BoundingBox().ymax > r[1] and s.BoundingBox().ymin < r[3]]
+    return max(hits, key=lambda t: t[0]) if hits else (top, None)
+
+
+tallest = tallest_in(PANEL)
+fold_top = tallest_in(FOLD_STRIP)
+PANEL_BACK_Z = round(max(tallest[0] + PANEL_GAP, fold_top[0] + 0.8 + PANEL_GAP), 2)
 
 # Panel: backlight and glass block, then the picture area as a 0.05 mm skin.
 panel = block((x0, x1), (y0, y1), PANEL_BACK_Z, PANEL_T)
@@ -113,6 +137,10 @@ cable = (block((fold, x0), (y0w, y1w), wz, 0.8 + PANEL_T / 2)                  #
 # Battery on the back, BATT_GAP below the deepest back part over its outline.
 bx0, by0, bx1, by1 = BATT
 over = [s.BoundingBox() for s in under]
+clash = [b for b in over if b.zmin < -2.6 and b.xmax > bx0 and b.xmin < bx1 and b.ymax > by0 and b.ymin < by1]
+if clash:
+    raise SystemExit("battery outline overlaps a deep back part at x %.1f..%.1f y %.1f..%.1f"
+                     % (clash[0].xmin, clash[0].xmax, clash[0].ymin, clash[0].ymax))
 deepest = min([b.zmin for b in over if b.xmax > bx0 and b.xmin < bx1 and b.ymax > by0 and b.ymin < by1] + [0.0])
 BATT_TOP_Z = round(deepest - BATT_GAP, 2)
 battery = block((bx0, bx1), (by0, by1), BATT_TOP_Z - BATT_T, BATT_T)
@@ -122,7 +150,7 @@ asm.add(board, name="board", color=cq.Color(0.2, 0.35, 0.2))
 asm.add(panel, name="display YX24009A", color=cq.Color(0.15, 0.15, 0.18))
 asm.add(picture, name="display picture area", color=cq.Color(0.3, 0.45, 0.7))
 asm.add(cable, name="display cable", color=cq.Color(0.85, 0.6, 0.2))
-asm.add(battery, name="battery 505573 LiPo", color=cq.Color(0.75, 0.75, 0.8))
+asm.add(battery, name="battery 506060 LiPo", color=cq.Color(0.75, 0.75, 0.8))
 for ref, (value, w) in placeholders.items():
     asm.add(w, name=f"{ref} {value} placeholder", color=cq.Color(0.9, 0.4, 0.1))
 out = os.path.join(D3, "ltplayer-assembly.step")
@@ -130,6 +158,7 @@ asm.export(out)
 
 whole = asm.toCompound().BoundingBox()
 tb = tallest[1]
+print(f"fold strip tallest {fold_top[0]:.2f}")
 print(f"panel back Z {PANEL_BACK_Z:.2f}, glass Z {PANEL_BACK_Z + PANEL_T:.2f}, set by the part at "
       f"x {tb.xmin:.1f}..{tb.xmax:.1f} y {tb.ymin:.1f}..{tb.ymax:.1f} (top {tb.zmax:.2f})")
 print(f"battery Z {BATT_TOP_Z - BATT_T:.2f} .. {BATT_TOP_Z:.2f}")

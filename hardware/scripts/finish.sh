@@ -75,3 +75,9 @@ for i in 1 2 3; do
   $PY scripts/cleanup.py ltplayer.kicad_pcb route/drc.json 2>&1 | quiet
   scripts/fill_drc.sh ltplayer.kicad_pcb route/drc.json
 done
+# off-grid near misses between a stub via and a routed track
+n=$(python3 -c "import json;d=json.load(open('route/drc.json'));print(sum(v['type']=='clearance' for v in d['violations']))")
+if [ "$n" != 0 ]; then
+  $PY scripts/nudge.py ltplayer.kicad_pcb route/drc.json 2>&1 | quiet
+  scripts/fill_drc.sh ltplayer.kicad_pcb route/drc.json
+fi

@@ -34,10 +34,12 @@ PANEL = (ACTIVE[0] - 7.93, PANEL_TOP - PANEL_H, ACTIVE[2] + 3.02, PANEL_TOP)  # 
 # just past the end of the wide part. The tail drops through it and runs along
 # the back into J302, whose opening faces the slot.
 #
-# Length check, narrow tail 16.8 mm (+-0.5): 1.1 flat behind the panel to the
-# slot centre, about 9.1 down (panel back to the connector entry 0.9 mm off the
-# back), then about 4.1 along the back to the end of the tail, 3.3 mm inside
-# J302. That is 14.3 mm, so about 2 mm of slack bows in the gap under the panel.
+# The display sits as low as the front parts allow: PANEL_GAP above the tallest
+# part under it, an SOT-23 at 1.55 mm. No part in the fold strip (under the
+# folded 39 mm part, which is 0.8 mm thick with its parts) may be taller than
+# 0603 resistors and capacitors. assembly.py checks both.
+PANEL_GAP = 0.3
+PANEL_BACK_EST = 3.45
 #
 # Contacts: unfolded they are on the panel-rear face. After the fold, the drop
 # and the turn along the back they face the board, so J302 is a bottom-contact
@@ -49,20 +51,26 @@ FOLD_LOSS = 2.2
 WIDE_END = PANEL[0] + 13.2 - FOLD_LOSS      # x where the 39 mm wide part ends, folded
 SLOT_W = 1.2
 SLOT = (WIDE_END + 0.5, CABLE_Y - CABLE_W / 2 - 0.5, WIDE_END + 0.5 + SLOT_W, CABLE_Y + CABLE_W / 2 + 0.5)
-# FH12 footprint origin to the front of its actuator is 4.4 mm, so the actuator
-# sits 0.2 mm past the slot edge. Further right its pads hit the fixed VD via
-# of DAC1 on the front.
-J302_X = SLOT[2] + 4.6
-# Battery: 505573 LiPo pouch, 55 x 73 x 5.0 mm bare, about 76 long with the
-# protection board. It sits on the back between the four screw bosses, which
-# allow 77 mm with 2.5 mm boss radius, 0.3 mm below the tallest back part (the
-# ESP32, 2.4 mm). Wires leave the protection board end (bottom) and run to the
-# solder pads J103 in the left margin.
-BATT_W, BATT_L, BATT_T = 55.0, 76.0, 5.0
-BATT = (-BATT_W / 2, -BATT_L / 2, BATT_W / 2, BATT_L / 2)
+# Narrow tail 16.8 mm (+-0.5): flat behind the panel to the slot centre, down
+# through the board to the connector entry 0.9 mm off the back, then along the
+# back to the tail end, 3.3 mm inside J302 (1.1 mm short of the footprint
+# origin, which is 4.4 mm behind the actuator front). J302 sits where that
+# leaves CABLE_SLACK to bow in the gap under the panel.
+TAIL_L = 16.8
+CABLE_SLACK = 2.0
+_SX = (SLOT[0] + SLOT[2]) / 2
+_DROP = (PANEL_BACK_EST - 0.6) + 0.9
+J302_X = round(_SX + 1.1 + (TAIL_L - CABLE_SLACK - (_SX - WIDE_END) - _DROP), 2)
+# Battery: 506060-size LiPo pouch, 5.0 x 60 x 60 mm bare, 2000 to 2500 mAh,
+# about 62 long with the protection board, 61 wide with tape. On the back
+# between the bottom screw bosses and the two jacks, which sit on the back
+# along the top edge. Its top face sits BATT_GAP below the deepest part under
+# it, the 2 mm display connector. Wires leave the protection board end
+# (bottom) and run to J103 or J102 in the bottom margin.
+BATT_W, BATT_L, BATT_T = 61.0, 62.0, 5.0
+BATT = (-BATT_W / 2, -37.0, BATT_W / 2, -37.0 + BATT_L)
 BATT_GAP = 0.3
-# The panel's back face sits this far above the tallest part under it.
-PANEL_GAP = 0.3
+FOLD_STRIP = (PANEL[0] - 0.8, PANEL[1], WIDE_END + 0.3, PANEL[3])
 
 # Front controls, enclosure mm. A five-way pad with back and menu above its
 # upper corners and below the screen.
@@ -84,16 +92,17 @@ TRUNK_ROUTED = {}
 
 # In2.Cu carries +3V3 with a +1V8 island under the DAC block. Its bottom edge
 # runs through the level-shifter row: 1.8 V pins face north, 3.3 V pins south.
-ISLAND_1V8 = (101.5, 58.5, 141.0, 80.0)
-# Bottom-left corner cut out of the island so the display connector's +3V3
-# pin can reach the +3V3 pour: x0, y0 of the cut, it runs to the island edge.
-ISLAND_NOTCH = (101.5, 73.0, 120.0, 80.0)
+ISLAND_1V8 = (101.5, 58.5, 144.0, 80.0)
+# Cut out of the island's bottom edge under the display connector J302 (on
+# the back), so its +3V3 pins, which sit level with the island, reach the
+# +3V3 pour: x0, y0, x1 of the cut, it runs down to the island edge.
+ISLAND_NOTCH = (121.5, 73.0, 125.8, 80.0)
 
 
 def island_outline():
     x0, y0, x1, y1 = ISLAND_1V8
-    nx1, ny0 = ISLAND_NOTCH[2], ISLAND_NOTCH[1]
-    return [(x0, y0), (x1, y0), (x1, y1), (nx1, y1), (nx1, ny0), (x0, ny0)]
+    nx0, ny0, nx1, _ = ISLAND_NOTCH
+    return [(x0, y0), (x1, y0), (x1, y1), (nx1, y1), (nx1, ny0), (nx0, ny0), (nx0, y1), (x0, y1)]
 
 
 def in_island(x, y, margin=0.0):
@@ -124,7 +133,7 @@ CLASSES = [
 # Both DACs are mounted rotated 180 degrees, so the analog pins (11 to 20)
 # face the jacks at the top edge and the I2S and clock pins (31 to 40) face
 # the level shifters and the MCU. dac_point() applies that rotation.
-DACS = {"U401": (120.75, 67.85, 0), "U402": (134.5, 67.85, 20)}
+DACS = {"U401": (119.4, 69.2, 0), "U402": (133.9, 69.2, 20)}
 DAC_ROTATION = 180
 
 
@@ -133,31 +142,44 @@ def dac_point(centre, offset):
 
 
 DAC_CELL = {
-    10: (-4.68, -2.6, 0),     # VL 100n            pin 4
-    1: (-5.0, -1.0, 180),     # FILT+              pin 5
-    2: (-5.0, 0.6, 0),        # FILT-              pin 6
-    11: (-5.48, 1.9, 180),    # VA                 pin 7
-    3: (-5.48, 2.95, 0),      # -VA                pin 9
-    4: (-2.7, 3.9, 0),        # FLYP_VA / FLYN_VA  pins 10, 11
-    6: (1.55, 4.12, 90),      # -VCP               pin 18
-    5: (4.48, 2.85, 0),       # +VCP               pin 21
-    7: (5.0, 1.3, 270),       # FLYP / FLYC        pins 24, 23
-    8: (6.3, 3.0, 270),       # FLYC / FLYN        pins 23, 20
-    12: (6.3, -0.45, 90),     # VCP 2.2u           pin 25
-    13: (4.9, -0.75, 0),      # VP 100n            pin 26
-    14: (5.3, -2.2, 0),       # VP 4.7u            pin 26
-    9: (2.28, -3.7, 0),       # VD 100n            pin 31
+    10: (-5.0, -2.9, 180),    # VL 100n            pin 4
+    1: (-5.0, -1.25, 180),    # FILT+              pin 5
+    2: (-5.0, 0.55, 0),       # FILT-              pin 6
+    11: (-5.0, 2.2, 180),     # VA                 pin 7
+    3: (-5.0, 3.85, 0),       # -VA                pin 9
+    4: (-2.6, 4.6, 270),      # FLYP_VA / FLYN_VA  pins 10, 11
+    6: (1.6, 4.6, 90),        # -VCP               pin 18
+    7: (4.6, 1.85, 270),      # FLYP / FLYC        pins 24, 23
+    5: (3.9, 4.15, 0),        # +VCP               pin 21
+    8: (6.4, 4.0, 270),       # FLYC / FLYN        pins 23, 20
+    12: (6.85, 1.0, 90),      # VCP 2.2u           pin 25
+    13: (4.425, -1.3, 90),    # VP 100n            pin 26
+    14: (6.4, -2.2, 90),      # VP 4.7u            pin 26
+    9: (2.575, -3.9, 0),      # VD 100n            pin 31
 }
 
 # Ground pins that run straight in to the exposed pad: pin -> end point.
 DAC_EP_PINS = {"8": (-1.7, 1.0), "19": (1.4, 1.7), "30": (1.7, -1.8), "35": (0.2, -1.7)}
-# Supply pins: pin -> (track points from the pin, via position). Each track
-# passes through the pads of that pin's decoupling capacitors.
+# Fixed fan-out: pin -> (track points from the pin, via position). Supply
+# tracks pass through the pads of that pin's decoupling capacitors.
 DAC_ROUTES = {
     "4": ([(-3.0, -0.6), (-3.35, -0.95)], (-3.35, -0.95)),
-    "25": ([(6.2, 0.2), (6.3, 0.95)], (6.3, 0.95)),
-    "26": ([(3.9, -0.2), (4.3, -0.6), (4.75, -1.4), (4.525, -2.2), (4.525, -3.25)], (4.525, -3.25)),
-    "31": ([(1.8, -3.6), (1.8, -4.5)], (1.8, -4.5)),
+    # VL (+1V8) straight out to a via just short of the FLYP cap
+    "25": ([(3.2, 0.2), (3.7, 0.32)], (3.7, 0.32)),
+    # VP (VSYS) straight out through its 100n cap's VSYS pad to a via past it
+    "26": ([(4.425, -0.2), (5.15, -0.2)], (5.15, -0.2)),
+    # DAC_INT and DAC_RESET: fixed fan-out vias, the router takes them on
+    # from there on any layer. Without them the supply tracks above box the
+    # two pins in.
+    "27": ([(3.0, -0.6), (3.55, -0.75)], (3.55, -0.75)),
+    "28": ([(3.0, -1.0), (3.45, -1.5)], (3.45, -1.5)),
+    "31": ([(1.8, -3.9), (1.8, -5.0)], (1.8, -5.0)),
+    # short cap connections the router sometimes boxes in: pad to cap pad,
+    # no via (None)
+    "5": ([(-3.85, -0.2), (-3.85, -0.9)], None),
+    # charge-pump flying cap: FLYP (24) and FLYC (23) straight to C407
+    "24": ([(3.3, 0.6), (3.775, 1.075), (4.6, 1.075)], None),
+    "23": ([(3.1, 1.0), (3.1, 2.625), (4.6, 2.625)], None),
     # HP_GND between -VCP and OUTB: straight out to a via, joined on In2
-    "17": ([(0.6, 3.5)], (0.6, 3.5)),
+    "17": ([(0.6, 3.55)], (0.6, 3.55)),
 }

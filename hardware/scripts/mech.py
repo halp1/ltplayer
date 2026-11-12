@@ -90,7 +90,7 @@ for ref in PARTS:
 
 for name, value, side, (x0, y0, x1, y1) in (("panel", "NHD-2.4-240320AF-CSXP", "front", PANEL),
                                           ("picture area", "NHD-2.4-240320AF-CSXP", "front", ACTIVE),
-                                          ("battery", f"505573 LiPo {BATT_T} mm thick", "back", BATT)):
+                                          ("battery", f"506060 LiPo {BATT_T} mm thick", "back", BATT)):
     rows.append([name, value, "display" if side == "front" else "battery", side, round((x0 + x1) / 2, 3), round((y0 + y1) / 2, 3), "",
                  f"x {x0:.2f}..{x1:.2f} y {y0:.2f}..{y1:.2f}"])
 

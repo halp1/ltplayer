@@ -12,7 +12,7 @@ import sys
 import pcbnew
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from geom import EDGE as BOARD_EDGE, SLOT, in_island, kicad
+from geom import EDGE as BOARD_EDGE, SLOT, FOLD_STRIP, in_island, kicad
 
 BOARD = sys.argv[1]
 b = pcbnew.LoadBoard(BOARD)
@@ -39,14 +39,23 @@ OWNER = {
     "R307": ("J302", "9"), "C217": ("U201", "23"), "C218": ("U201", "24"),
     "R110": ("D105", "2"),
     "R448": ("U401", "28"), "R106": ("SW101", "2"), "R105": ("U102", "12"), "R104": ("D101", "2"),
-    "R111": ("U102", "1"), "R103": ("U102", "16"), "C110": ("U106", "2"), "C111": ("L101", "2"),
-    "R112": ("U106", "3"),
+    "R111": ("U102", "1"), "R103": ("U102", "16"), "C110": ("U106", "4"), "C111": ("L101", "2"),
+    "R112": ("U106", "5"), "R114": ("U106", "5"), "C114": ("U106", "5"),
+    "C445": ("U406", "8"), "C446": ("U407", "8"), "C447": ("U408", "8"), "C448": ("U409", "8"),
     "C112": ("U107", "1"), "C113": ("U107", "5"), "R113": ("U107", "3"),
     "C501": ("U501", "3"), "C502": ("U501", "3"),
 }
 
 
 SLOT_K = (*kicad(SLOT[0], SLOT[3]), *kicad(SLOT[2], SLOT[1]))
+# Front strip under the folded display cable: only parts no taller than 0603
+# resistors and capacitors.
+FOLD_K = (*kicad(FOLD_STRIP[0], FOLD_STRIP[3]), *kicad(FOLD_STRIP[2], FOLD_STRIP[1]))
+
+
+def low(fp):
+    name = str(fp.GetFPID().GetLibItemName())
+    return name.startswith(("R_0603", "C_0603", "LED_0603"))
 
 
 def rail_ok(net, x, y, margin=0.9):
@@ -136,6 +145,8 @@ def try_place(ref):
                 if min(bb[0] - X0, X1 - bb[2]) < 7.5 and min(bb[1] - Y0, Y1 - bb[3]) < 7.5:
                     continue
                 if not (bb[2] + 0.5 < SLOT_K[0] or bb[0] - 0.5 > SLOT_K[2] or bb[3] + 0.5 < SLOT_K[1] or bb[1] - 0.5 > SLOT_K[3]):
+                    continue
+                if not flipped and not low(fp) and not (bb[2] < FOLD_K[0] or bb[0] > FOLD_K[2] or bb[3] < FOLD_K[1] or bb[1] > FOLD_K[3]):
                     continue
                 if not all(rail_ok(p.GetNetname(), pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y)) for p in fp.Pads()):
                     continue

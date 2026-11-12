@@ -29,7 +29,7 @@ L, T, R, B = CX - W / 2, CY - H / 2, CX + W / 2, CY + H / 2
 J402_OVERHANG = 1.6
 # Level shifters straddle the bottom edge of the +1V8 island on In2: their
 # 1.8 V pins face north onto the island, their 3.3 V pins south onto +3V3.
-LS_Y = ISLAND_1V8[3] - 1.0
+LS_Y = ISLAND_1V8[3] - 0.6
 
 
 def enc(x, y, rot=0, side="F"):
@@ -43,9 +43,10 @@ ANCHORS = {
     "H102": (CX + HOLE_X, CY - HOLE_Y, 0, "F"),
     "H103": (CX - HOLE_X, CY + HOLE_Y, 0, "F"),
     "H104": (CX + HOLE_X, CY + HOLE_Y, 0, "F"),
-    # top edge: 3.5 mm jack (nose passes the edge), 4.4 mm jack (body overhangs)
-    "J401": (J401_X, T + 4.5, 180, "F"),
-    "J402": (146.0, T - J402_OVERHANG, 0, "F"),
+    # top edge, on the back so the display can sit low over the front: 3.5 mm
+    # jack (nose passes the edge), 4.4 mm jack (body overhangs)
+    "J401": (J401_X, T + 4.5, 180, "B"),
+    "J402": (146.0, T - J402_OVERHANG, 0, "B"),
     # bottom edge: USB-C centred on the front, microSD on the back
     "J101": (CX + USB_X, B - 3.67, 0, "F"),
     "J301": (CX + SD_X, B - 8.7, 0, "B"),
@@ -65,21 +66,25 @@ ANCHORS = {
     "J302": (*kicad(J302_X, CABLE_Y), 90, "B"),
     # back, outside the battery: solder pads in the left margin, the optional
     # side-entry JST-PH in the bottom margin, opening to the right
-    "J103": (*kicad(-30.8, -30.0), 90, "B"),
-    "J102": (*kicad(-21.0, -41.6), 270, "B"),
+    "J103": (*kicad(-23.0, -41.0), 180, "B"),
+    "J102": (*kicad(-14.5, -41.6), 270, "B"),
     # MCU under the lower half of the panel
     "U201": (131.0, 97.0, 0, "F"),
     # audio
-    "U406": (125.0, 56.0, 0, "F"),
-    "U407": (130.5, 56.0, 0, "F"),
-    "U408": (136.0, 56.0, 0, "F"),
-    "R453": (127.4, 61.6, 0, "F"),
-    "U403": (121.5, LS_Y, 270, "F"),
-    "U404": (125.5, LS_Y, 270, "F"),
-    "Y401": (130.5, LS_Y - 1.2, 0, "F"),
-    "U405": (135.5, LS_Y, 270, "F"),
-    "U104": (106.0, 64.0, 0, "F"),
-    "U105": (106.0, 69.5, 0, "F"),
+    # output switches in a row between the DACs and the jacks
+    "U406": (122.5, 57.0, 0, "F"),
+    "U407": (127.0, 57.0, 0, "F"),
+    "U408": (135.0, 57.0, 0, "F"),
+    "U409": (139.5, 57.0, 0, "F"),
+    "R453": (131.0, 54.5, 0, "F"),
+    "U403": (119.5, LS_Y, 270, "F"),
+    "U404": (128.5, LS_Y, 270, "F"),
+    "Y401": (133.0, LS_Y - 1.2, 0, "F"),
+    "U405": (138.0, LS_Y, 270, "F"),
+    # 1.8 V LDOs and the buck on the back, left of the display connector: the
+    # folded display cable lies over this strip on the front
+    "U104": (*kicad(-27.0, 33.0), 0, "B"),
+    "U105": (*kicad(-27.0, 27.0), 0, "B"),
     # power, in the lower left column beside the pad
     "U101": (123.5, 134.0, 90, "F"),
     "U102": (110.5, 117.0, 0, "F"),
@@ -90,8 +95,8 @@ ANCHORS = {
     "U501": (149.0, 108.0, 0, "B"),
     "U107": (139.0, 112.0, 0, "B"),
     # buck for the 1.8 V LDOs, left of the display cable slot
-    "U106": (*kicad(-27.5, 5.0), 0, "F"),
-    "L101": (*kicad(-27.5, 9.0), 0, "F"),
+    "U106": (*kicad(-27.0, 8.0), 0, "B"),
+    "L101": (*kicad(-27.0, 12.5), 0, "B"),
 }
 
 for dac, (dx, dy, base) in DACS.items():

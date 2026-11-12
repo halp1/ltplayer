@@ -8,7 +8,7 @@ to the exposed pad, supply pins follow a fixed track through their decoupling
 capacitors to a via. Every other pad gets a via on a ring around it. A
 candidate is kept only if the via and the stub clear all other-net copper,
 vias, holes and the board edge, and a +1V8 or +3V3 via lands on its own side
-of the In2 split. DSBGA balls get a filled via-in-pad.
+of the In2 split.
 """
 import math
 import os
@@ -135,9 +135,10 @@ for ref, (cx, cy, _) in DACS.items():
             pts, via = DAC_ROUTES[num]
             prev = p.GetPosition()
             for pt in pts:
-                add_track(p.GetNet(), prev, at(pt))
+                add_track(p.GetNet(), prev, at(pt), width=0.15)
                 prev = at(pt)
-            add_via(p.GetNet(), at(via))
+            if via is not None:
+                add_via(p.GetNet(), at(via))
             fixed += 1
 
 added, inpad, left = 0, 0, []
@@ -154,10 +155,6 @@ for p in pads:
         continue
     layer = B if fp.IsFlipped() else F
     pos = p.GetPosition()
-    if "DSBGA" in fpid:
-        add_via(p.GetNet(), pos, 0.3, 0.15)
-        inpad += 1
-        continue
     px, py = pcbnew.ToMM(pos.x), pcbnew.ToMM(pos.y)
     half = max(pcbnew.ToMM(p.GetSize().x), pcbnew.ToMM(p.GetSize().y)) / 2
     done = False
