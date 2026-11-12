@@ -6017,14 +6017,16 @@
 		(uuid "22e9a20b-8607-49b1-ad65-77b8925d1721")
 	)
 	(global_label "TFT_DC"
-		(at 237.48999999999998 228.60000000000002 0)
+		(shape input)
+		(at 237.49 228.6 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "ec339b15-c549-4d82-a675-85b6715fc549")
+		(uuid "f8669ebc-c6d9-4c48-913e-0dc04c96b125")
 	)
 	(global_label "JACK_DET_44"
 		(at 161.29 96.52000000000001 180)
@@ -6086,25 +6088,13 @@
 		)
 		(uuid "3b86a385-80f8-47bb-a40c-b6da7f8e90c5")
 	)
-	(global_label "SWDIO"
-		(at 237.48999999999998 101.60000000000002 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "088419c7-3858-43ff-b0f8-b65ca742ca7e")
+	(no_connect
+		(at 237.49 101.6)
+		(uuid "130c5378-360c-43a0-8db0-adfbfd54d7a9")
 	)
-	(global_label "SWCLK"
-		(at 237.48999999999998 104.14000000000001 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4c20e6c6-ed56-4ab6-8d25-9f155d6a1385")
+	(no_connect
+		(at 237.49 104.14)
+		(uuid "bea03f5c-1f76-4561-86f5-3b391dfaf449")
 	)
 	(global_label "SD_D2"
 		(at 237.48999999999998 172.72000000000003 0)
@@ -6146,15 +6136,9 @@
 		)
 		(uuid "5659b821-4d5c-4fdd-aa49-f631a24edded")
 	)
-	(global_label "SWO"
-		(at 237.48999999999998 119.38000000000001 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "eb0b7897-cb3c-43e9-ae23-84a00333bd94")
+	(no_connect
+		(at 237.49 119.38)
+		(uuid "ec6c9b9b-6c0b-40b9-bd54-e18569fde589")
 	)
 	(global_label "BOOT0"
 		(at 161.29 86.36000000000001 180)
@@ -7986,97 +7970,6 @@
 		(uuid "2f1b9cb1-ae25-400b-ba69-10c5e49e53a4")
 	)
 	(symbol
-		(lib_id "Connector:Conn_ARM_SWD_TagConnect_TC2030-NL")
-		(at 59.69 260.35 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a71f0969-864b-404f-83fa-9dcd97787773")
-		(property "Reference" "J201"
-			(at 59.69 247.65 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SWD"
-			(at 59.69 273.05 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical"
-			(at 59.69 242.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2030-CTX_1.pdf"
-			(at 59.69 245.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Tag-Connect ARM Cortex SWD JTAG connector, 6 pin, no legs"
-			(at 59.69 260.35 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "bcaa5ed9-b3a4-4874-9ebd-4e757eb69011")
-		)
-		(pin "2"
-			(uuid "cfddb20e-e40e-4b24-aff9-30665cef33d1")
-		)
-		(pin "3"
-			(uuid "3a3d8be7-905c-4985-a5bf-63e1a3e2f825")
-		)
-		(pin "4"
-			(uuid "2ebf0236-e425-4ed6-8f1d-f2496eb2803c")
-		)
-		(pin "5"
-			(uuid "e087c0e8-03e4-4dc9-b7c7-f6711ecb0798")
-		)
-		(pin "6"
-			(uuid "02bd97cd-9686-4445-959e-519de8b80276")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/be8ee8fc-f872-48fe-ad1d-f408e0be81b6"
-					(reference "J201")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 90.17 250.19 0)
 		(unit 1)
@@ -8472,66 +8365,6 @@
 				)
 			)
 		)
-	)
-	(global_label "+3V3"
-		(at 57.15 250.19000000000003 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9df7aeb1-82c9-4981-881d-78bf77ce920e")
-	)
-	(global_label "SWDIO"
-		(at 67.31 262.89000000000004 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "092eb8f7-f429-4808-9df1-f4499ce70263")
-	)
-	(global_label "NRST"
-		(at 67.31 255.27 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f4bfa5ba-0328-4f30-89c0-69ad3b1b9509")
-	)
-	(global_label "SWCLK"
-		(at 67.31 260.35 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8d9f5afe-28f3-41e9-a6eb-d4c745bd1ba0")
-	)
-	(global_label "GND"
-		(at 57.15 270.51000000000005 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6f8e9ebf-4262-4c21-b703-f721b0635a1c")
-	)
-	(global_label "SWO"
-		(at 67.31 265.43 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "162c7cf9-1f60-4284-b67f-307d8b16befd")
 	)
 	(global_label "VBAT_SENSE"
 		(at 90.17 254.0 270)
@@ -9681,7 +9514,7 @@
 		)
 		(uuid "cf7f0fba-11e5-43af-b1ec-ba65645ce0c4")
 	)
-	(global_label "BTN_MENU"
+	(global_label "BOOT0"
 		(shape input)
 		(at 161.29 213.36 180)
 		(fields_autoplaced yes)
@@ -9997,7 +9830,7 @@
 		)
 		(uuid "f4963b9c-701f-4919-89f2-1889439866b4")
 	)
-	(global_label "BTN_MENU"
+	(global_label "BOOT0"
 		(at 294.64000000000004 350.52 180)
 		(effects
 			(font
@@ -10007,7 +9840,7 @@
 		)
 		(uuid "7b35c20b-afe9-4e11-ac75-ea95ef55b170")
 	)
-	(global_label "GND"
+	(global_label "+3V3"
 		(at 304.8 350.52 0)
 		(effects
 			(font
@@ -10266,85 +10099,6 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Jumper:SolderJumper_2_Open")
-		(at 241.3 30.48 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "3c414788-369d-4a33-bb29-966dbe9d5a2d")
-		(property "Reference" "JP201"
-			(at 241.3 27.94 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "BOOT"
-			(at 241.3 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm"
-			(at 241.3 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 241.3 22.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Solder Jumper, 2-pole, open"
-			(at 241.3 25.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "cd768343-1cde-4ec7-afed-76bf5a84d02f")
-		)
-		(pin "2"
-			(uuid "191e7c95-1982-4c6e-abb4-4a1c5717b3cc")
-		)
-		(instances
-			(project "ltplayer"
-				(path "/1489d703-6390-49d2-af2f-afb5e4dcdb00/be8ee8fc-f872-48fe-ad1d-f408e0be81b6"
-					(reference "JP201")
-					(unit 1)
-				)
-			)
-		)
-	)
 	(global_label "HSE_IN"
 		(at 105.41 82.55 180)
 		(effects
@@ -10414,26 +10168,6 @@
 			(justify right)
 		)
 		(uuid "83a129a8-4eaa-4bcf-b09a-0c7d66ff7126")
-	)
-	(global_label "BOOT0"
-		(at 236.22 30.48 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d28bb175-5ece-422c-bb87-5a3955d643fd")
-	)
-	(global_label "+3V3"
-		(at 246.38000000000002 30.48 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c07af918-b171-49e7-be31-bc5a3344cb2e")
 	)
 	(sheet_instances
 		(path "/"
