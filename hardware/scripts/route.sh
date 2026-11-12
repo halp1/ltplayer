@@ -17,9 +17,13 @@ java -jar "$FREEROUTING" -de route/sig.dsn -do route/sig.ses --gui.enabled=false
 grep -E "Auto-routing stage completed" route/freerouting.log | sed -E 's/.*final score[^(]*\(([^)]*)\).*/router: \1/'
 scripts/finish.sh route/placed.kicad_pcb route/planes.kicad_pcb route/sig.ses
 $PY scripts/mech.py ltplayer.kicad_pcb docs 2>&1 | grep -v -E "stdpbase|Debug|memory leak" || true
+# Render with a scratch config: the 3D viewer settings in the user's KiCad
+# config (hidden footprint types) also apply to kicad-cli renders.
+RENDER_CFG=$(mktemp -d)
 for s in top bottom; do
-  $KICAD_CLI pcb render --side $s --quality high --width 1400 --height 2000 --background opaque -o docs/board-$s.png ltplayer.kicad_pcb >/dev/null
+  KICAD_CONFIG_HOME=$RENDER_CFG $KICAD_CLI pcb render --side $s --quality high --width 1400 --height 2000 --background opaque -o docs/board-$s.png ltplayer.kicad_pcb >/dev/null
 done
+rm -rf "$RENDER_CFG"
 $KICAD_CLI sch export pdf -o ltplayer-schematic.pdf ltplayer.kicad_sch >/dev/null
 # 3D: board STEP from KiCad, then the assembly with the display (needs uv)
 mkdir -p 3d
