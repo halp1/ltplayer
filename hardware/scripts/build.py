@@ -47,8 +47,8 @@ ANCHORS = {
     # jack (nose passes the edge), 4.4 mm jack (body overhangs)
     "J401": (J401_X, T + 4.5, 180, "B"),
     "J402": (146.0, T - J402_OVERHANG, 0, "B"),
-    # bottom edge: USB-C centred on the front, microSD on the back
-    "J101": (CX + USB_X, B - 3.67, 0, "F"),
+    # bottom edge, both on the back: USB-C centred, microSD to its right
+    "J101": (CX + USB_X, B - 3.67, 0, "B"),
     "J301": (CX + SD_X, B - 8.7, 0, "B"),
     # five-way pad, then back and menu above its upper corners
     "SW207": enc(DPAD[0], DPAD[1] + DPAD_STEP),

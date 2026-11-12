@@ -5,7 +5,7 @@ H103,M2,hole,front,-27.35,-41.15,2.2,plated
 H104,M2,hole,front,27.35,-41.15,2.2,plated
 J401,SJ1-3524N,part,back,-15.0,42.8,,courtyard x -21.295..-8.705 y 34.805..49.395
 J402,PJ-4450 4.4mm,part,back,15.0,48.9,,courtyard x 10.205..19.795 y 26.155..49.445
-J101,USB4105-GF-A-120,part,front,0.0,-43.63,,courtyard x -5.365..5.365 y -47.855..-38.825
+J101,USB4105-GF-A-120,part,back,0.0,-43.63,,courtyard x -5.365..5.365 y -47.855..-38.825
 J301,DM3AT-SF-PEJM5,part,back,13.5,-38.6,,courtyard x 5.575..21.365 y -47.525..-29.735
 SW101,POWER,part,front,31.15,31.5,,courtyard x 29.505..33.795 y 28.705..34.295
 SW205,VOL+,part,front,31.15,17.5,,courtyard x 29.505..33.795 y 14.705..20.295
