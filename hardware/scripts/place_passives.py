@@ -121,7 +121,7 @@ def target(ref):
         n = pad.GetNetname()
         if not n or n in RAILS:
             continue
-        for r in placed:
+        for r in sorted(placed):  # set order changes per run
             for q in fps[r].Pads():
                 if q.GetNetname() != n:
                     continue
