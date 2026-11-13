@@ -5,20 +5,20 @@ H103,M2,hole,front,-27.35,-41.15,2.2,plated
 H104,M2,hole,front,27.35,-41.15,2.2,plated
 J401,SJ1-3524N,part,back,-15.0,42.8,,courtyard x -21.295..-8.705 y 34.805..49.395
 J402,PJ-4450 4.4mm,part,back,15.0,48.9,,courtyard x 10.205..19.795 y 26.155..49.445
-J101,USB4105-GF-A-120,part,back,0.0,-43.63,,courtyard x -5.365..5.365 y -47.855..-38.825
+J101,USB4105-GF-A-120,part,back,-14.5,-43.63,,courtyard x -19.865..-9.135 y -47.855..-38.825
 J301,DM3AT-SF-PEJM5,part,back,16.5,-38.6,,courtyard x 8.575..24.365 y -47.525..-29.735
 SW101,POWER,part,front,31.15,31.5,,courtyard x 29.505..33.795 y 28.705..34.295
 SW205,VOL+,part,front,31.15,17.5,,courtyard x 29.505..33.795 y 14.705..20.295
 SW206,VOL-,part,front,31.15,7.5,,courtyard x 29.505..33.795 y 4.705..10.295
-SW201,LEFT KMR2,part,front,-8.5,-24.0,,courtyard x -11.345..-5.655 y -25.845..-22.155
-SW202,RIGHT KMR2,part,front,8.5,-24.0,,courtyard x 5.655..11.345 y -25.845..-22.155
-SW203,PLAY/PAUSE KMR2,part,front,0.0,-24.0,,courtyard x -2.845..2.845 y -25.845..-22.155
-SW204,BACK KMR2,part,front,-19.0,-10.0,,courtyard x -21.845..-16.155 y -11.845..-8.155
-SW207,UP KMR2,part,front,0.0,-15.5,,courtyard x -2.845..2.845 y -17.345..-13.655
-SW208,DOWN KMR2,part,front,0.0,-32.5,,courtyard x -2.845..2.845 y -34.345..-30.655
-SW209,MENU KMR2,part,front,19.0,-10.0,,courtyard x 16.155..21.845 y -11.845..-8.155
-J102,LiPo JST-PH (optional),part,back,-14.5,-41.6,,courtyard x -16.395..-7.705 y -46.095..-39.105
-J103,LiPo pads,part,back,-23.0,-41.0,,courtyard x -24.495..-17.455 y -42.395..-39.605
+SW201,LEFT KMR2,part,front,-10.0,-28.5,,courtyard x -12.845..-7.155 y -30.345..-26.655
+SW202,RIGHT KMR2,part,front,10.0,-28.5,,courtyard x 7.155..12.845 y -30.345..-26.655
+SW203,PLAY/PAUSE KMR2,part,front,0.0,-28.5,,courtyard x -2.845..2.845 y -30.345..-26.655
+SW204,BACK KMR2,part,front,-19.0,-13.0,,courtyard x -21.845..-16.155 y -14.845..-11.155
+SW207,UP KMR2,part,front,0.0,-18.5,,courtyard x -2.845..2.845 y -20.345..-16.655
+SW208,DOWN KMR2,part,front,0.0,-38.5,,courtyard x -2.845..2.845 y -40.345..-36.655
+SW209,MENU KMR2,part,front,19.0,-13.0,,courtyard x 16.155..21.845 y -14.845..-11.155
+J102,LiPo JST-PH (optional),part,back,24.6,32.6,,courtyard x 19.955..29.245 y 27.455..37.745
+J103,LiPo pads,part,back,31.0,23.8,,courtyard x 28.955..33.045 y 19.155..27.345
 J302,TFT NHD-2.4-240320AF-CSXP,part,back,-9.26,17.1,,courtyard x -14.205..-6.215 y 4.005..30.195
 D101,CHG,part,front,-18.75,-23.0,,courtyard x -20.275..-17.225 y -23.775..-22.225
 U501,ESP32-MINI-1U-N4,part,back,18.0,-10.5,,courtyard x 11.055..24.945 y -17.595..-3.405

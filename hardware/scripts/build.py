@@ -47,7 +47,7 @@ ANCHORS = {
     # jack (nose passes the edge), 4.4 mm jack (body overhangs)
     "J401": (J401_X, T + 4.5, 180, "B"),
     "J402": (146.0, T - J402_OVERHANG, 0, "B"),
-    # bottom edge, both on the back: USB-C centred, microSD to its right
+    # bottom edge, both on the back: USB-C at the left, microSD at the right
     "J101": (CX + USB_X, B - 3.67, 0, "B"),
     "J301": (CX + SD_X, B - 8.7, 0, "B"),
     # five-way pad, then back and menu above its upper corners
@@ -64,10 +64,13 @@ ANCHORS = {
     "SW206": (CX + SIDE_X, 90.0, 270, "F"),
     # display cable connector on the back, its opening facing the cable slot
     "J302": (*kicad(J302_X, CABLE_Y), 90, "B"),
-    # back, outside the battery: solder pads in the left margin, the optional
-    # side-entry JST-PH in the bottom margin, opening to the right
-    "J103": (*kicad(-23.0, -41.0), 180, "B"),
-    "J102": (*kicad(-14.5, -41.6), 270, "B"),
+    # back, above the battery's top end, both SMD so nothing pokes through to
+    # the front: the optional side-entry JST-PH top right between the 4.4 mm
+    # jack and the right edge, opening down toward the cell with 3 mm for the
+    # plug, the solder pads below it along the right edge, between the vol+
+    # and power buttons on the front.
+    "J102": (*kicad(24.6, 32.6), 0, "B"),
+    "J103": (*kicad(31.0, 23.8), 90, "B"),
     # MCU under the lower half of the panel
     "U201": (131.0, 97.0, 0, "F"),
     # audio
@@ -86,9 +89,9 @@ ANCHORS = {
     "U104": (*kicad(-27.0, 33.0), 0, "B"),
     "U105": (*kicad(-27.0, 27.0), 0, "B"),
     # power, in the lower left column beside the pad
-    "U101": (123.5, 134.0, 90, "F"),
+    "U101": (*kicad(-14.5, -36.5), 90, "F"),
     "U102": (110.5, 117.0, 0, "F"),
-    "U103": (117.0, 126.0, 0, "F"),
+    "U103": (*kicad(-17.0, -30.5), 0, "F"),
     # Bluetooth / WiFi: ESP32-MINI-1U on the back below the panel, right side,
     # its U.FL near the right edge for the stick-on antenna cable. Its own
     # 3.3 V regulator sits next to it.

@@ -7,7 +7,7 @@ and pass ERC and DRC with schematic parity. Not yet fabricated.
 
 | Sheet | Contents |
 | --- | --- |
-| Power | USB4105 USB-C (5.1k CC pull-downs, USBLC6 ESD), BQ24074 1S LiPo charger with power path (1 A charge, 1.5 A input), soft power latch, TLV75533 3.3 V, TLV62569 buck to 2.0 V feeding two TPS7A2018 1.8 V LDOs (digital `+1V8`, analog `+1V8A`), battery solder pads plus an optional side-entry JST-PH |
+| Power | USB4105 USB-C (5.1k CC pull-downs, USBLC6 ESD), BQ24074 1S LiPo charger with power path (1 A charge, 1.5 A input), soft power latch, TLV75533 3.3 V, TLV62569 buck to 2.0 V feeding two TPS7A2018 1.8 V LDOs (digital `+1V8`, analog `+1V8A`), battery solder pads plus an optional side-entry SMD JST-PH |
 | MCU | STM32U575ZIT6Q (SMPS variant, 2.2 uH on VLXSMPS), 16 MHz crystal for USB DFU, decoupling, BOOT0 pull-down, NRST cap, battery and VBUS sense dividers, ten buttons |
 | Peripherals | Hirose DM3AT microSD on SDMMC1 4-bit with 47k pull-ups, Newhaven NHD-2.4-240320AF-CSXP 2.4in IPS panel on a 40-pin FH12 on the back, 2N7002 backlight switch |
 | Wireless | ESP32-MINI-1U (Bluetooth Classic A2DP, BLE, 2.4 GHz WiFi) on the back, own TLV75733 3.3 V regulator switched by the MCU, U.FL to a stick-on antenna |
@@ -99,10 +99,13 @@ from Z -2.7 to -7.7. Put a 0.1 mm Kapton sheet between cell and parts and fix
 it with thin foam tape. The enclosure needs at least 7.7 mm behind the board
 face, plus the foam and a swelling allowance (keep 0.5 mm).
 
-The protection board end faces the bottom. Solder its wires to J103 below the
-battery, or for a cell with a JST-PH plug fit J102 next to it (opening to the
-right). Check the plug's polarity against J102 pin 1 (VBAT) before
-connecting: cheap cells differ.
+The protection board end faces the top, toward the jacks. Both battery
+connectors sit on the back just above the cell's top end and are SMD, so
+nothing pokes through to the front. Solder the wires to J103 (right edge, just
+below J102, "+" marks VBAT), or for a cell with a JST-PH
+plug fit J102 (top right, between the 4.4 mm jack and the right edge, opening
+down toward the cell, 3 mm left for the plug). Check the plug's polarity
+against J102 pin 1 (VBAT) before connecting: cheap cells differ.
 
 ## Bluetooth and WiFi
 
@@ -233,13 +236,13 @@ the body outlines of the edge parts. Origin at the board centre, +X right,
 | Display cable slot | x -20.91 to -19.71, y +6.35 to +27.85 | through the board, rounded ends |
 | 3.5 mm jack J401 | x = -15.0, top edge, back | board notch 4.4 wide, 1.4 deep, opening centre Z -2.6 |
 | 4.4 mm jack J402 | x = +15.0, top edge, back | body overhangs the edge by 1.6 mm, opening centre Z -3.3 (estimate) |
-| USB-C J101 | x = 0, bottom edge, back | opening centre Z about -1.6 |
+| USB-C J101 | x = -14.5, bottom edge, back | opening centre Z about -1.6 |
 | microSD J301 | x = +16.5, bottom edge, back | |
 | Power, vol+, vol- | x = +31.15, y = +31.5, +17.5, +7.5 | right edge, side push |
-| D-pad | centre (0, -24), up (0, -15.5), down (0, -32.5), left (-8.5, -24), right (+8.5, -24) | KMR2, play/pause in the middle |
-| Back, menu | (-19, -10), (+19, -10) | KMR2 |
+| D-pad | centre (0, -28.5), up (0, -18.5), down (0, -38.5), left (-10, -28.5), right (+10, -28.5) | KMR2, play/pause in the middle |
+| Back, menu | (-19, -13), (+19, -13) | KMR2 |
 | Battery | x -30.5 to +30.5, y -37 to +25 | back, 61 x 62 x 5.0, Z -7.7 to -2.7 |
-| Battery pads J103, JST-PH J102 | (-23.0, -41.0), (-14.5, -41.6) | back, below the battery |
+| Battery pads J103, JST-PH J102 | (+31.0, +23.8), (+24.6, +32.6) | back, above the battery's top end, SMD |
 | Display connector J302 | (-9.3, +17.1) | back, opening faces the cable slot |
 | ESP32 U501 | (+18.0, -10.5) | back, 13.2 x 13.5 x 2.4, U.FL at its top left corner |
 
@@ -257,7 +260,6 @@ only the last block of it, to make them.
 | Battery back face | -7.7 |
 | Back of the 4.4 mm jack (estimate) | -6.6 |
 | Back of the 3.5 mm jack | -5.6 |
-| Back of the optional JST-PH battery connector | -4.94 |
 | Battery front face | -2.7 |
 | Back of the ESP32 module | -2.4 |
 | Board back face, front face | 0, 1.6 |
@@ -272,7 +274,7 @@ battery, so they add nothing behind it.
 
 Parts with no model in KiCad's library are plain blocks named `placeholder`:
 the three side buttons (1.25 mm tall per Alps), the four TMUX4819 (0.8 mm),
-the MCLK oscillator (0.8 mm) and the 4.4 mm jack. KKG publishes no height for
+the MCLK oscillator (0.8 mm), the 4.4 mm jack and the SMD JST-PH (4.9 mm, about as tall as the through-hole one). KKG publishes no height for
 the PJ-4450, so its 6.6 mm block is an estimate.
 
 ## Rebuilding the layout

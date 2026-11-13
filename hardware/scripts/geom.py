@@ -65,8 +65,9 @@ J302_X = round(_SX + 1.1 + (TAIL_L - CABLE_SLACK - (_SX - WIDE_END) - _DROP), 2)
 # about 62 long with the protection board, 61 wide with tape. On the back
 # between the bottom screw bosses and the two jacks, which sit on the back
 # along the top edge. Its top face sits BATT_GAP below the deepest part under
-# it, the 2 mm display connector. Wires leave the protection board end
-# (bottom) and run to J103 or J102 in the bottom margin.
+# it, the 2 mm display connector. The protection board end faces the top:
+# its wires run up into J102 or J103, which sit on the back between the two
+# jacks, just above the battery outline.
 BATT_W, BATT_L, BATT_T = 61.0, 62.0, 5.0
 BATT = (-BATT_W / 2, -37.0, BATT_W / 2, -37.0 + BATT_L)
 BATT_GAP = 0.3
@@ -74,11 +75,11 @@ FOLD_STRIP = (PANEL[0] - 0.8, PANEL[1], WIDE_END + 0.3, PANEL[3])
 
 # Front controls, enclosure mm. A five-way pad with back and menu above its
 # upper corners and below the screen.
-DPAD = (0.0, -24.0)
-DPAD_STEP = 8.5
-BTN_UPPER_Y = -10.0
+DPAD = (0.0, -28.5)
+DPAD_STEP = 10.0
+BTN_UPPER_Y = -13.0
 BTN_UPPER_X = 19.0
-USB_X = 0.0
+USB_X = -14.5
 SD_X = 16.5   # J301 courtyard 0.5 mm clear of the H104 boss
 SIDE_X = W / 2 - 2.35   # side-push button origin, actuator at the right edge
 
