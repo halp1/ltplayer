@@ -8945,7 +8945,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"
+		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal"
 			(at 224.79 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -10305,7 +10305,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-0.15sqmm_1x02_P4mm_D0.5mm_OD1.5mm"
+		(property "Footprint" "ltplayer:SolderPads_1x02_SMD_2x3mm_P4mm"
 			(at 241.3 49.53 0)
 			(hide yes)
 			(show_name no)

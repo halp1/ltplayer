@@ -45,6 +45,7 @@ HEIGHT = {
     "OSC": 0.8,     # 3.2 x 2.5 oscillator, 0.8 typical
     "J402": 6.6,    # PJ-4450: no published height. Estimate, see README
     "U501": 2.4,    # ESP32-MINI-1U: 13.2 x 13.5 x 2.4
+    "J102": 4.9,    # JST S2B-PH-SM4-TB: no KiCad model, about as tall as the THT one
 }
 
 board = cq.importers.importStep(os.path.join(D3, "ltplayer-board.step"))
